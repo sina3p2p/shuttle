@@ -71,17 +71,17 @@ class ShuttleServiceProvider extends ServiceProvider
         ]);
 
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/Resources/Assets' => public_path('shuttle'),
-            ], 'assets');
+            // $this->publishes([
+            //     __DIR__.'/Resources/Assets' => public_path('shuttle'),
+            // ], 'assets');
+
+            // $this->publishes([
+            //     __DIR__.'/Resources/Views' => resource_path('views/vendor/shuttle'),
+            // ], 'views');
 
             $this->publishes([
-                __DIR__.'/Resources/Views' => resource_path('views/vendor/shuttle'),
-            ], 'views');
-
-            $this->publishes([
-                __DIR__.'/Resources/Views/index.blade.php' => resource_path('views/index.blade.php'),
-                __DIR__.'/Resources/Views/app.blade.php' => resource_path('views/app.blade.php'),
+                __DIR__.'/../resources/views/index.blade.php' => resource_path('views/index.blade.php'),
+                __DIR__.'/../resources/views/app.blade.php' => resource_path('views/app.blade.php'),
             ], 'app');
 
             $this->commands([
