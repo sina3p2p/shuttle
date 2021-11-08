@@ -419,7 +419,7 @@
 
                 <select
                     class="form-control select2-ajax" name="{{ $options->column }}"
-                    data-get-items-route="{{route('shuttle.scaffold_interface.relationship',$scaffold_interface)}}"
+                    data-get-items-route="{{route('shuttle.scaffold_interface.relationship',$scaffoldInterface)}}"
                     data-get-items-field="{{$row->field}}"
                     @if(!is_null($dataTypeContent->getKey())) data-id="{{$dataTypeContent->getKey()}}" @endif
                     data-method="{{ !is_null($dataTypeContent->getKey()) ? 'edit' : 'add' }}">
