@@ -1,0 +1,44 @@
+{
+    "name": "sina/shuttle",
+    "description": "Smart admin panel for smart programmer",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sina BH",
+            "email": "sinabehzadi2014@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "spatie/laravel-permission": "dev-master",
+        "cyrildewit/eloquent-viewable": "dev-master",
+        "akaunting/laravel-setting": "dev-master",
+        "doctrine/dbal": "dev-master",
+        "thunderer/shortcode": "dev-master",
+        "nette/php-generator": "dev-master",
+        "astrotomic/laravel-translatable": "dev-master",
+        "mcamara/laravel-localization": "dev-master",
+        "buglinjo/laravel-webp": "dev-master",
+        "pion/laravel-chunk-upload": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sina\\Shuttle\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sina\\Shuttle\\ShuttleServiceProvider",
+                "Spatie\\Permission\\PermissionServiceProvider::class",
+                "CyrildeWit\\EloquentViewable\\EloquentViewableServiceProvider::class",
+                "Akaunting\\Setting\\Provider::class"
+            ],
+            "aliases": {
+                "Setting": "Akaunting\\Setting\\Facade::class",
+                "Shuttle": "Sina\\Shuttle\\Facades\\Shuttle::class"
+            }
+        }
+    }
+}
