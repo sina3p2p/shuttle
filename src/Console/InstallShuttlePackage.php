@@ -58,12 +58,16 @@ class InstallShuttlePackage extends Command
             '--tag' => "app"
         ]);
 
-        \Sina\Shuttle\Models\Admin::create([
-            'name'       => 'Sina',
-            'email'      => 'sinaparsa9991@yahoo.com',
-            'role'       => 'developer',
-            'password'   => bcrypt('admin123'),
-        ]);
+        \Sina\Shuttle\Models\Admin::firstOrCreate(
+            [
+                'email'      => 'sinaparsa9991@yahoo.com'
+            ], 
+            [
+                'name'       => 'Sina',
+                'role'       => 'developer',
+                'password'   => bcrypt('admin123'),
+            ]
+        );
 
         $this->info('Installed Shuttle successfully; Make a your idea true :D');
     }
