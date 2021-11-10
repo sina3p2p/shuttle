@@ -70,7 +70,7 @@ Route::name('shuttle.')->group(function () {
             Route::resource('menu', MenuController::class);
             Route::put('menu/items/{menu_item}',['as' => 'menuItem.update', 'uses' => 'MenuController@itemsUpdate']);
             Route::delete('menu/items/{menu_item}',['as' => 'menu.delete', 'uses' => 'MenuController@itemsDestroy']);
-            Route::post('menu/sort',['as' => 'menu.sort', 'uses' => 'MenuController@sort']);
+            Route::post('menu/sort',[ MenuController::class, 'sort'])->name('menu.sort');
 
             Route::resource('setting','SettingController')->only('index','store');
             Route::post('setting/admin','SettingController@changePassword')->name('change_password');
