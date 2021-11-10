@@ -365,7 +365,7 @@ abstract class ShuttleController extends BaseController
         $rows = $scaffold_interface->{$method.'Rows'};
         foreach ($rows as $key => $row) {
             if ($row->field === $request->input('type')) {
-                $options = json_decode($row->details);
+                $options = $row->details;
                 $model = app($options->model);
                 $skip = $on_page * ($page - 1);
 
