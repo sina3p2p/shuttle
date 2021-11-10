@@ -276,7 +276,7 @@ abstract class ShuttleController extends BaseController
         $fieldsWithValidationRules = $this->getFieldsWithValidationRules($rows);
 
         foreach ($fieldsWithValidationRules as $field) {
-            $detail = json_decode($field->details);
+            $detail = $field->details;
             $fieldRules = $detail->validation->rule;
             $fieldName = $field->field;
 
