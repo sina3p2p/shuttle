@@ -45,11 +45,17 @@
         </div>
     </div>
 </nav>
+
+@php $children = []; @endphp
+
 <div class="sidebar">
     <div class="main-menu">
         <div class="scroll">
             <ul class="list-unstyled">
-                <li><a href="{{route('shuttle.index')}}"><i class="iconsmind-Home"></i>მთავარი</a></li>
+                @foreach ($menus ?? [] as $m)
+                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="iconsmind-Home"></i>{{ $m->label }}</a></li>
+                @endforeach
+                {{-- <li><a href="{{route('shuttle.index')}}"><i class="iconsmind-Home"></i>მთავარი</a></li>
                 @canany(['pages_browse','developer'])
                     <li><a href="{{route('shuttle.page.index')}}"><i class="iconsmind-Files"></i>გვერდები</a></li>
                 @endcanany
@@ -69,7 +75,7 @@
                 @endcanany
                 @canany(['settings_browse','developer'])
                     <li><a href="{{route('shuttle.setting.index')}}"><i class="simple-icon-settings"></i>პარამეტრები</a></li>
-                @endcanany
+                @endcanany --}}
                 @if(auth()->user()->role == "developer")
                     <li><a href="#developer"><i class="iconsmind-Cool-Guy"></i>ვებისთვის</a></li>
                 @endif

@@ -10,6 +10,7 @@ use Sina\Shuttle\Http\Controllers\Developer\DatabaseController;
 use Sina\Shuttle\Http\Controllers\Developer\MenuController as DeveloperMenuController;
 use Sina\Shuttle\Http\Controllers\HomeController;
 use Sina\Shuttle\Http\Controllers\MediaController;
+use Sina\Shuttle\Http\Controllers\MenuController;
 use Sina\Shuttle\Http\Controllers\PageController;
 use Sina\Shuttle\Http\Controllers\ScaffoldController;
 use Sina\Shuttle\Http\Controllers\SectionController;
@@ -66,7 +67,7 @@ Route::name('shuttle.')->group(function () {
 
             Route::resource('translation', 'TranslationController')->except(['show']);
 
-            Route::resource('menu','MenuController');
+            Route::resource('menu', MenuController::class);
             Route::put('menu/items/{menu_item}',['as' => 'menuItem.update', 'uses' => 'MenuController@itemsUpdate']);
             Route::delete('menu/items/{menu_item}',['as' => 'menu.delete', 'uses' => 'MenuController@itemsDestroy']);
             Route::post('menu/sort',['as' => 'menu.sort', 'uses' => 'MenuController@sort']);

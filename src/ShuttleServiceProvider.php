@@ -16,6 +16,7 @@ use Laravel\Passport\PassportUserProvider;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Sina\Shuttle\Console\InstallShuttlePackage;
 use Sina\Shuttle\Models\Admin;
+use Sina\Shuttle\Models\Menu as ModelsMenu;
 use Sina\Shuttle\View\Breadcrumb;
 use Sina\Shuttle\View\Form;
 use Sina\Shuttle\View\Menu;
@@ -90,7 +91,10 @@ class ShuttleServiceProvider extends ServiceProvider
         }
 
         View::composer('shuttle::admin', function ($view) {
-            $view->with('scaffold',\Sina\Shuttle\Models\ScaffoldInterface::all());
+            $menus = ModelsMenu::where('name', 'shuttle_menu')->first();
+            $view
+                ->with('scaffold',\Sina\Shuttle\Models\ScaffoldInterface::all())
+                ->with('menus', $menus ? $menus->items()->get()->append(['label', 'link']) : null );
         });
 
         View::composer('app', function ($view) {
