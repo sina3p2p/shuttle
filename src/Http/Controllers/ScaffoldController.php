@@ -50,7 +50,7 @@ class ScaffoldController extends ShuttleController
                 return $c->edit($scaffold_interface, $request, $id);
             }
         }
-        return parent::edit($scaffold_interface, $id, $request);
+        return parent::edit($scaffold_interface, $request, $id);
     }
 
     public function update(ScaffoldInterface $scaffold_interface, Request $request, $id)
