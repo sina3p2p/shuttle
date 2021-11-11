@@ -65,6 +65,10 @@
                                                                     <input name="ka[title]" class="form-control" id="custom-label-ka">
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <label for="custom-label-icon">სახელი</label>
+                                                                    <input name="icon" class="form-control" id="custom-label-icon">
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label for="custom-label-ka">ლინკი</label>
                                                                     <input name="url" class="form-control" id="custom-label-ka">
                                                                 </div>
@@ -129,6 +133,10 @@
                             <input name="{{$translate}}[title]" class="form-control" id="custom-label-ka">
                         </div>
                         @endforeach
+                        <div class="form-group">
+                            <label for="custom-label-icon">ICON</label>
+                            <input name="icon" class="form-control" id="custom-label-icon">
+                        </div>
                         <div class="form-group">
                             <label for="custom-label-ka">ლინკი</label>
                             <input name="url" class="form-control" id="custom-label-ka">
@@ -239,6 +247,7 @@
                 }
                 modal.find('.modal-body form').attr('action',action);
                 modal.find('.modal-body input[name="url"]').val(recipient.url);
+                modal.find('.modal-body input[name="icon"]').val(recipient.icon);
                 modal.modal('show');
             });
 

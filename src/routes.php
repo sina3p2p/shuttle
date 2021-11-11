@@ -68,7 +68,7 @@ Route::name('shuttle.')->group(function () {
             Route::resource('translation', 'TranslationController')->except(['show']);
 
             Route::resource('menu', MenuController::class);
-            Route::put('menu/items/{menu_item}',['as' => 'menuItem.update', 'uses' => 'MenuController@itemsUpdate']);
+            Route::put('menu/items/{menu_item}',[ MenuController::class, 'itemsUpdate'])->name('menuItem.update');
             Route::delete('menu/items/{menu_item}',['as' => 'menu.delete', 'uses' => 'MenuController@itemsDestroy']);
             Route::post('menu/sort',[ MenuController::class, 'sort'])->name('menu.sort');
 

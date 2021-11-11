@@ -10,7 +10,7 @@ class ScaffoldInterface extends Model
 
     protected $guarded = ['id'];
 
-    public $shuttle_menu = ['slug', 'display_name_plural'];
+    public $shuttle_menu = ['slug', 'display_name_plural', 'icon'];
 
     // public function rows()
     // {

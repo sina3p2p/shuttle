@@ -12,11 +12,11 @@ class MenuItem extends Model
     use NodeTrait;
 
     public $table = "shuttle_menu_items";
-    protected $fillable = ['pid','position','url','menu_id', 'menuable_type', 'menuable_id'];
+    protected $guarded = ['id'];
     protected $translatedAttributes = ['title'];
     public $translationModel = 'Sina\Shuttle\Models\MenuItemTranslation';
 
-    public $appends = ['label', 'link'];
+    public $appends = ['label', 'link', 'image'];
 
     public function getLabelAttribute()
     {
@@ -26,6 +26,11 @@ class MenuItem extends Model
     public function getLinkAttribute()
     {
         return $this->menuable ? $this->menuable[app($this->menuable_type)->shuttle_menu[0]] : $this->url;
+    }
+    
+    public function getImageAttribute()
+    {
+        return $this->menuable  && isset(app($this->menuable_type)->shuttle_menu[3]) ? $this->menuable->{app($this->menuable_type)->shuttle_menu[3]} : $this->icon;
     }
 
     public function children()
