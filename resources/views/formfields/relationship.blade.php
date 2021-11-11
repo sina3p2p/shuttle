@@ -494,6 +494,7 @@
 
                 @php
                     $model = app($options->model);
+                    if(isset($dataTypeContent->{$options->key}))
                     $query = $model::where($options->column, '=', $dataTypeContent->{$options->key})->get();
                 @endphp
 

@@ -30,13 +30,13 @@ class ComponentController extends BaseController
             return $components;
         }
 
-        return view('shuttle::component.index',compact('components'));
+        return view('shuttle::developer.component.index',compact('components'));
     }
 
     public function create()
     {
         $component = new Component();
-        return view('shuttle::component.edit_add',compact('component'));
+        return view('shuttle::developer.component.edit_add',compact('component'));
     }
 
     public function store(Request $request)
@@ -106,7 +106,7 @@ class ComponentController extends BaseController
     public function edit(Component $component)
     {
         $component->load('rows.children');
-        return view('shuttle::component.edit_add',compact('component'));
+        return view('shuttle::developer.component.edit_add',compact('component'));
     }
 
     public function update(Component $component,Request $request)

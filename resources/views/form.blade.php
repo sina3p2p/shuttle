@@ -29,6 +29,8 @@
                 {{--                                        @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])--}}
             @elseif ($row->type == 'relationship')
                 @include('shuttle::formfields.relationship', ['options' => $row->details])
+            @elseif ($row->type == 'c_relationship')
+                @include('shuttle::formfields.c_relationship', ['options' => $row->details])
             @else
                 {!! app('shuttle')->formField($row, $scaffoldInterface, $dataTypeContent) !!}
             @endif

@@ -89,7 +89,7 @@
                                         KEY:   <input @input="update(item.options, 'field', $event)" :value="item.options.field">
                                         LABEL: <input @input="update(item.options, 'display_name', $event)" :value="item.options.display_name">
                                     </div> --}}
-                                    <div v-if="item.type == 'relationship'">
+                                    <div v-if="item.type == 'c_relationship'">
                                         type:    <input @input="update(item.details, 'type', $event)" :value="item.details.type">
                                         key:    <input @input="update(item.details, 'key', $event)" :value="item.details.key">
                                         label:   <input @input="update(item.details, 'label', $event)" :value="item.details.label">
@@ -161,7 +161,7 @@
                 return {
                     get inputTypes() {
                         // return  ['string','array','image', 'html', 'map', 'model', 'arrayModel'];
-                        return  ['text','array','image', 'rich_text_box', 'map', 'model', 'arrayModel', 'relationship'];
+                        return  ['text','array','image', 'rich_text_box', 'map', 'model', 'arrayModel', 'c_relationship'];
                     }
                 }
             }
@@ -247,7 +247,7 @@
                 },
                 data: {
                     fromDatabase: @if($component->model) true @else false @endif,//false,
-                    types: ['text','array','image', 'rich_text_box', 'map', 'model', 'arrayModel', 'relationship'],
+                    types: ['text','array','image', 'rich_text_box', 'map', 'model', 'arrayModel', 'c_relationship'],
                     model: myModel,
                     data: @json($component->rows ?? [])
                 },
