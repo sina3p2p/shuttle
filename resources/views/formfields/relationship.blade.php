@@ -549,7 +549,7 @@
                 <select
                     class="form-control @if(isset($options->taggable) && $options->taggable === 'on') select2-taggable @else select2-ajax @endif"
                     name="{{ $relationshipField }}[]" multiple
-                    data-get-items-route="{{route('shuttle.scaffold_interface.relationship', ['scaffold_interface' =>  $scaffoldInterface->slug])}}"
+                    data-get-items-route="{{route('shuttle.scaffold_interface.relationship', ['scaffold_interface_row' =>  $row])}}"
                     data-get-items-field="{{$row->field}}"
                     @if(!is_null($dataTypeContent->getKey())) data-id="{{$dataTypeContent->getKey()}}" @endif
                     data-method="{{ !is_null($dataTypeContent->getKey()) ? 'edit' : 'add' }}"

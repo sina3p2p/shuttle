@@ -14,6 +14,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Sina\Shuttle\Models\ScaffoldinterfaceRow;
 
 abstract class ShuttleController extends BaseController
 {
@@ -347,7 +348,7 @@ abstract class ShuttleController extends BaseController
         return response($js)->header('Content-Type', 'application/javascript');
     }
 
-    public function relationship(ScaffoldInterface $scaffold_interface, Request $request)
+    public function relationship(ScaffoldinterfaceRow $scaffold_interface_row, Request $request)
     {
 
         $page = $request->input('page');
@@ -356,15 +357,16 @@ abstract class ShuttleController extends BaseController
 
         $method = $request->input('method', 'add');
 
-        $model = app($scaffold_interface->model);
+        // $model = app($scaffold_interface->model);
 
-        if ($method != 'add') {
-            $model = $model->find($request->input('id'));
-        }
+        // if ($method != 'add') {
+        //     $model = $model->find($request->input('id'));
+        // }
 
-        $rows = $scaffold_interface->{$method.'Rows'};
-        foreach ($rows as $key => $row) {
-            if ($row->field === $request->input('type')) {
+        // $rows = $scaffold_interface->{$method.'Rows'};
+        // foreach ($rows as $key => $row) {
+            // if ($row->field === $request->input('type')) {
+                $row = $scaffold_interface_row;
                 $options = $row->details;
                 $model = app($options->model);
                 $skip = $on_page * ($page - 1);
@@ -422,8 +424,8 @@ abstract class ShuttleController extends BaseController
                         'more' => ($total_count > ($skip + $on_page)),
                     ],
                 ]);
-            }
-        }
+            // }
+        // }
 
         return response()->json([], 404);
     }
@@ -458,6 +460,9 @@ abstract class ShuttleController extends BaseController
         if($model && $model instanceof Model)
         {
             $id = $model->{$primaryKey};
+        }else if ($model)
+        {
+            $id = $model;
         }
 
         $lang = $request->get('lang', config('translatable.locales')[0]);

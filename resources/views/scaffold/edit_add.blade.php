@@ -15,6 +15,7 @@
 @stop
 
 @section('main')
+
     <div class="row">
         <div class="@if($scaffold_interface->translation_model) col-md-9 col-12  @else col-12 @endif">
             <div class="card mb-4">
@@ -23,7 +24,7 @@
                         :action="$dataTypeContent->id ? route('shuttle.scaffold_interface.update', ['scaffold_interface' => $scaffold_interface, 'id' => $dataTypeContent->id, 'lang' => $lang]) : route('shuttle.scaffold_interface.store',$scaffold_interface)"
                         :scaffold-interface-rows="$scaffold_interface->rows" 
                         :data-type-content="$dataTypeContent" 
-                        :edit="$dataTypeContent->id ?: true"
+                        :edit="$edit"
                         />
                 </div>
             </div>
