@@ -10,12 +10,12 @@
         <div class="col-12">
             <div class="mb-3">
                 <h1>კომპონენტები</h1>
-                {{-- <div class="float-sm-right text-zero">
+                <div class="float-sm-right text-zero">
                     <form id="saveComponent" action="" method="post">
                         @csrf
                         <button id="saveComponentButton" type="button" class="btn btn-primary btn-lg mr-1">შენახვა</button>
                     </form>
-                </div> --}}
+                </div>
                 <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                     <ol class="breadcrumb pt-0">
                         <li class="breadcrumb-item">
@@ -37,12 +37,96 @@
 @stop
 
 @section('main')
-    @php $c_setting = (object) $page_component->setting ?? []; @endphp
-    {{-- {{ dd($c_setting) }} --}}
-    <x-shuttle-form 
-        :scaffold-interface-rows="$page_component->component->rows" 
-        :data-type-content="$c_setting"
-    />
+    @php $c_setting = $page_component->setting ?? [] @endphp
+    <form id="data" data-component="{{$page_component->component->name}}">
+        <x-shuttle-form :scaffold-interface-rows="$scaffold_interface" :data-type-content="$dataTypeContent" />
+
+        @foreach($page_component->component->settings as $setting)
+            @switch($setting['type'])
+                @case('array')
+                <div class="form-group" id="{{$setting['key']}}">
+                    <button class="btn btn-primary add-to-array" style="margin-bottom:30px" data-json='@json($setting)'>დამატება</button>
+                    @include('shuttle::page.includes.array-component', ['mySetting' => $setting, 'settings' => data_get($setting,'objects'),'items' => data_get($c_setting,$setting['key'],[])])
+                </div>
+                @break
+                @case('image')
+                <div class="form-group row mb-3">
+                    <label class="col-sm-2 col-form-label">{{data_get($setting,'value')}}</label>
+                    <div class="col-sm-10">
+                        <div class="select-from-library-container">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-xl-4">
+                                    <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal"
+                                         data-count="1" data-name="{{$setting['key']}}"
+                                         @if(data_get($c_setting,$setting['key']))
+                                         data-preview-path="{{ Storage::url(data_get($c_setting,$setting['key'])) }}"
+                                         data-path="{{data_get($c_setting,$setting['key'])}}"
+                                        @endif>
+                                        <div class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center">
+                                            Select an item from library
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @break
+                @case('html')
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label>{{data_get($setting,'value')}}</label>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea class="richTextBox" id="{{$setting['key']}}" name="{{$setting['key']}}">{{data_get($c_setting,$setting['key'])}}</textarea>
+                    </div>
+                </div>
+                @break
+                @case('map')
+                @include('shuttle::page.includes.map-component', ['mySetting' => $setting,'items' => $c_setting])
+                @break
+                @case('model')
+                @case('arrayModel')
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label>{{data_get($setting,'value')}}</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select
+                            @if($setting['type'] == 'arrayModel')
+                            multiple name="{{$setting['key']}}[]" class="form-control select2-single"
+                            @else
+                            name="{{$setting['key']}}" class="form-control select2-multiple"
+                            @endif
+                            {{--                        data-get-items-route="{{route('admin.scaffold_interface.relationship',$scaffold_interface)}}"--}}
+                            data-get-items-field="{{$setting['options']['label']}}"
+                            {{--                        @if(!is_null(data_get($c_setting,$setting['key']))) data-id="{{data_get($c_setting,$setting['key'])}}" @endif--}}
+                            data-method="add">
+                            @php
+                                $model = app($page_component->component->model);
+                                //$query = $model::where($setting['options']['key'], old($setting['key'], data_get($c_setting,$setting['key'])))->get();
+                                $query = $model::all();
+                            @endphp
+
+                            <option value="">-- None --</option>
+
+                            @foreach($query as $relationshipData)
+                                <option value="{{ $relationshipData->{$setting['options']['key']} }}" @if(old($setting['key'], data_get($c_setting,$setting['key'])) == $relationshipData->{$setting['options']['key']} || in_array($relationshipData->{$setting['options']['key']}, is_array(data_get($c_setting,$setting['key'])) ? data_get($c_setting,$setting['key']) : [])) selected="selected" @endif>{{ $relationshipData->{$setting['options']['label']} }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                @break
+                @default
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="{{$setting['key']}}__{{$loop->index}}">{{data_get($setting,'value')}}</label>
+                    <div class="col-sm-10">
+                        <input id="{{$setting['key']}}__{{$loop->index}}" class="form-control" name="{{$setting['key']}}" value="{{data_get($c_setting,$setting['key'])}}">
+                    </div>
+                </div>
+            @endswitch
+        @endforeach
+    </form>
 @stop
 
 @push('js-vendor')

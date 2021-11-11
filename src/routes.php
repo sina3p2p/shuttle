@@ -79,8 +79,8 @@ Route::name('shuttle.')->group(function () {
             Route::get('/js/{model}', [ ScaffoldController::class, 'jsData'])->name('model.js.data');
             Route::resource('page', PageController::class)->except('show');
             Route::get('page/component','SectionController@componentAdd')->name('user_component_store');
-            Route::get('page/component/{page_component}','PageController@componentEditor')->name('user_component');
-            Route::post('page/component/{page_component}','PageController@componentSave');
+            Route::get('page/component/{page_component}',[PageController::class, 'componentEditor'])->name('user_component');
+            Route::post('page/component/{page_component}',[PageController::class, 'componentSave']);
             Route::delete('page/component/{page_component}/delete','SectionController@componentRemove')->name('user_component.delete');
             Route::post('section/{section}/component', ['as' => 'section.component', 'uses' => 'SectionController@sectionComponentUpdate']);
             Route::put('section/{section}/user', ['as' => 'section.user', 'uses' => 'SectionController@userUpdate']);

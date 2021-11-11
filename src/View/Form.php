@@ -4,19 +4,27 @@ namespace Sina\Shuttle\View;
 
 use Illuminate\View\Component;
 use Sina\Shuttle\Models\ScaffoldInterface;
+use stdClass;
 
 class Form extends Component
 {
-    public $edit = false;
+    public bool $edit = false;
+    public string $action = '';
 
-    public ScaffoldInterface $scaffoldInterface;
+    // public ScaffoldInterface $scaffoldInterface;
+    public $scaffoldInterfaceRows;
 
     public $dataTypeContent;
 
-    public function __construct($scaffoldInterface, $dataTypeContent=null)
+    public $scaffoldInterface;
+
+    public function __construct($scaffoldInterfaceRows, $dataTypeContent = null, $action = "", $edit = false)
     {
-        $this->scaffoldInterface = $scaffoldInterface;
-        $this->dataTypeContent   = $dataTypeContent ? $dataTypeContent : app($scaffoldInterface->model);
+        $this->scaffoldInterfaceRows = $scaffoldInterfaceRows;
+        $this->dataTypeContent       = $dataTypeContent ?? new stdClass;
+        $this->edit                  = $edit;
+        $this->action                = $action;
+        $this->scaffoldInterface = new ScaffoldInterface();
     }
 
     public function render()

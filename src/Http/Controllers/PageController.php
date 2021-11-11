@@ -126,7 +126,7 @@ class PageController extends BaseController
 //        }
 
         $page_component->update([
-            'setting' => json_decode($request->json)
+            'setting' => $request->all()
         ]);
 
         return redirect()->route('shuttle.user_component',$page_component)->withErrors([
