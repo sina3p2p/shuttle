@@ -5,6 +5,7 @@ namespace Sina\Shuttle\Http\Controllers\Developer;
 use Sina\Shuttle\Database\Schema\SchemaManager;
 use Exception;
 use App\Http\Controllers\Controller;
+use Closure;
 use Sina\Shuttle\Models\ScaffoldInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -129,24 +130,13 @@ class DatabaseController extends Controller
             if($request->scaffold_update){
                 $columns = collect($table['columns']);
                 $model = $this->getModelFromTable($table['oldName']);
-                $my_class = new \ReflectionClass($model);
-                $class = ClassType::withBodiesFrom($model);
-                foreach ($my_class->getTraits() as $trait){
-                    foreach ($trait->getMethods() as $method){
-                        $class->removeMethod($method->getName());
-                    }
-                    foreach ($trait->getProperties() as $property){
-                        $class->removeProperty($property->getName());
-                    }
-                }
-                $class
-                    ->addProperty('fillable', $columns->where('fillable',true)->pluck('name')->toArray())
-                    ->setProtected();
-                $file = new PhpFile();
-                $namespace = $file->addNamespace($my_class->getNamespaceName());
-                $namespace->add($class);
-                $printer = new Printer();
-                File::put($my_class->getFileName(),$printer->printFile($file));
+                
+                $this->classBuilder($model, function ($class) use ($columns)
+                {
+                    return $class
+                                ->addProperty('fillable', $columns->where('fillable',true)->pluck('name')->toArray())
+                                ->setProtected();
+                });
 
                 $scaffoldInterface = ScaffoldInterface::where('model', get_class($model))->orWhere('translation_model', get_class($model))->first();
                 if($scaffoldInterface)
@@ -158,6 +148,16 @@ class DatabaseController extends Controller
                             ['display_name' => $c['name']]
                         );
                     }
+
+                    if($scaffoldInterface->translation_model == get_class($model))
+                    {
+                        $this->classBuilder(new $scaffoldInterface->model, function($class) use ($columns){
+                            return $class
+                            ->addProperty('translatedAttributes', $columns->where('fillable',true)->pluck('name')->toArray())
+                            ->setPublic();
+                        });
+                    }
+
                 }
             
             }
@@ -254,4 +254,30 @@ class DatabaseController extends Controller
 
         return $db;
     }
+
+
+    public function classBuilder($model, Closure $callback)
+    {
+        $my_class = new \ReflectionClass($model);
+        $class = ClassType::withBodiesFrom($model);
+        foreach ($my_class->getTraits() as $trait){
+            foreach ($trait->getMethods() as $method){
+                $class->removeMethod($method->getName());
+            }
+            foreach ($trait->getProperties() as $property){
+                $class->removeProperty($property->getName());
+            }
+        }
+
+        dd($callback($class));
+
+        // dd($class);
+        
+        $file = new PhpFile();
+        $namespace = $file->addNamespace($my_class->getNamespaceName());
+        $namespace->add($class);
+        $printer = new Printer();
+        File::put($my_class->getFileName(),$printer->printFile($file));
+    }
+
 }
