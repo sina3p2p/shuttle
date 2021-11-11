@@ -19,7 +19,7 @@ class ScaffoldInterface extends Model
 
     public function rows()
     {
-        return $this->morphMany(ScaffoldinterfaceRow::class, 'rowable');
+        return $this->morphMany(ScaffoldinterfaceRow::class, 'rowable')->orderBy('ord');
     }
     
     public function browseRows()
