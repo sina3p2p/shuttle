@@ -17,6 +17,8 @@ class Page extends Model
 
     protected $fillable = ['url', 'type_id', 'image'];
 
+    public $shuttle_menu = ['url', 'title'];
+
     public function sections()
     {
         return $this->hasMany('Sina\Shuttle\Models\Section')->orderBy('position');

@@ -20,12 +20,12 @@ class MenuItem extends Model
 
     public function getLabelAttribute()
     {
-        return $this->menuable ? $this->menuable[array_values(app($this->menuable_type)->shuttle_menu)[0]] : $this->title;
+        return $this->menuable ? $this->menuable[app($this->menuable_type)->shuttle_menu[1]] : $this->title;
     }
     
     public function getLinkAttribute()
     {
-        return $this->menuable ? $this->menuable[array_keys(app($this->menuable_type)->shuttle_menu)[0]] : $this->url;
+        return $this->menuable ? $this->menuable[app($this->menuable_type)->shuttle_menu[0]] : $this->url;
     }
 
     public function children()

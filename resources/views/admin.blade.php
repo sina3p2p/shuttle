@@ -53,7 +53,12 @@
         <div class="scroll">
             <ul class="list-unstyled">
                 @foreach ($menus ?? [] as $m)
+                    @if($m->children->count())
+                    <li><a href="#menu-{{ $m->id }}"><i class="iconsmind-Cool-Guy"></i>{{ $m->label }}</a></li>
+                    @php $children[$m->id] = $m->children @endphp
+                    @else
                     <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="iconsmind-Home"></i>{{ $m->label }}</a></li>
+                    @endif
                 @endforeach
                 {{-- <li><a href="{{route('shuttle.index')}}"><i class="iconsmind-Home"></i>მთავარი</a></li>
                 @canany(['pages_browse','developer'])
@@ -82,9 +87,16 @@
             </ul>
         </div>
     </div>
-    @if(auth()->user()->role == "developer")
     <div class="sub-menu">
         <div class="scroll">
+            @foreach ($children as $key=>$child)
+            <ul class="list-unstyled" data-link="menu-{{ $key }}">
+                @foreach ($child ?? [] as $m)
+                <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="iconsmind-Home"></i>{{ $m->label }}</a></li>
+                @endforeach
+            </ul>
+            @endforeach
+            @if(auth()->user()->role == "developer")
             <ul class="list-unstyled" data-link="developer">
                 <li><a href="{{route('shuttle.developer.database.index')}}"><i class="simple-icon-layers"></i>ბაზები</a></li>
                 <li><a href="{{route('shuttle.developer.bread.index')}}"><i class="simple-icon-organization"></i>მოდელები</a></li>
@@ -92,9 +104,9 @@
                 <li><a href="{{route('shuttle.developer.type.index')}}"><i class="simple-icon-compass"></i>ტიპები</a></li>
                 <li><a href="{{route('shuttle.developer.menu.index')}}"><i class="simple-icon-compass"></i>Menu</a></li>
             </ul>
+            @endif
         </div>
     </div>
-    @endif
 </div>
 <main>
     <div class="container-fluid">
