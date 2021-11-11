@@ -5,6 +5,7 @@ namespace Sina\Shuttle\Http\Controllers\Developer;
 use Sina\Shuttle\Database\Schema\SchemaManager;
 use Exception;
 use App\Http\Controllers\Controller;
+use Astrotomic\Translatable\Translatable;
 use Closure;
 use Sina\Shuttle\Models\ScaffoldInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -153,6 +154,7 @@ class DatabaseController extends Controller
                     {
                         $this->classBuilder(new $scaffoldInterface->model, function($class) use ($columns){
                             return $class
+                            ->addTrait(Translatable::class)
                             ->addProperty('translatedAttributes', $columns->where('fillable',true)->pluck('name')->toArray())
                             ->setPublic();
                         });
@@ -269,9 +271,7 @@ class DatabaseController extends Controller
             }
         }
 
-        dd($callback($class));
-
-        // dd($class);
+        $callback($class);
         
         $file = new PhpFile();
         $namespace = $file->addNamespace($my_class->getNamespaceName());

@@ -23,11 +23,11 @@ class CreateScaffoldinterfaceRowsTable extends Migration
             $table->string('type');
             $table->string('display_name')->nullable();
             $table->boolean('required')->default(false);
-            $table->boolean('browse')->default(true);
-            $table->boolean('read')->default(true);
-            $table->boolean('edit')->default(true);
-            $table->boolean('add')->default(true);
-            $table->boolean('delete')->default(true);
+            $table->boolean('browse')->default(false);
+            $table->boolean('read')->default(false);
+            $table->boolean('edit')->default(false);
+            $table->boolean('add')->default(false);
+            $table->boolean('delete')->default(false);
             $table->json('details')->nullable();
             $table->integer('ord')->default(0);
         });
