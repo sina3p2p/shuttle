@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Sina\Shuttle\Http\Controllers\AuthController;
+use Sina\Shuttle\Http\Controllers\ComponentController;
 use Sina\Shuttle\Http\Controllers\DashboardController;
 use Sina\Shuttle\Http\Controllers\Developer\BreadController;
 use Sina\Shuttle\Http\Controllers\Developer\DatabaseController;
@@ -85,7 +86,7 @@ Route::name('shuttle.')->group(function () {
             Route::post('section/{section}/component', ['as' => 'section.component', 'uses' => 'SectionController@sectionComponentUpdate']);
             Route::put('section/{section}/user', ['as' => 'section.user', 'uses' => 'SectionController@userUpdate']);
             Route::post('component/sort','SectionController@sort')->name('component.sort');
-            Route::resource('component','ComponentController');
+            Route::resource('component',ComponentController::class);
 
             Route::group([
                 'as'     => 'section.',
@@ -152,5 +153,3 @@ Route::name('shuttle.')->group(function () {
         }catch (\Exception $exception){}
     });
 });
-
-

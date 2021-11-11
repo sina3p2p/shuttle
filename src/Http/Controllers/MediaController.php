@@ -162,7 +162,8 @@ class MediaController extends Controller
             // 'id'        => $uploaded_record->id,
             'path'      => $filePath.$fileName,
             'name'      => $fileName,
-            'mime_type' => $mime
+            'mime_type' => $mime,
+            'url'       => Storage::url($filePath.$fileName)
         ]);
     }
 
