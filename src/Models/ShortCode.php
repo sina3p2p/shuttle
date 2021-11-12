@@ -20,7 +20,11 @@ class ShortCode
             $newSettings = [];
             foreach ($items as $item) {
                 $newSettings[] = $item;
-                if (!empty($item['children'])) {
+                if($item['type'] == 'c_relationship')
+                {
+                    $newSettings = array_merge($newSettings, $recursiveFunc(ScaffoldInterface::where('model', $item->details->model)->first()->rows->keyBy('field')));
+                }
+                else if (!empty($item['children'])) {
                     $newSettings = array_merge($newSettings, $recursiveFunc($item['children']));
                 }
             }
@@ -140,12 +144,16 @@ class ShortCode
         return $myattr . '}}';
     }
 
-    private static function relationship(ShortcodeInterface $s, $prefix, $setting = [])
+    private static function c_relationship(ShortcodeInterface $s, $prefix, $setting = [])
     {
-        $details = json_decode($setting['details']);
-        return '{{ optional(' . $prefix . '->' . $details->table . ')->' . $s->getParameter('attr') ?? $details->label . ' }}';
+        $details = $setting['details'];
+        if($details->type == "hasMany")
+        {
+            return '@foreach(data_get(' . $prefix . ', "' . $s->getName() . '", []) as $item_of_' . str_replace('-', '_', $s->getName()) . ')' . $s->getContent() . '@endforeach';
+        }
+
+        return "";
+//        return '{{ optional(' . $prefix . '->' . $details->column . ')->' . $details->label . ' }}';
     }
 
 }
-
-

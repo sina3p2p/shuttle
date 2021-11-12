@@ -21,19 +21,34 @@ class Component extends Model
     public function getComponentData($routes = [],$setting = [])
     {
         $setting = optional($this->pivot)->setting ?? [];
-        $setting['url'] = end($routes);
-    //    dd($setting);
-//        error_log($this->name);
+        // $setting['url'] = end($routes);
+        $relations = $this->rows()->where('type', 'c_relationship')->get();
+        foreach($relations as $rel)
+        {
+            $model = app($rel->details->model);
+            $m = app($rel->details->model)->whereIn($model->getTable().".".$rel->details->key, data_get($setting, $rel->details->column, []));
+            if(isset($rel->details->scope) && !empty($rel->details->scope))
+            {
+                $m = $m->{$rel->details->scope}();
+            }
+            $setting[$rel->details->column] = $m->orderBy($model->getTable().".created_at")->get();
+        }
         if($this->model){
-            $data = app($this->model);
+            $model = app($this->model);
+            $data = $model;
             foreach (data_get($this->model_settings,'model.conditions',[]) as $con){
-                $data = $data->{$con['type']}($con['key'], data_get($setting,$con['value'],$con['type'] == 'whereIn' ? [] : $con['value']));
+                $data = $data->{$con['type']}($con['field'], data_get($setting,$con['value'],$con['type'] == 'whereIn' ? [] : $con['value']));
             }
             $data = $data->with(data_get($this->model_settings,'model.relations',[]));
             $pag = data_get($this->model_settings,'model.limit',-1);
+            if(data_get($this->model_settings,'model.scope',false))
+            {
+                // dd(data_get($this->component->model_settings,'model.scope'));
+                $data = $data->{data_get($this->model_settings,'model.scope')}();
+            }
             switch($pag){
                 case -1:
-                    $data = $data->latest()->get();
+                    $data = $data->orderBy($model->getTable().".created_at")->get();
                     break;
                 case 0:
                     $data = $data->first();
@@ -42,10 +57,9 @@ class Component extends Model
                     }
                     break;
                 default:
-                    $data = $data->latest()->paginate($pag);
+                    $data = $data->orderBy($model->getTable().".created_at")->paginate($pag);
                     break;
             }
-//            $data = $data->latest()->take(3)->get();
             $setting['model'] = $data;
         }
 

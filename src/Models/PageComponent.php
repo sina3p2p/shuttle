@@ -39,7 +39,7 @@ class PageComponent extends Pivot
     {
         $setting = $this->setting ?? [];
         // $setting['url'] = end($routes);
-        $relations = $this->component->rows()->where('type', 'relationship')->get();
+        $relations = $this->component->rows()->where('type', 'c_relationship')->get();
         foreach($relations as $rel)
         {
             $model = app($rel->details['model']);
