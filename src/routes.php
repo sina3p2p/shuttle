@@ -113,6 +113,7 @@ Route::name('shuttle.')->group(function () {
             Route::group([
                 'as'     => 'scaffold_interface.',
             ], function () {
+                Route::get('{scaffold_interface_row}/array',         [ScaffoldController::class,        'array'])->name('array');
                 Route::get('{scaffold_interface_row}/relationship',  [ScaffoldController::class, 'relationship'])->name('relationship');
                 Route::get('{scaffold_interface:slug}',              [ScaffoldController::class,        'index'])->name('index');
                 Route::get('{scaffold_interface:slug}/create',       [ScaffoldController::class,       'create'])->name('create');

@@ -6,40 +6,42 @@
     {{-- @php
         $dataTypeRows = $scaffoldInterface->{($edit ? 'editRows' : 'addRows' )};
     @endphp --}}
-    <div class="form-row">        
-    @foreach($scaffoldInterfaceRows as $row)
-        @isset(${$row->field})
-            {{ ${$row->field} }}
-        @else
-        @php
-            $display_options = $row->details->display ?? NULL;
-            // if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
-            //     $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
-            // }
-        @endphp
-        @if (isset($row->details->legend) && isset($row->details->legend->text))
-            <legend class="text-{{ $row->details->legend->align ?? 'center' }}" style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
-        @endif
-
-        <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-            {{ $row->slugify }}
-            <label class="control-label" for="name">{{ $row->display_name }}</label>
-            {{--                                    @include('voyager::multilingual.input-hidden-bread-edit-add')--}}
-            @if (isset($row->details->view))
-                {{--                                        @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])--}}
-            @elseif ($row->type == 'relationship')
-                @include('shuttle::formfields.relationship', ['options' => $row->details])
-            @elseif ($row->type == 'c_relationship')
-                @include('shuttle::formfields.c_relationship', ['options' => $row->details])
+    <div class="form-row">
+        @foreach($scaffoldInterfaceRows as $row)
+            @isset(${$row->field})
+                {{ ${$row->field} }}
             @else
-                {!! app('shuttle')->formField($row, $scaffoldInterface, $dataTypeContent) !!}
-            @endif
-            @foreach (app('shuttle')->afterFormFields($row, $scaffoldInterface, $dataTypeContent) as $after)
-                {!! $after->handle($row, $scaffoldInterface, $dataTypeContent) !!}
-            @endforeach
-        </div>
-        @endisset
-    @endforeach
+                @php
+                    $display_options = $row->details->display ?? NULL;
+                    // if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
+                    //     $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
+                    // }
+                @endphp
+                @if (isset($row->details->legend) && isset($row->details->legend->text))
+                    <legend class="text-{{ $row->details->legend->align ?? 'center' }}" style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
+                @endif
+
+                <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                    {{ $row->slugify }}
+                    <label class="control-label" for="name">{{ $row->display_name }}</label>
+                    {{--                                    @include('voyager::multilingual.input-hidden-bread-edit-add')--}}
+                    @if (isset($row->details->view))
+                        {{--                                        @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])--}}
+                    @elseif ($row->type == 'relationship')
+                        @include('shuttle::formfields.relationship',   ['options' => $row->details])
+                    @elseif ($row->type == 'c_relationship')
+                        @include('shuttle::formfields.c_relationship', ['options' => $row->details])
+                    @elseif ($row->type == 'array')
+                        @include('shuttle::formfields.array')
+                    @else
+                        {!! app('shuttle')->formField($row, $scaffoldInterface, $dataTypeContent) !!}
+                    @endif
+                    @foreach (app('shuttle')->afterFormFields($row, $scaffoldInterface, $dataTypeContent) as $after)
+                        {!! $after->handle($row, $scaffoldInterface, $dataTypeContent) !!}
+                    @endforeach
+                </div>
+            @endisset
+        @endforeach
     </div>
     <button type="submit" class="btn btn-primary save">შენახვა</button>
 </form>
@@ -161,6 +163,17 @@
                     $(this).val([]).trigger('change');
                 }
             });
+
+            $(".add_item").on('click', function (e){
+                e.preventDefault();
+                let $this = $(this);
+                $.get($this.attr('href')).then(res => $("#"+$this.attr('id')+"_items").append(res));
+            });
+
+            $(document).on('click', ".remove-array-item", function (e)
+            {
+                $(this).parent().remove();
+            })
         });
     </script>
 @endpush

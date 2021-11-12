@@ -17,6 +17,11 @@ class Component extends Model
     {
         return $this->morphMany(ScaffoldinterfaceRow::class, 'rowable')->where('parent_id', 0);
     }
+    
+    public function allRows()
+    {
+        return $this->morphMany(ScaffoldinterfaceRow::class, 'rowable');
+    }
 
     public function getComponentData($routes = [],$setting = [])
     {

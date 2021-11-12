@@ -86,7 +86,7 @@ class ComponentController extends BaseController
         foreach($rows as $r)
         {
             $r['parent_id'] = $pid;
-            $row = $component->rows()->updateOrCreate(['field' => $r['field']], $r);
+            $row = $component->allRows()->updateOrCreate(['field' => $r['field'], 'parent_id' => $pid], $r);
             if(isset($r['children']));
             {
                 try{

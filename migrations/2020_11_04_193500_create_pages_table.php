@@ -18,7 +18,6 @@ class CreatePagesTable extends Migration
             $table->string('url')->unique();
             $table->string('image')->nullable();
             $table->bigInteger('type_id')->unsigned()->default(0);
-            $table->foreign('type_id')->references('id')->on('shuttle_types')->onDelete('cascade');
             $table->timestamps();
         });
 
