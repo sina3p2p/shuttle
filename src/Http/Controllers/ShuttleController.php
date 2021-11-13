@@ -777,8 +777,10 @@ abstract class ShuttleController extends BaseController
         return $data;
     }
 
-    public function array(ScaffoldinterfaceRow $scaffold_interface_row)
+    public function array(ScaffoldinterfaceRow $scaffold_interface_row, Request $request)
     {
-        return view('shuttle::formfields.array_body', ['scaffoldInterface' => new ScaffoldInterface(),'row' => $scaffold_interface_row, 'value' => new \StdClass()]);
+        $loop = new \StdClass();
+        $loop->index = $request->get('loop', 0);
+        return view('shuttle::formfields.array_body', ['scaffoldInterface' => new ScaffoldInterface(),'row' => $scaffold_interface_row, 'value' => new \StdClass(), 'loop' => $loop]);
     }
 }

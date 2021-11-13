@@ -119,6 +119,9 @@ class ShortCode
 
     private static function text_area(ShortcodeInterface $s, $prefix, $setting = [])
     {
+        if ($s->getParameter('html', false)) {
+            return '{!! data_get(' . $prefix . ',"' . $s->getName() . '") !!}';
+        }
         return '{{data_get(' . $prefix . ',"' . $s->getName() . '")}}';
     }
 

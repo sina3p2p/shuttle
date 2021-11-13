@@ -15,6 +15,7 @@ use Sina\Shuttle\Http\Controllers\MenuController;
 use Sina\Shuttle\Http\Controllers\PageController;
 use Sina\Shuttle\Http\Controllers\ScaffoldController;
 use Sina\Shuttle\Http\Controllers\SectionController;
+use Sina\Shuttle\Http\Controllers\SettingController;
 use Sina\Shuttle\Http\Controllers\TypeController;
 
 Route::name('shuttle.')->group(function () {
@@ -73,7 +74,7 @@ Route::name('shuttle.')->group(function () {
             Route::delete('menu/items/{menu_item}',['as' => 'menu.delete', 'uses' => 'MenuController@itemsDestroy']);
             Route::post('menu/sort',[ MenuController::class, 'sort'])->name('menu.sort');
 
-            Route::resource('setting','SettingController')->only('index','store');
+            Route::resource('setting', SettingController::class)->only('index','store');
             Route::post('setting/admin','SettingController@changePassword')->name('change_password');
             
             Route::get('/js/{section}/components', ['as' => 'component.js', 'uses' => 'ComponentController@jsData']);
