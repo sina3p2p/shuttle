@@ -147,15 +147,15 @@
             $(this).parents('.card').remove();
         });
 
-        $('textarea.richTextBox').each(function() {
-            CKEDITOR.replace($(this).attr("id"), {
-                height: 500,
-                extraPlugins: 'justify,font',
-                filebrowserUploadUrl: "{{route('shuttle.media.upload',['_token' => csrf_token()])}}",
-                filebrowserUploadMethod: 'form',
-                htmlEncodeOutput: true,
-            });
-        });
+        // $('textarea.richTextBox').each(function() {
+        //     CKEDITOR.replace($(this).attr("id"), {
+        //         height: 500,
+        //         extraPlugins: 'justify,font',
+        //         filebrowserUploadUrl: "{{route('shuttle.media.upload',['_token' => csrf_token()])}}",
+        //         filebrowserUploadMethod: 'form',
+        //         htmlEncodeOutput: true,
+        //     });
+        // });
 
     </script>
 @endpush
