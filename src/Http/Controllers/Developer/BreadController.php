@@ -207,9 +207,14 @@ class BreadController extends Controller
 
     protected function addTranslate($model,$trans_model, $additionalField = [])
     {
-        $tr_attr = app($trans_model)->getFillable();
-        $tr_attr = array_merge($tr_attr, $additionalField);
-        // dd($tr_attr);
+        $arr = explode("\\",$model);
+        $tr_table = app($trans_model)->getTable();
+        $excepted = ['id', 'locale', strtolower(end($arr))."_id"];
+        $tr_attr  = array_filter(SchemaManager::listTableColumnNames($tr_table), function ($item) use ($excepted)
+        {
+            return !in_array($item, $excepted);
+        });
+        $tr_attr  = array_unique(array_merge($tr_attr, $additionalField));
         $this->addTraitToModel($model, Translatable::class, [
             (new Property('translatedAttributes'))->setValue($tr_attr)->setPublic(),
             (new Property('translationModel'))->setValue($trans_model)->setPublic()
