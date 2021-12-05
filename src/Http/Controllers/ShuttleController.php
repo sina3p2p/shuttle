@@ -63,16 +63,24 @@ abstract class ShuttleController extends BaseController
         // Eagerload Relations
 //        $this->eagerLoadRelations($dataTypeContent, $dataType, 'add', $isModelTranslatable);
 
-//        if (view()->exists("voyager::$slug.edit-add")) {
-//            $view = "voyager::$slug.edit-add";
-//        }
-
-        if($this->is_api)
+        $view = "shuttle::scaffold.edit_add";
+        if (view()->exists("shuttle.{$scaffold_interface->slug}.create"))
         {
-            return $this->prepareData($scaffold_interface, $request, 1);
+           $view = "shuttle.{$scaffold_interface->slug}.create";
+        }else if(view()->exists("shuttle.{$scaffold_interface->slug}.edit_add"))
+        {
+            $view = "shuttle.{$scaffold_interface->slug}.edit_add";
         }
 
-        return view('shuttle::scaffold.edit_add', $this->prepareData($scaffold_interface, $request, 1));
+
+        $data = $this->prepareData($scaffold_interface, $request, 1);
+        $data['view'] = $view;
+        if($this->is_api)
+        {
+            return $data;
+        }
+
+        return view('shuttle::scaffold.edit_add_base', $data);
     }
 
     public function store(ScaffoldInterface $scaffold_interface, Request $request)
@@ -127,12 +135,16 @@ abstract class ShuttleController extends BaseController
 
         $view = 'shuttle::scaffold.edit_add';
 
-
-        if (view()->exists("admin.$scaffold_interface->slug.edit-add")) {
-            $view = "admin.$scaffold_interface->slug.edit-add";
+        if (view()->exists("shuttle.{$scaffold_interface->slug}.create"))
+        {
+           $view = "shuttle.{$scaffold_interface->slug}.create";
+        }else if(view()->exists("shuttle.{$scaffold_interface->slug}.edit_add"))
+        {
+            $view = "shuttle.{$scaffold_interface->slug}.edit_add";
         }
 
         $data =  $this->prepareData($scaffold_interface, $request, 2, $id);
+        $data['view'] = $view;
 
         if($this->is_api)
         {
@@ -140,7 +152,7 @@ abstract class ShuttleController extends BaseController
         }
 
 //        return view($view, compact('scaffold_interface', 'dataTypeContent', 'isModelTranslatable', 'lang'));
-        return view($view, $data);
+        return view('shuttle::scaffold.edit_add_base', $data);
     }
 
     public function update(ScaffoldInterface $scaffold_interface, Request $request, $id)
