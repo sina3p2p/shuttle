@@ -31,12 +31,18 @@ class Component extends Model
         foreach($relations as $rel)
         {
             $model = app($rel->details->model);
-            $m = app($rel->details->model)->whereIn($model->getTable().".".$rel->details->key, data_get($setting, $rel->details->column, []));
-            if(isset($rel->details->scope) && !empty($rel->details->scope))
+            $val = data_get($setting, $rel->details->column, []);
+            if($val)
             {
-                $m = $m->{$rel->details->scope}();
+                $m = app($rel->details->model)->whereIn($model->getTable().".".$rel->details->key, is_array($val) ? $val : [$val]);
+                if(isset($rel->details->scope) && !empty($rel->details->scope))
+                {
+                    $m = $m->{$rel->details->scope}();
+                }
+                $setting[$rel->details->column] = $m->orderBy($model->getTable().".created_at")->get();
+            }else{
+                $setting[$rel->details->column] = [];
             }
-            $setting[$rel->details->column] = $m->orderBy($model->getTable().".created_at")->get();
         }
         if($this->model){
             $model = app($this->model);
