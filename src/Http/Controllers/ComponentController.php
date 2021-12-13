@@ -49,23 +49,15 @@ class ComponentController extends BaseController
 
         $name =  Str::slug($request->name, '_');
 
-        $content = (new ShortCode)->parserCode($request->html,$scaffold, data_get($modeData, 'model', []),$array,[],true);
-
-        // if(!File::isDirectory(resource_path('views/components/'))){
-        //     File::makeDirectory(resource_path('views/components/'));
-        // }
-
-        // File::put(resource_path('views/components/'.$name.'.blade.php'),$content);
-
-        $component = Component::create([
-            'name' => $name,
-            'display_name' => $request->display_name,
-            'settings' => $data->toArray(),
-            'model' => ($scaffold) ? $scaffold->model : null,
-            'model_settings' => $modeData ?? null,
-            'content' => $request->html,
-            'icon' => $request->icon ?? 'iconsmind-Puzzle',
-        ]);
+        $component = Component::updateOrCreate(['name' => $name,], 
+            [
+                'display_name' => $request->display_name,
+                'settings' => $data->toArray(),
+                'model' => ($scaffold) ? $scaffold->model : null,
+                'model_settings' => $modeData ?? null,
+                'content' => $request->html,
+                'icon' => $request->icon ?? 'iconsmind-Puzzle',
+            ]);
 
         // foreach($data as $d)
         // {
@@ -74,6 +66,14 @@ class ComponentController extends BaseController
         // }
 
         $this->saveRows($component, $data);
+
+        $content = (new ShortCode)->parserCode($request->html,$scaffold, data_get($modeData, 'model', []),$component->rows,[],true);
+
+        if(!File::isDirectory(resource_path('views/components/'))){
+            File::makeDirectory(resource_path('views/components/'));
+        }
+
+        File::put(resource_path('views/components/'.$name.'.blade.php'),$content);
 
         // dd($data);
 

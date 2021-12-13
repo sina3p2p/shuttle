@@ -1,6 +1,10 @@
 @php $time = time() + $loop->index @endphp
 <div class="card-body cc">
-    <button type="button" class="btn btn-primary mb-3 mt-3 remove-array-item">წაშლა</button>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary mb-3 mt-3 remove-array-item">წაშლა</button>
+        </div>
+    </div>
 @foreach ($row->children as $child)
     @isset(${$child->field})
         {{ ${$child->field} }}
@@ -29,22 +33,3 @@
     @endisset
 @endforeach
 </div>
-
-    <style>
-        .cc {
-            padding:30px;
-            border-radius:20px;
-            box-shadow:0px 0px 30px rgba(1,0,0,.1);
-            width:100%;
-            float:left;
-            background:#fff;
-            margin-top:30px;
-        }
-
-        .remove-array-item {
-            float:right;
-            z-index:300;
-            position: relative;
-            margin-right:15px;
-        }
-    </style>
