@@ -220,7 +220,7 @@
                 e.preventDefault();
                 var item = $(e.target).closest('li');
                 $.ajax({
-                    url : '/mygo/menu/items/'+item.data('id'),
+                    url : '/mypanel/menu/items/'+item.data('id'),
                     type: 'POST',
                     data : {
                         _method: "DELETE",
