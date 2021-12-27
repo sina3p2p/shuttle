@@ -164,10 +164,24 @@
                 }
             });
 
-            $(".add_item").on('click', function (e){
+            $(document).on('click', ".add_item", function (e){
                 e.preventDefault();
                 let $this = $(this);
-                $.get($this.attr('href')).then(res => $("#"+$this.attr('id')+"_items").append(res));
+                $.get($this.attr('href')).then(res => {
+                    let html = $(res)
+                    console.log(html);
+                    $("#" + $this.attr('id') + "_items").append(res);
+                    // html.find(".sfl-single").selectFromLibrary();
+                    $(".sfl-single").selectFromLibrary()
+                    html.find(".richTextBox").each(function() {
+                        CKEDITOR.replace($(this).attr("id"), {
+                            height: 300,
+                            extraPlugins: 'justify,font',
+                            filebrowserUploadUrl: "{{route('shuttle.media.upload',['_token' => csrf_token()])}}",
+                            filebrowserUploadMethod: 'form',
+                        });
+                    });
+                });
             });
 
             $(document).on('click', ".remove-array-item", function (e)
