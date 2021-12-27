@@ -186,7 +186,7 @@
 
             $(document).on('click', ".remove-array-item", function (e)
             {
-                $(this).parent().remove();
+                $(this).parents(".card-body").remove();
             })
         });
     </script>
