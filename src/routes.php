@@ -71,7 +71,7 @@ Route::name('shuttle.')->group(function () {
 
             Route::resource('menu', MenuController::class);
             Route::put('menu/items/{menu_item}',[ MenuController::class, 'itemsUpdate'])->name('menuItem.update');
-            Route::delete('menu/items/{menu_item}',['as' => 'menu.delete', 'uses' => 'MenuController@itemsDestroy']);
+            Route::delete('menu/items/{menu_item}',[MenuController::class, 'itemsDestroy'])->name('menu.delete');
             Route::post('menu/sort',[ MenuController::class, 'sort'])->name('menu.sort');
 
             Route::resource('setting', SettingController::class)->only('index','store');
