@@ -5,6 +5,7 @@ namespace Sina\Shuttle\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Sina\Shuttle\Models\Nestable\NodeTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 class MenuItem extends Model
 {
@@ -18,6 +19,13 @@ class MenuItem extends Model
 
     public $appends = ['label', 'link', 'image'];
 
+    protected static function booted()
+    {
+        static::addGlobalScope('sorted', function (Builder $builder) {
+            $builder->orderBy('lft');
+        });
+    }
+
     public function getLabelAttribute()
     {
         return $this->menuable ? $this->menuable[app($this->menuable_type)->shuttle_menu[1]] : $this->title;
@@ -30,7 +38,16 @@ class MenuItem extends Model
     
     public function getImageAttribute()
     {
-        return $this->menuable  && isset(app($this->menuable_type)->shuttle_menu[3]) ? $this->menuable->{app($this->menuable_type)->shuttle_menu[3]} : $this->icon;
+        if($this->menuable)
+        {
+            $shuttle_menu = app($this->menuable_type)->shuttle_menu;
+            if(is_array($shuttle_menu) && isset($shuttle_menu[2]))
+            {
+                return $this->menuable[$shuttle_menu[2]];
+            }
+        }
+
+        return $this->icon;
     }
 
     public function children()
