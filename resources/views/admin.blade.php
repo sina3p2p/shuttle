@@ -54,10 +54,10 @@
             <ul class="list-unstyled">
                 @foreach ($menus ?? [] as $m)
                     @if($m->children->count())
-                    <li><a href="#menu-{{ $m->id }}"><i class="{{ $m->icon }}"></i>{{ $m->label }}</a></li>
+                    <li><a href="#menu-{{ $m->id }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a></li>
                     @php $children[$m->id] = $m->children @endphp
                     @else
-                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->icon }}"></i>{{ $m->label }}</a></li>
+                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a></li>
                     @endif
                 @endforeach
                 {{-- <li><a href="{{route('shuttle.index')}}"><i class="iconsmind-Home"></i>მთავარი</a></li>
@@ -92,7 +92,7 @@
             @foreach ($children as $key=>$child)
             <ul class="list-unstyled" data-link="menu-{{ $key }}">
                 @foreach ($child ?? [] as $m)
-                <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->icon }}"></i>{{ $m->label }}</a></li>
+                <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a></li>
                 @endforeach
             </ul>
             @endforeach

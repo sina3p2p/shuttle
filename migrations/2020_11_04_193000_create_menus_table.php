@@ -29,6 +29,7 @@ class CreateMenusTable extends Migration
             $table->integer('menu_id')->default(0);
             $table->morphs('menuable');
             $table->string('url')->nullable();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
 
