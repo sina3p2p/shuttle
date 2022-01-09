@@ -13,6 +13,7 @@ use Sina\Shuttle\Http\Controllers\HomeController;
 use Sina\Shuttle\Http\Controllers\MediaController;
 use Sina\Shuttle\Http\Controllers\MenuController;
 use Sina\Shuttle\Http\Controllers\PageController;
+use Sina\Shuttle\Http\Controllers\RoleController;
 use Sina\Shuttle\Http\Controllers\ScaffoldController;
 use Sina\Shuttle\Http\Controllers\SectionController;
 use Sina\Shuttle\Http\Controllers\SettingController;
@@ -63,7 +64,7 @@ Route::name('shuttle.')->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
             Route::post('/analytics', ['as' => 'analytics', 'uses' => 'DashboardController@show']);
 
-            Route::resource('roles','RoleController');
+            Route::resource('roles', RoleController::class);
 
             Route::get('database/model', [DatabaseController::class, 'myShow'])->name('database.bymodel');
 
