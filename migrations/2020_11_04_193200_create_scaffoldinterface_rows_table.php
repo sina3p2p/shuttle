@@ -30,6 +30,7 @@ class CreateScaffoldinterfaceRowsTable extends Migration
             $table->boolean('delete')->default(false);
             $table->json('details')->nullable();
             $table->integer('ord')->default(0);
+            $table->integer('last_upd')->default(0);
         });
     }
 

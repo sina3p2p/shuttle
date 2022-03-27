@@ -81,10 +81,15 @@ class ComponentController extends BaseController
 
     }
 
-    protected function saveRows(Component $component, $rows, $pid = 0)
+    protected function saveRows(Component $component, $rows, $pid = 0, $time = 0)
     {
+        if($time == 0)
+        {
+            $time = time();
+        }
         foreach($rows as $r)
         {
+            $r['last_upd'] = $time;
             $r['parent_id'] = $pid;
             $row = $component->allRows()->updateOrCreate(['field' => $r['field'], 'parent_id' => $pid], $r);
             if(isset($r['children']));
@@ -92,7 +97,7 @@ class ComponentController extends BaseController
                 try{
                     if(is_array($r['children']) && count($r['children']))
                     {
-                        $this->saveRows($component, $r['children'], $row->id);
+                        $this->saveRows($component, $r['children'], $row->id, $time);
                     }
                 }
                 catch(\Exception $e)
@@ -101,6 +106,9 @@ class ComponentController extends BaseController
                 }
             }
         }
+
+        $component->allRows()->where('last_upd', '<>', $time)->delete();
+
     }
 
     public function edit(Component $component)
