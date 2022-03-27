@@ -17,6 +17,7 @@ use Sina\Shuttle\Http\Controllers\RoleController;
 use Sina\Shuttle\Http\Controllers\ScaffoldController;
 use Sina\Shuttle\Http\Controllers\SectionController;
 use Sina\Shuttle\Http\Controllers\SettingController;
+use Sina\Shuttle\Http\Controllers\TranslationController;
 use Sina\Shuttle\Http\Controllers\TypeController;
 
 Route::name('shuttle.')->group(function () {
@@ -68,7 +69,7 @@ Route::name('shuttle.')->group(function () {
 
             Route::get('database/model', [DatabaseController::class, 'myShow'])->name('database.bymodel');
 
-            Route::resource('translation', 'TranslationController')->except(['show']);
+            Route::resource('translation', TranslationController::class)->except(['show']);
 
             Route::resource('menu', MenuController::class);
             Route::put('menu/items/{menu_item}',[ MenuController::class, 'itemsUpdate'])->name('menuItem.update');
