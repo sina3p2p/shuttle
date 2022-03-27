@@ -161,7 +161,7 @@
                 return {
                     get inputTypes() {
                         // return  ['string','array','image', 'html', 'map', 'model', 'arrayModel'];
-                        return  ['text','array','image', 'rich_text_box', 'text_area', 'map', 'model', 'arrayModel', 'c_relationship', 'multiple_images'];
+                        return  ['text','array','image', 'rich_text_box', 'svg', 'text_area', 'map', 'model', 'arrayModel', 'c_relationship', 'multiple_images'];
                     }
                 }
             }
@@ -247,7 +247,7 @@
                 },
                 data: {
                     fromDatabase: @if($component->model) true @else false @endif,//false,
-                    types: ['text','array','image', 'rich_text_box', 'text_area', 'map', 'model', 'arrayModel', 'c_relationship', 'multiple_images'],
+                    types: ['text','array','image', 'rich_text_box', 'svg', 'text_area', 'map', 'model', 'arrayModel', 'c_relationship', 'multiple_images'],
                     model: myModel,
                     data: @json($component->rows ?? [])
                 },

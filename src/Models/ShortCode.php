@@ -159,4 +159,9 @@ class ShortCode
 //        return '{{ optional(' . $prefix . '->' . $details->column . ')->' . $details->label . ' }}';
     }
 
+    private static function svg(ShortcodeInterface $s, $prefix, $setting = [])
+    {
+        return '{!! cleanHtml(data_get(' . $prefix . ',"' . $s->getName() . '")) !!}';
+    }
+
 }

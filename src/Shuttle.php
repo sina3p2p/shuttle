@@ -117,6 +117,7 @@ class Shuttle
             'timestamp',
             'hidden',
             'coordinates',
+            'svg',
         ];
 
         foreach ($formFields as $formField) {
