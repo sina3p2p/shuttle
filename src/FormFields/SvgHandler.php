@@ -2,7 +2,7 @@
 
 namespace Sina\Shuttle\FormFields;
 
-class TextAreaHandler extends AbstractHandler
+class SvgHandler extends AbstractHandler
 {
     protected $codename = 'svg';
 
