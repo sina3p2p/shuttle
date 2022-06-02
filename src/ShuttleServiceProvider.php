@@ -14,12 +14,14 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportUserProvider;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Sina\Shuttle\Console\ComponentMakeCommand;
 use Sina\Shuttle\Console\InstallShuttlePackage;
 use Sina\Shuttle\Models\Admin;
 use Sina\Shuttle\Models\Menu as ModelsMenu;
 use Sina\Shuttle\View\Breadcrumb;
 use Sina\Shuttle\View\Form;
 use Sina\Shuttle\View\Menu;
+use Sina\Shuttle\View\DynamicComponent;
 
 class ShuttleServiceProvider extends ServiceProvider
 {
@@ -68,7 +70,8 @@ class ShuttleServiceProvider extends ServiceProvider
         $this->loadViewComponentsAs('shuttle', [
             Menu::class,
             Breadcrumb::class,
-            Form::class
+            Form::class,
+            DynamicComponent::class
         ]);
 
         if ($this->app->runningInConsole()) {
@@ -87,6 +90,7 @@ class ShuttleServiceProvider extends ServiceProvider
 
             $this->commands([
                 InstallShuttlePackage::class,
+                ComponentMakeCommand::class
             ]);
         }
 
