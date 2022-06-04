@@ -45,10 +45,11 @@ class DynamicComponent extends Component
             }
         }
 
-        $this->componentClass = "App\\View\\Shuttle\\".Str::of($name)->studly();
-        if(class_exists($this->componentClass))
+        $componentClass = "App\\View\\Shuttle\\".Str::of($name)->studly();
+        if(class_exists($componentClass))
         {
-            $data = array_merge((new $this->componentClass)->additional());
+            $this->componentClass = new $componentClass($this->view);
+            $data = array_merge($this->componentClass->additional());
         }
 
         $this->data = $data;
@@ -57,6 +58,10 @@ class DynamicComponent extends Component
 
     public function render()
     {
+        if($this->componentClass)
+        {
+            return $this->componentClass->render();
+        }
         return view($this->view);
     }
 
