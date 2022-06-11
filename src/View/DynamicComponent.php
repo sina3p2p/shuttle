@@ -67,6 +67,6 @@ class DynamicComponent extends Component
 
     public function data()
     {
-        return array_merge($this->data, parent::data());
+        return array_merge($this->data, parent::data(), ['data' => $this->data]);
     }
 }
