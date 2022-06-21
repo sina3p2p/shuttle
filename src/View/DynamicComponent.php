@@ -17,51 +17,40 @@ class DynamicComponent extends Component
 
     public function __construct($name, $data = null, $modelAutoLoad = true)
     {
-        $this->view = "components.".$name;
+        $this->view = "components." . $name;
         $data = $data ?? [];
-        if($modelAutoLoad)
-        {
+        if ($modelAutoLoad) {
             $m = (ModelsComponent::where('name', $name)->first());
-            if($m)
-            {
+            if ($m) {
                 $m->rows()
-                ->where('type', 'c_relationship')
-                ->get()
-                ->each(function($row) use (&$data){
-                    $model = app($row->details->model);
-                    $val = data_get($data, $row->details->column, []);
-                    if($val)
-                    {
-                        $m = app($row->details->model)->whereIn($model->getTable().".".$row->details->key, is_array($val) ? $val : [$val]);
-                        if(isset($row->details->scope) && !empty($row->details->scope))
-                        {
-                            $m = $m->{$row->details->scope}();
+                    ->where('type', 'c_relationship')
+                    ->get()
+                    ->each(function ($row) use (&$data) {
+                        $model = app($row->details->model);
+                        $val = data_get($data, $row->details->column, []);
+                        if ($val) {
+                            $m = app($row->details->model)->whereIn($model->getTable() . "." . $row->details->key, is_array($val) ? $val : [$val]);
+                            if (isset($row->details->scope) && !empty($row->details->scope)) {
+                                $m = $m->{$row->details->scope}();
+                            }
+                            $data[$row->details->column] = $m->orderBy($model->getTable() . ".created_at")->get();
+                        } else {
+                            $data[$row->details->column] = [];
                         }
-                        $data[$row->details->column] = $m->orderBy($model->getTable().".created_at")->get();
-                    }else{
-                        $data[$row->details->column] = [];
-                    }
-                });
+                    });
             }
         }
 
-        $componentClass = "App\\View\\Shuttle\\".Str::of($name)->studly();
-        if(class_exists($componentClass))
-        {
-            $this->componentClass = new $componentClass($this->view);
-            $data = array_merge($this->componentClass->additional());
+        $this->componentClass = "App\\View\\Shuttle\\" . Str::of($name)->studly();
+        if (class_exists($this->componentClass)) {
+            $data = array_merge((new $this->componentClass)->additional());
         }
 
         $this->data = $data;
-        
     }
 
     public function render()
     {
-        if($this->componentClass)
-        {
-            return $this->componentClass->render();
-        }
         return view($this->view);
     }
 

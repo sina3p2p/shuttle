@@ -20,11 +20,12 @@ class ShortCode
             $newSettings = [];
             foreach ($items as $item) {
                 $newSettings[] = $item;
-                if($item['type'] == 'c_relationship')
-                {
-                    $newSettings = array_merge($newSettings, $recursiveFunc(ScaffoldInterface::where('model', $item->details->model)->first()->rows->keyBy('field')));
-                }
-                else if (!empty($item['children'])) {
+                if ($item['type'] == 'c_relationship') {
+                    $scaffold = ScaffoldInterface::where('model', $item->details->model)->first();
+                    if ($scaffold) {
+                        $newSettings = array_merge($newSettings, $recursiveFunc($scaffold->rows->keyBy('field')));
+                    }
+                } else if (!empty($item['children'])) {
                     $newSettings = array_merge($newSettings, $recursiveFunc($item['children']));
                 }
             }
@@ -59,14 +60,14 @@ class ShortCode
             if (in_array($s->getName(), $components)) {
                 $c_compoenent = $all_components->where('name', $s->getName())->first();
                 $m_setting = $c_compoenent->model_settings;
-                if(isset($m_setting['model'])){
-                    for ($i=0;$i<count($m_setting['model']['conditions']);$i++){
+                if (isset($m_setting['model'])) {
+                    for ($i = 0; $i < count($m_setting['model']['conditions']); $i++) {
                         $m_setting['model']['conditions'][$i]['value'] = $s->getParameter($m_setting['model']['conditions'][$i]["key"], $m_setting['model']['conditions'][$i]['value']);
                     }
                 }
-//                dd($m_setting);
-                return '@includeIf("components.' . $s->getName() . '",["data" => (new \Sina\Shuttle\Models\Component(["model" => ' . var_export($c_compoenent->model ?? null, true) . ', "model_settings" => ' . var_export($m_setting ?? [], true) . ']))->getComponentData()])';//.var_export($s->getParameters() ?? [],true).'])';
-//            } elseif (key_exists($s->getName(), $mySettings) || $mySettings->has($s->getName())) {
+                //                dd($m_setting);
+                return '@includeIf("components.' . $s->getName() . '",["data" => (new \Sina\Shuttle\Models\Component(["model" => ' . var_export($c_compoenent->model ?? null, true) . ', "model_settings" => ' . var_export($m_setting ?? [], true) . ']))->getComponentData()])'; //.var_export($s->getParameters() ?? [],true).'])';
+                //            } elseif (key_exists($s->getName(), $mySettings) || $mySettings->has($s->getName())) {
             } elseif (key_exists($s->getName(), $mySettings)) {
                 $prefix = '$data';
                 if ($s->getParent() && $s->getParent()->getName() == "model" && data_get($modelSetting, 'limit', -1) == 0) {
@@ -86,13 +87,12 @@ class ShortCode
         $content = $processor->process($text);
         if (count($current_components) > $lastIndex) {
             for ($i = $lastIndex; $i < count($current_components); $i++) {
-                $content .= "\n" . '<x-shuttle-dynamic-component name="'.$current_components[$i]->name.'" :data="$page->components[' . $i . ']->pivot->setting"></x-shuttle-dynamic-component>';
+                $content .= "\n" . '<x-shuttle-dynamic-component name="' . $current_components[$i]->name . '" :data="$page->components[' . $i . ']->pivot->setting"></x-shuttle-dynamic-component>';
                 // $content .= "\n" . '@includeIf("components.".$page->components[' . $i . ']->name,["data" => $page->components[' . $i . ']->getComponentData($route)])';
             }
         }
 
         return preg_replace(array('/ {2,}/', '/<!--.*?-->|\t|(?:\r?\n[ \t]*)+/s'), array(' ', ''), $content);
-
     }
 
     private static function array(ShortcodeInterface $s, $prefix, $setting = [])
@@ -151,18 +151,16 @@ class ShortCode
     private static function c_relationship(ShortcodeInterface $s, $prefix, $setting = [])
     {
         $details = $setting['details'];
-        if($details->type == "hasMany")
-        {
+        if ($details->type == "hasMany") {
             return '@foreach(data_get(' . $prefix . ', "' . $s->getName() . '", []) as $item_of_' . str_replace('-', '_', $s->getName()) . ')' . $s->getContent() . '@endforeach';
         }
 
         return "";
-//        return '{{ optional(' . $prefix . '->' . $details->column . ')->' . $details->label . ' }}';
+        //        return '{{ optional(' . $prefix . '->' . $details->column . ')->' . $details->label . ' }}';
     }
 
     private static function svg(ShortcodeInterface $s, $prefix, $setting = [])
     {
         return '{!! cleanHtml(data_get(' . $prefix . ',"' . $s->getName() . '")) !!}';
     }
-
 }
