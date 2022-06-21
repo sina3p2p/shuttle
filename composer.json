@@ -14,7 +14,7 @@
         "spatie/laravel-permission": "dev-main",
         "cyrildewit/eloquent-viewable": "dev-master",
         "akaunting/laravel-setting": "dev-master",
-        "doctrine/dbal": "dev-master",
+        "doctrine/dbal": "^3.3.7",
         "thunderer/shortcode": "dev-master",
         "nette/php-generator": "dev-master",
         "astrotomic/laravel-translatable": "dev-master",
