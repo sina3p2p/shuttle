@@ -17,7 +17,7 @@
         "doctrine/dbal": "^2.12",
         "thunderer/shortcode": "^0.7.4",
         "nette/php-generator": "^3.4",
-        "astrotomic/laravel-translatable": "dev-main",
+        "astrotomic/laravel-translatable": "^11.9",
         "mcamara/laravel-localization": "^1.6",
         "buglinjo/laravel-webp": "^2.0",
         "pion/laravel-chunk-upload": "^1.4"
