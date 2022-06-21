@@ -29,8 +29,12 @@
     },
     "extra": {
         "laravel": {
+            "dont-discover": [
+                "*"
+            ],
             "providers": [
                 "Sina\\Shuttle\\ShuttleServiceProvider",
+                "Spatie\\Permission\\PermissionServiceProvider::class",
                 "CyrildeWit\\EloquentViewable\\EloquentViewableServiceProvider::class",
                 "Akaunting\\Setting\\Provider::class"
             ],
