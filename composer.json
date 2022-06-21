@@ -16,7 +16,7 @@
         "akaunting/laravel-setting": "dev-master",
         "doctrine/dbal": "^3.3.7",
         "thunderer/shortcode": "^0.7.4",
-        "nette/php-generator": "dev-master",
+        "nette/php-generator": "^3.4",
         "astrotomic/laravel-translatable": "dev-master",
         "mcamara/laravel-localization": "dev-master",
         "buglinjo/laravel-webp": "dev-master",
