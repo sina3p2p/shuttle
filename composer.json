@@ -19,7 +19,7 @@
         "nette/php-generator": "^3.4",
         "astrotomic/laravel-translatable": "dev-main",
         "mcamara/laravel-localization": "^1.6",
-        "buglinjo/laravel-webp": "dev-master",
+        "buglinjo/laravel-webp": "^2.0",
         "pion/laravel-chunk-upload": "dev-master"
     },
     "autoload": {
