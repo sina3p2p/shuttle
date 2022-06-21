@@ -15,7 +15,7 @@
         "cyrildewit/eloquent-viewable": "dev-master",
         "akaunting/laravel-setting": "dev-master",
         "doctrine/dbal": "^3.3.7",
-        "thunderer/shortcode": "dev-master",
+        "thunderer/shortcode": "^0.7.4",
         "nette/php-generator": "dev-master",
         "astrotomic/laravel-translatable": "dev-master",
         "mcamara/laravel-localization": "dev-master",
