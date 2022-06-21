@@ -33,13 +33,9 @@
                 "*"
             ],
             "providers": [
-                "Sina\\Shuttle\\ShuttleServiceProvider",
-                "Spatie\\Permission\\PermissionServiceProvider::class",
-                "CyrildeWit\\EloquentViewable\\EloquentViewableServiceProvider::class",
-                "Akaunting\\Setting\\Provider::class"
+                "Sina\\Shuttle\\ShuttleServiceProvider"
             ],
             "aliases": {
-                "Setting": "Akaunting\\Setting\\Facade::class",
                 "Shuttle": "Sina\\Shuttle\\Facades\\Shuttle::class"
             }
         }
