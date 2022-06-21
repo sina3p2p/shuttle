@@ -13,7 +13,7 @@
     "require": {
         "spatie/laravel-permission": "dev-main",
         "cyrildewit/eloquent-viewable": "dev-master",
-        "akaunting/laravel-setting": "dev-master",
+        "akaunting/laravel-setting": "^1.2",
         "doctrine/dbal": "^3.3.7",
         "thunderer/shortcode": "^0.7.4",
         "nette/php-generator": "^3.4",
