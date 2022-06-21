@@ -20,7 +20,7 @@
         "astrotomic/laravel-translatable": "dev-main",
         "mcamara/laravel-localization": "^1.6",
         "buglinjo/laravel-webp": "^2.0",
-        "pion/laravel-chunk-upload": "dev-master"
+        "pion/laravel-chunk-upload": "^1.4"
     },
     "autoload": {
         "psr-4": {
