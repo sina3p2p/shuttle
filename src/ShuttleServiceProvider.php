@@ -22,6 +22,7 @@ use Sina\Shuttle\View\Breadcrumb;
 use Sina\Shuttle\View\Form;
 use Sina\Shuttle\View\Menu;
 use Sina\Shuttle\View\DynamicComponent;
+use Sina\Shuttle\View\Table;
 
 class ShuttleServiceProvider extends ServiceProvider
 {
@@ -49,11 +50,9 @@ class ShuttleServiceProvider extends ServiceProvider
 
         $this->loadHelpers();
 
-        $this->app->bind('shuttle', function($app) {
+        $this->app->bind('shuttle', function ($app) {
             return new Shuttle();
         });
-
-
     }
 
     /**
@@ -63,7 +62,7 @@ class ShuttleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        $this->registerRoutes();
+        //        $this->registerRoutes();
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'shuttle');
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
@@ -71,7 +70,8 @@ class ShuttleServiceProvider extends ServiceProvider
             Menu::class,
             Breadcrumb::class,
             Form::class,
-            DynamicComponent::class
+            DynamicComponent::class,
+            Table::class
         ]);
 
         if ($this->app->runningInConsole()) {
@@ -84,8 +84,8 @@ class ShuttleServiceProvider extends ServiceProvider
             // ], 'views');
 
             $this->publishes([
-                __DIR__.'/../resources/views/index.blade.php' => resource_path('views/index.blade.php'),
-                __DIR__.'/../resources/views/app.blade.php' => resource_path('views/app.blade.php'),
+                __DIR__ . '/../resources/views/index.blade.php' => resource_path('views/index.blade.php'),
+                __DIR__ . '/../resources/views/app.blade.php' => resource_path('views/app.blade.php'),
             ], 'app');
 
             $this->commands([
@@ -97,8 +97,8 @@ class ShuttleServiceProvider extends ServiceProvider
         View::composer('shuttle::admin', function ($view) {
             $menus = ModelsMenu::where('name', 'shuttle_menu')->first();
             $view
-                ->with('scaffold',\Sina\Shuttle\Models\ScaffoldInterface::all())
-                ->with('menus', $menus ? $menus->items()->get()->append(['label', 'link']) : null );
+                ->with('scaffold', \Sina\Shuttle\Models\ScaffoldInterface::all())
+                ->with('menus', $menus ? $menus->items()->get()->append(['label', 'link']) : null);
         });
 
         View::composer('app', function ($view) {
@@ -109,7 +109,7 @@ class ShuttleServiceProvider extends ServiceProvider
             'driver' => 'session',
             'provider' => 'shuttle',
         ]);
-        
+
         Config::set('auth.guards.shuttle_api', [
             'driver' => 'token',
             'provider' => 'shuttle',
@@ -119,17 +119,16 @@ class ShuttleServiceProvider extends ServiceProvider
         Config::set('auth.providers.shuttle', [
             'driver' => 'eloquent',
             'model' => Admin::class,
-        ]); 
-        
+        ]);
+
         // Config::set('auth.providers.shuttle_api', [
         //     'driver' => 'eloquent',
         //     'model' => Admin::class,
         // ]);
 
-        Gate::define('developer', function($user) {
+        Gate::define('developer', function ($user) {
             return $user->role == 'developer';
         });
-
     }
 
     protected function registerRoutes()
@@ -141,6 +140,6 @@ class ShuttleServiceProvider extends ServiceProvider
 
     protected function loadHelpers()
     {
-        require_once __DIR__.'/helpers.php';
+        require_once __DIR__ . '/helpers.php';
     }
 }
