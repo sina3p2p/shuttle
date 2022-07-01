@@ -33,7 +33,7 @@
                                                         <form class="add-menu" action="{{route('shuttle.menu.store')}}" method="post">
                                                             @csrf
                                                             <div class="row">
-                                                                <input name="menuable_type" value="{{$m[" model"]}}" hidden>
+                                                                <input name="menuable_type" value="{{$m['model']}}" hidden>
                                                                 <div class="col-12">
                                                                     <select class="form-control select2-single" id="basicSelect" name="menuable_id">
                                                                         <option value="">აირჩიეთ კონკრეტული</option>
