@@ -1,0 +1,1 @@
+<x-shuttle-table :scaffoldInterfaceRows="$scaffold_interface->browseRows"></x-shuttle-table>
