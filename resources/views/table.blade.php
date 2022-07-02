@@ -7,7 +7,7 @@ foreach($scaffoldInterfaceRows as $row)
 {
 $columns[] = [
 
-]
+];
 }
 @endphp
 @push('js')
