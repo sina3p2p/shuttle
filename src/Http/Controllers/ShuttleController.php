@@ -629,6 +629,7 @@ abstract class ShuttleController extends BaseController
                 // Check if server side pagination is enabled
                 $isServerSide = isset($dataType->server_side) && $scaffold_interface->server_side;
 
+
                 // Check if a default search key is set
                 $defaultSearchKey = $dataType->default_search_key ?? null;
 
