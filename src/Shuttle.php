@@ -41,13 +41,13 @@ class Shuttle
 
     protected $viewLoadingEvents = [];
 
-//    protected $actions = [
-//        DeleteAction::class,
-//        RestoreAction::class,
-//        EditAction::class,
-//        ViewAction::class,
-//    ];
-//
+    //    protected $actions = [
+    //        DeleteAction::class,
+    //        RestoreAction::class,
+    //        EditAction::class,
+    //        ViewAction::class,
+    //    ];
+    //
     // protected $models = [
     //     'Page'        => Page::class,
     //     'Menu'        => Menu::class,
@@ -127,50 +127,50 @@ class Shuttle
         }
     }
 
-//    public function model($name)
-//    {
-//        return app($this->models[Str::studly($name)]);
-//    }
-//
-//    public function modelClass($name)
-//    {
-//        return $this->models[$name];
-//    }
+    //    public function model($name)
+    //    {
+    //        return app($this->models[Str::studly($name)]);
+    //    }
+    //
+    //    public function modelClass($name)
+    //    {
+    //        return $this->models[$name];
+    //    }
 
-//    public function useModel($name, $object)
-//    {
-//        if (is_string($object)) {
-//            $object = app($object);
-//        }
-//
-//        $class = get_class($object);
-//
-//        if (isset($this->models[Str::studly($name)]) && !$object instanceof $this->models[Str::studly($name)]) {
-//            throw new \Exception("[{$class}] must be instance of [{$this->models[Str::studly($name)]}].");
-//        }
-//
-//        $this->models[Str::studly($name)] = $class;
-//
-//        return $this;
-//    }
+    //    public function useModel($name, $object)
+    //    {
+    //        if (is_string($object)) {
+    //            $object = app($object);
+    //        }
+    //
+    //        $class = get_class($object);
+    //
+    //        if (isset($this->models[Str::studly($name)]) && !$object instanceof $this->models[Str::studly($name)]) {
+    //            throw new \Exception("[{$class}] must be instance of [{$this->models[Str::studly($name)]}].");
+    //        }
+    //
+    //        $this->models[Str::studly($name)] = $class;
+    //
+    //        return $this;
+    //    }
 
-//    public function view($name, array $parameters = [])
-//    {
-//        foreach (Arr::get($this->viewLoadingEvents, $name, []) as $event) {
-//            $event($name, $parameters);
-//        }
-//
-//        return view($name, $parameters);
-//    }
+    //    public function view($name, array $parameters = [])
+    //    {
+    //        foreach (Arr::get($this->viewLoadingEvents, $name, []) as $event) {
+    //            $event($name, $parameters);
+    //        }
+    //
+    //        return view($name, $parameters);
+    //    }
 
-//    public function onLoadingView($name, \Closure $closure)
-//    {
-//        if (!isset($this->viewLoadingEvents[$name])) {
-//            $this->viewLoadingEvents[$name] = [];
-//        }
-//
-//        $this->viewLoadingEvents[$name][] = $closure;
-//    }
+    //    public function onLoadingView($name, \Closure $closure)
+    //    {
+    //        if (!isset($this->viewLoadingEvents[$name])) {
+    //            $this->viewLoadingEvents[$name] = [];
+    //        }
+    //
+    //        $this->viewLoadingEvents[$name][] = $closure;
+    //    }
 
     public function formField($row, $dataType, $dataTypeContent)
     {
@@ -388,7 +388,7 @@ class Shuttle
             $appLocales = array_diff(scandir(resource_path('lang/vendor/voyager')), ['..', '.']);
         }
 
-        $vendorLocales = array_diff(scandir(realpath(__DIR__.'/../publishable/lang')), ['..', '.']);
+        $vendorLocales = array_diff(scandir(realpath(__DIR__ . '/../publishable/lang')), ['..', '.']);
         $allLocales = array_merge($vendorLocales, $appLocales);
 
         asort($allLocales);
@@ -398,8 +398,7 @@ class Shuttle
 
     public function routes($route = "web")
     {
-        if($route == 'api')
-        {
+        if ($route == 'api') {
             require __DIR__ . '/api.php';
             return;
         }
@@ -409,7 +408,7 @@ class Shuttle
 
     public function group(Closure $closure)
     {
-        return Route::name('shuttle.')->prefix('mypanel')->middleware([ShuttleAdminMiddleware::class])->group(function () use ($closure){
+        return Route::name('shuttle.')->prefix('mypanel')->middleware('auth:shuttle')->group(function () use ($closure) {
             return $closure();
         });
     }
@@ -425,5 +424,4 @@ class Shuttle
     {
         return $this->scaffolds;
     }
-    
 }
