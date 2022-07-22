@@ -181,10 +181,10 @@
                 html += '<' + options.contentNodeName + ' class="' + options.contentClass + '">';
                 html += item.name;
                 html += '<div class="washla">';
-                if (!item.info.menuable) {
-                    delete item.info.children;
-                    html += '<a href="' + item.id + '" class="edit-item" data-info="' + JSON.stringify(item.info).replace(/"/g, '&quot;') + '">რედაქტირება</a> / ';
-                }
+                // if (!item.info.menuable) {
+                delete item.info.children;
+                html += '<a href="' + item.id + '" class="edit-item" data-info="' + JSON.stringify(item.info).replace(/"/g, '&quot;') + '">რედაქტირება</a> / ';
+                // }
                 html += '<a href="#" class="remove-item">წაშლა</a></div>';
                 html += '</' + options.contentNodeName + '>';
                 html += '</' + options.handleNodeName + '>';
