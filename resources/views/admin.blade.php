@@ -74,12 +74,15 @@
                 <ul class="list-unstyled">
                     @foreach ($menus ?? [] as $m)
                     @if($m->children->count())
-                    <li><a href="#menu-{{ $m->id }}">
+                    <li>
+                        <a href="#menu-{{ $m->id }}">
                             @if($m->svg)
                             {!! $m->svg !!}
                             @else
-                            <i class="{{ $m->image }}"></i>{{ $m->label }}</a>
-                        @endif
+                            <i class="{{ $m->image }}"></i>
+                            @endif
+                            {{ $m->label }}
+                        </a>
                     </li>
                     @php $children[$m->id] = $m->children @endphp
                     @else
@@ -87,9 +90,9 @@
                             @if($m->svg)
                             {!! $m->svg !!}
                             @else
-                            <i class="{{ $m->image }}"></i>{{ $m->label }}</a>
-                        @endif
-                        {{ $m->label }}
+                            <i class="{{ $m->image }}"></i>
+                            @endif
+                            {{ $m->label }}
                         </a>
                     </li>
                     @endif
