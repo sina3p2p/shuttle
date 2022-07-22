@@ -40,7 +40,8 @@
                 </svg>
             </a>
         </div>
-        <a class="navbar-logo" href="https://mygo.ge" target="_blank"><span class="logo d-none d-xs-block"></span><span class="logo-mobile d-block d-xs-none"></span></a>
+        <a class="navbar-logo" href="https://mygo.ge" target="_blank"><span class="logo d-none d-xs-block"></span><span
+                class="logo-mobile d-block d-xs-none"></span></a>
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
@@ -48,14 +49,17 @@
                 </button>
             </div>
             <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                     <span class="name"></span>
                     <span>
-                        <lottie-player src="{{route('shuttle.assets','user.json')}}" background="transparent" speed="1" style="width: 40px; height: 40px;" autoplay></lottie-player>
+                        <lottie-player src="{{route('shuttle.assets','user.json')}}" background="transparent" speed="1"
+                            style="width: 40px; height: 40px;" autoplay></lottie-player>
                     </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="{{route('shuttle.setting.index')}}#setting-password">პაროლის ცვლილება</a>
+                    <a class="dropdown-item" href="{{route('shuttle.setting.index')}}#setting-password">პაროლის
+                        ცვლილება</a>
                     <a class="dropdown-item" href="/mygo/logout">გამოსვლა</a>
                 </div>
             </div>
@@ -79,7 +83,8 @@
                     </li>
                     @php $children[$m->id] = $m->children @endphp
                     @else
-                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a></li>
+                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a>
+                    </li>
                     @endif
                     @endforeach
                     {{-- <li><a href="{{route('shuttle.index')}}"><i class="iconsmind-Home"></i>მთავარი</a></li>
@@ -88,7 +93,8 @@
                     @endcanany
                     @foreach($scaffold as $sf)
                     @canany([$sf->name.'_browse', 'developer'])
-                    <li><a href="{{route('shuttle.scaffold_interface.index', $sf)}}"><i class="{{$sf->icon}}"></i>{{$sf->display_name_plural}}</a></li>
+                    <li><a href="{{route('shuttle.scaffold_interface.index', $sf)}}"><i
+                                class="{{$sf->icon}}"></i>{{$sf->display_name_plural}}</a></li>
                     @endcanany
                     @endforeach
                     @canany(['menus_browse','developer'])
@@ -98,10 +104,12 @@
                     <li><a href="{{route('shuttle.roles.index')}}"><i class="simple-icon-lock"></i>როლები</a></li>
                     @endcanany
                     @canany(['translates_browse','developer'])
-                    <li><a href="{{route('shuttle.translation.index')}}"><i class="simple-icon-refresh"></i>თარგმანი</a></li>
+                    <li><a href="{{route('shuttle.translation.index')}}"><i class="simple-icon-refresh"></i>თარგმანი</a>
+                    </li>
                     @endcanany
                     @canany(['settings_browse','developer'])
-                    <li><a href="{{route('shuttle.setting.index')}}"><i class="simple-icon-settings"></i>პარამეტრები</a></li>
+                    <li><a href="{{route('shuttle.setting.index')}}"><i class="simple-icon-settings"></i>პარამეტრები</a>
+                    </li>
                     @endcanany --}}
                     @if(auth()->user()->role == "developer")
                     <li><a href="#developer"><i class="iconsmind-Cool-Guy"></i>ვებისთვის</a></li>
@@ -114,17 +122,23 @@
                 @foreach ($children as $key=>$child)
                 <ul class="list-unstyled" data-link="menu-{{ $key }}">
                     @foreach ($child ?? [] as $m)
-                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a></li>
+                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a>
+                    </li>
                     @endforeach
                 </ul>
                 @endforeach
                 @if(auth()->user()->role == "developer")
                 <ul class="list-unstyled" data-link="developer">
-                    <li><a href="{{route('shuttle.developer.database.index')}}"><i class="simple-icon-layers"></i>ბაზები</a></li>
-                    <li><a href="{{route('shuttle.developer.bread.index')}}"><i class="simple-icon-organization"></i>მოდელები</a></li>
-                    <li><a href="{{route('shuttle.component.index')}}"><i class="simple-icon-puzzle"></i>კომპონენტები</a></li>
-                    <li><a href="{{route('shuttle.developer.type.index')}}"><i class="simple-icon-compass"></i>ტიპები</a></li>
-                    <li><a href="{{route('shuttle.developer.menu.index')}}"><i class="simple-icon-compass"></i>Menu</a></li>
+                    <li><a href="{{route('shuttle.developer.database.index')}}"><i
+                                class="simple-icon-layers"></i>ბაზები</a></li>
+                    <li><a href="{{route('shuttle.developer.bread.index')}}"><i
+                                class="simple-icon-organization"></i>მოდელები</a></li>
+                    <li><a href="{{route('shuttle.component.index')}}"><i
+                                class="simple-icon-puzzle"></i>კომპონენტები</a></li>
+                    <li><a href="{{route('shuttle.developer.type.index')}}"><i
+                                class="simple-icon-compass"></i>ტიპები</a></li>
+                    <li><a href="{{route('shuttle.developer.menu.index')}}"><i class="simple-icon-compass"></i>Menu</a>
+                    </li>
                 </ul>
                 @endif
             </div>
@@ -149,16 +163,12 @@
     <script src="{{route('shuttle.assets','js/dore.script.js')}}"></script>
     <script src="{{route('shuttle.assets','js/scripts.js')}}"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     </script>
     @stack('js')
     @if($errors->any())
     <script>
-        @foreach($errors - > getMessages() as $key => $error)
+        @foreach($errors->getMessages() as $key => $error)
         @if(is_array($error))
         @foreach($error as $er)
         showNotification('top', 'right', "{{$key}}", "{{ $er }}");
