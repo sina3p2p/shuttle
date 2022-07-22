@@ -83,7 +83,14 @@
                     </li>
                     @php $children[$m->id] = $m->children @endphp
                     @else
-                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a>
+                    <li><a href="{{ url('/mypanel/'.$m->link) }}">
+                            @if($m->svg)
+                            {!! $m->svg !!}
+                            @else
+                            <i class="{{ $m->image }}"></i>{{ $m->label }}</a>
+                        @endif
+                        {{ $m->label }}
+                        </a>
                     </li>
                     @endif
                     @endforeach
