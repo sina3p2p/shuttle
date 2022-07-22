@@ -68,8 +68,12 @@
                                                                 <input name="ka[title]" class="form-control" id="custom-label-ka">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="custom-label-icon">სახელი</label>
+                                                                <label for="custom-label-icon">Icon</label>
                                                                 <input name="icon" class="form-control" id="custom-label-icon">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="custom-label-icon">SVG</label>
+                                                                <textarea name="svg" class="form-control" id="custom-label-icon"></textarea>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="custom-label-ka">ლინკი</label>
@@ -117,8 +121,6 @@
         </div>
     </section>
 </div>
-{{-- <textarea id="nestable_data"
-    hidden>@json($menu->where('pid',0)->load('items.recursiveChildren')->sortBy(function ($product, $key) {return $product->ord;})->values())</textarea>--}}
 <textarea id="nestable_data" hidden>@json($menu_items)</textarea>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -141,6 +143,10 @@
                     <div class="form-group">
                         <label for="custom-label-icon">ICON</label>
                         <input name="icon" class="form-control" id="custom-label-icon">
+                    </div>
+                    <div class="form-group">
+                        <label for="custom-label-icon">SVG</label>
+                        <textarea name="svg" class="form-control" id="custom-label-icon"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="custom-label-ka">ლინკი</label>
@@ -262,6 +268,7 @@
             modal.find('.modal-body form').attr('action', action);
             modal.find('.modal-body input[name="url"]').val(recipient.url);
             modal.find('.modal-body input[name="icon"]').val(recipient.icon);
+            modal.find('.modal-body textarea[name="svg"]').val(recipient.svg);
             modal.modal('show');
         });
 

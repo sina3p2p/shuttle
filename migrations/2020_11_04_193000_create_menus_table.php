@@ -30,6 +30,7 @@ class CreateMenusTable extends Migration
             $table->morphs('menuable');
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
+            $table->string('svg')->nullable();
             $table->timestamps();
         });
 
@@ -41,7 +42,6 @@ class CreateMenusTable extends Migration
             $table->foreign('menu_item_id')->references('id')->on('shuttle_menu_items')->onDelete('cascade');
             $table->string('title')->nullable();
         });
-
     }
 
     /**
@@ -53,6 +53,6 @@ class CreateMenusTable extends Migration
     {
         Schema::dropIfExists('shuttle_menu_item_translations');
         Schema::dropIfExists('shuttle_menu_items');
-        Schema::dropIfExists('shuttle_menus');    
+        Schema::dropIfExists('shuttle_menus');
     }
 }
