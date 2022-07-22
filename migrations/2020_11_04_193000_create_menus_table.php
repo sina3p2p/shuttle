@@ -30,7 +30,7 @@ class CreateMenusTable extends Migration
             $table->morphs('menuable');
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
-            $table->string('svg')->nullable();
+            $table->text('svg')->nullable();
             $table->timestamps();
         });
 
