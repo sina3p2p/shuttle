@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/perfect-scrollbar.css')}}" />
     <style>
         :root {
-            --theme-color-1: "{{ setting('shuttle-primary-color', '#da251c') }}";
+            --theme-color-1: {{ setting('shuttle-primary-color', '#da251c') }};
             --theme-color-2: #2a93d5;
             --theme-color-3: #6c90a1;
             --theme-color-4: #365573;
