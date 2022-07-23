@@ -11,6 +11,25 @@
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/dropzone.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/perfect-scrollbar.css')}}" />
+    <style>
+        :root {
+            --theme-color-1: "{{ setting('shuttle-primary-color', '#da251c') }}";
+            --theme-color-2: #2a93d5;
+            --theme-color-3: #6c90a1;
+            --theme-color-4: #365573;
+            --theme-color-5: #47799a;
+            --theme-color-6: #8e9599;
+            --theme-color-1-10: rgba(20, 83, 136, .1);
+            --theme-color-2-10: rgba(42, 147, 213, .1);
+            --theme-color-3-10: rgba(108, 144, 161, .1);
+            --theme-color-4-10: rgba(54, 85, 115, .1);
+            --theme-color-5-10: rgba(71, 121, 154, .1);
+            --theme-color-6-10: hsla(202, 5%, 58%, .1);
+            --primary-color: #212121;
+            --foreground-color: #fff;
+            --separator-color: #d7d7d7
+        }
+    </style>
     @stack('css-vendors')
     <link rel="stylesheet" href="{{route('shuttle.assets','css/main.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{route('shuttle.assets','css/dore.light.blue.min.css')}}" />
