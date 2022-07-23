@@ -149,6 +149,8 @@
                                 class="simple-icon-compass"></i>ტიპები</a></li>
                     <li><a href="{{route('shuttle.developer.menu.index')}}"><i class="simple-icon-compass"></i>Menu</a>
                     </li>
+                    <li><a href="{{route('shuttle.developer.setting')}}"><i class="simple-icon-compass"></i>Setting</a>
+                    </li>
                 </ul>
                 @endif
             </div>
