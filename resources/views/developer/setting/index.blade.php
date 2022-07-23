@@ -1,5 +1,7 @@
 @extends('shuttle::admin')
 
+@php $setting = setting(); @endphp
+
 @section('main')
 <div class="row">
     <div class="col-md-12">
