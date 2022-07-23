@@ -1,6 +1,6 @@
 @extends('shuttle::admin')
 
-@php $setting = setting(); @endphp
+@php $setting = setting()->all(); @endphp
 
 @section('main')
 <div class="row">
