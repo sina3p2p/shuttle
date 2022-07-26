@@ -1872,6 +1872,10 @@ button {
     stroke: var(--theme-color-1);
 }
 
+.sidebar .main-menu ul li svg {
+    stroke: #212121;
+}
+
 .sidebar .main-menu ul li.active:after {
     content: " ";
     background: var(--theme-color-1);
