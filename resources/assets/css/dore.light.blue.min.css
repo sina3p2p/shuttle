@@ -1868,13 +1868,17 @@ button {
     color: var(--theme-color-1);
 }
 
+.sidebar .main-menu ul li.active path {
+    stroke: var(--theme-color-1);
+}
+
 .sidebar .main-menu ul li.active:after {
     content: " ";
     background: var(--theme-color-1);
     color: #fff;
-    border-radius: 10px;
+    border-radius: 0px 4px 4px 0px;
     position: absolute;
-    width: 6px;
+    width: 4px;
     height: 90px;
     top: 50%;
     transform: translateY(-50%);
