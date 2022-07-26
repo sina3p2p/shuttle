@@ -1868,7 +1868,7 @@ button {
     color: var(--theme-color-1);
 }
 
-.sidebar .main-menu ul li.active path {
+.sidebar .main-menu ul li.active svg {
     stroke: var(--theme-color-1);
 }
 
