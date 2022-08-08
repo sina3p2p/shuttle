@@ -9,7 +9,7 @@
 {{--<input @if($row->required == 1 && !isset($dataTypeContent->{$row->field})) required @endif type="file" name="{{ $row->field }}" accept="image/*">--}}
 
 <div class="select-from-library-container">
-    <input name="{{ $row->field }}" value="{{ $dataTypeContent->{$row->field} }}" hidden />
+    <input name="{{ $row->field }}" value="" hidden />
     <div class="row">
         <div class="col-sm-12 col-md-6 col-xl-4">
             <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal" data-count="1" data-name="{{ $row->field }}" @if(isset($dataTypeContent->{$row->field}))
