@@ -59,7 +59,7 @@
                 </svg>
             </a>
         </div>
-        <a class="navbar-logo" href="https://mygo.ge" target="_blank"><span class="logo d-none d-xs-block"></span><span
+        <a class="navbar-logo" href="https://mypanel.ge" target="_blank"><span class="logo d-none d-xs-block"></span><span
                 class="logo-mobile d-block d-xs-none"></span></a>
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
@@ -79,7 +79,7 @@
                 <div class="dropdown-menu dropdown-menu-right mt-3">
                     <a class="dropdown-item" href="{{route('shuttle.setting.index')}}#setting-password">პაროლის
                         ცვლილება</a>
-                    <a class="dropdown-item" href="/mygo/logout">გამოსვლა</a>
+                    <a class="dropdown-item" href="/mypanel/logout">გამოსვლა</a>
                 </div>
             </div>
         </div>
