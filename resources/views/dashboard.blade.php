@@ -1,25 +1,47 @@
 @extends('shuttle::admin')
 
 @section('main')
-<div id="main-ctr">
-{{--  <svg xmlns="http://www.w3.org/2000/svg" width="294" height="241" viewBox="0 0 294 241">--}}
-{{--    <g id="group" fill="none" fill-rule="evenodd">--}}
-{{--      <g id="smile">--}}
-{{--        <path id="smile-up" stroke="#da251c" stroke-width="30" d="M238.797 75.04C222.935 40.772 188.243 17 148 17c-39.62 0-73.857 23.04-90.046 56.453" stroke-linecap="round"/>--}}
-{{--        <path id="smile-down" stroke="#da251c" stroke-width="30" d="M238.843 166c-15.863 34.268-50.554 58.04-90.797 58.04-39.62 0-73.857-23.04-90.046-56.453" stroke-linecap="round"/>--}}
-{{--        <path id="bg" fill="#da251c" d="M43 2h211v237H43z" opacity=".1"/>--}}
-{{--      </g>--}}
-{{--      <path id="eye-left" fill="#da251c" d="M148 173c29.27 0 53-23.73 53-53s-23.73-53-53-53c-4.956 0-9.753.68-14.303 1.952C111.374 75.194 95 95.685 95 120c0 29.27 23.73 53 53 53z"/>--}}
-{{--      <path id="eye-right" fill="#da251c" d="M148 173c29.27 0 53-23.73 53-53s-23.73-53-53-53c-4.016 0-7.927.447-11.687 1.293C112.665 73.615 95 94.745 95 120c0 29.27 23.73 53 53 53z"/>--}}
-{{--      <path id="eye-to-left" fill="#da251c" d="M106 143c12.15 0 22-9.85 22-22s-9.85-22-22-22c-2.028 0-3.992.274-5.857.788C90.836 102.352 84 110.878 84 121c0 12.15 9.85 22 22 22z"/>--}}
-{{--      <path id="eye-to-right" fill="#da251c" d="M187 143c12.15 0 22-9.85 22-22s-9.85-22-22-22c-3.286 0-6.404.72-9.204 2.012C170.242 104.496 165 112.136 165 121c0 12.15 9.85 22 22 22z"/>--}}
-{{--    </g>--}}
-{{--  </svg>--}}
-{{--  <h1 class="hello">მოგესალმებით, მომხმარებელო</h1>--}}
-    <lottie-player src="{{asset('shuttle/analytics_loader.json')}}" mode="bounce" background="transparent"  speed="1.2"  style="width: 500px; height: 500px;"  loop  autoplay></lottie-player>
+{{-- <div id="main-ctr"> --}}
+    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="294" height="241" viewBox="0 0 294 241">--}}
+        {{-- <g id="group" fill="none" fill-rule="evenodd">--}}
+            {{-- <g id="smile">--}}
+                {{--
+                <path id="smile-up" stroke="#da251c" stroke-width="30"
+                    d="M238.797 75.04C222.935 40.772 188.243 17 148 17c-39.62 0-73.857 23.04-90.046 56.453"
+                    stroke-linecap="round" />--}}
+                {{--
+                <path id="smile-down" stroke="#da251c" stroke-width="30"
+                    d="M238.843 166c-15.863 34.268-50.554 58.04-90.797 58.04-39.62 0-73.857-23.04-90.046-56.453"
+                    stroke-linecap="round" />--}}
+                {{--
+                <path id="bg" fill="#da251c" d="M43 2h211v237H43z" opacity=".1" />--}}
+                {{--
+            </g>--}}
+            {{--
+            <path id="eye-left" fill="#da251c"
+                d="M148 173c29.27 0 53-23.73 53-53s-23.73-53-53-53c-4.956 0-9.753.68-14.303 1.952C111.374 75.194 95 95.685 95 120c0 29.27 23.73 53 53 53z" />
+            --}}
+            {{--
+            <path id="eye-right" fill="#da251c"
+                d="M148 173c29.27 0 53-23.73 53-53s-23.73-53-53-53c-4.016 0-7.927.447-11.687 1.293C112.665 73.615 95 94.745 95 120c0 29.27 23.73 53 53 53z" />
+            --}}
+            {{--
+            <path id="eye-to-left" fill="#da251c"
+                d="M106 143c12.15 0 22-9.85 22-22s-9.85-22-22-22c-2.028 0-3.992.274-5.857.788C90.836 102.352 84 110.878 84 121c0 12.15 9.85 22 22 22z" />
+            --}}
+            {{--
+            <path id="eye-to-right" fill="#da251c"
+                d="M187 143c12.15 0 22-9.85 22-22s-9.85-22-22-22c-3.286 0-6.404.72-9.204 2.012C170.242 104.496 165 112.136 165 121c0 12.15 9.85 22 22 22z" />
+            --}}
+            {{--
+        </g>--}}
+        {{-- </svg>--}}
+    {{-- <h1 class="hello">მოგესალმებით, მომხმარებელო</h1>--}}
+    {{-- <lottie-player src="{{asset('shuttle/analytics_loader.json')}}" mode="bounce" background="transparent"
+        speed="1.2" style="width: 500px; height: 500px;" loop autoplay></lottie-player>
     <h1 class="hello">Analytics data loading 😉 ...</h1>
-</div>
-<div id="analytics-info" style="display: none">
+</div> --}}
+{{-- <div id="analytics-info" style="display: none">
     <div class="row">
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card dashboard-filled-line-chart">
@@ -75,16 +97,16 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @stop
 
-@push('js')
+{{-- @push('js')
 <script src="{{asset('shuttle/js/vendor/Chart.bundle.min.js')}}"></script>
 <script src="{{asset('shuttle/js/vendor/chartjs-plugin-datalabels.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-  <script>
-      var rootStyle = getComputedStyle(document.body);
+<script>
+    var rootStyle = getComputedStyle(document.body);
       var themeColor1 = rootStyle.getPropertyValue("--theme-color-1").trim();
       var themeColor2 = rootStyle.getPropertyValue("--theme-color-2").trim();
       var themeColor3 = rootStyle.getPropertyValue("--theme-color-3").trim();
@@ -369,6 +391,5 @@
               }
       });
 
-  </script>
-@endpush
-
+</script>
+@endpush --}}
