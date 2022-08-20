@@ -13,6 +13,19 @@ abstract class AbstractHandler implements HandlerInterface
     protected $codename;
     protected $supports = [];
 
+    public function handle2($name, $value, $option)
+    {
+        $content = $this->createContent2(
+            $name,
+            $value,
+            $option,
+            // json_decode($row->details,false)
+            // $row->details
+        );
+
+        return $this->render($content);
+    }
+
     public function handle($row, $dataType, $dataTypeContent)
     {
         $content = $this->createContent(

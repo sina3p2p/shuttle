@@ -172,6 +172,13 @@ class Shuttle
     //        $this->viewLoadingEvents[$name][] = $closure;
     //    }
 
+    public function formField2($type, $name, $value, $options = [])
+    {
+        $formField = $this->formFields[$type];
+
+        return $formField->handle2($name, $value, $options);
+    }
+
     public function formField($row, $dataType, $dataTypeContent)
     {
         $formField = $this->formFields[$row->type];
