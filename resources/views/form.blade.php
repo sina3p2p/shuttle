@@ -1,4 +1,4 @@
-<form action="{{ $action }}" method="POST" enctype="multipart/form-data">
+<form action="{{ $action }}" method="POST" class="scaffold-form" enctype="multipart/form-data">
     @csrf
     @if($edit)
     @method('PUT')
@@ -201,8 +201,8 @@
             $(this).parents(".card-body").remove();
         })
 
-        $('.save').on('click', function(){
-            $(this).prop('disabled', true);
+        $('.scaffold-form').on('submit', function(){
+            $(this).find('button[type=submit]').prop('disabled', true);
         })
     });
 </script>
