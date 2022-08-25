@@ -33,18 +33,24 @@ class InstallShuttlePackage extends Command
 
         // $this->info('Initialize basic scaffolds Completed');
 
-//        $this->call('vendor:publish', [
-//            '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
-//            '--tag' => "config"
-//        ]);
+        //        $this->call('vendor:publish', [
+        //            '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
+        //            '--tag' => "config"
+        //        ]);
 
         $this->call('vendor:publish', [
             '--provider' => "Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider"
         ]);
 
-        foreach (['en', 'ka', 'ru'] as $lang){
-            $sourceFile = resource_path("views/sections/".$lang);
-            if(!File::isDirectory($sourceFile)){
+        $sourceFile = resource_path("views/sections");
+
+        if (!File::isDirectory($sourceFile)) {
+            File::makeDirectory($sourceFile);
+        }
+
+        foreach (['en', 'ka', 'ru'] as $lang) {
+            $sourceFile = resource_path("views/sections/" . $lang);
+            if (!File::isDirectory($sourceFile)) {
                 File::makeDirectory($sourceFile);
             }
         }
@@ -61,7 +67,7 @@ class InstallShuttlePackage extends Command
         \Sina\Shuttle\Models\Admin::firstOrCreate(
             [
                 'email'      => 'sinaparsa9991@yahoo.com'
-            ], 
+            ],
             [
                 'name'       => 'Sina',
                 'role'       => 'developer',
@@ -74,7 +80,5 @@ class InstallShuttlePackage extends Command
 
     protected function makeAdminScaffold()
     {
-
     }
-
 }
