@@ -516,7 +516,7 @@ abstract class ShuttleController extends BaseController
         switch ($type) {
             case 0:
 
-                $user = auth('admin')->user();
+                // $user = auth('shuttle')->user();
 
                 $getter = $scaffold_interface->server_side ? 'paginate' : 'get';
                 $getter = 'paginate';
