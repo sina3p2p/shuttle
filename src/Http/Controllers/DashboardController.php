@@ -31,31 +31,56 @@ class DashboardController extends Controller
     {
         $data = array();
         $analyticsData_one = Analytics::fetchTotalVisitorsAndPageViews(Period::days(14));
-//        $data['dates'] = $analyticsData_one->pluck('date');
+        //        $data['dates'] = $analyticsData_one->pluck('date');
         $data['visitors'] = $analyticsData_one->pluck('visitors');
-//        $data['pageViews'] = $analyticsData_one->pluck('pageViews');
+        //        $data['pageViews'] = $analyticsData_one->pluck('pageViews');
         $data['browser'] = GoogleAnalytics::topbrowsers();
-//
-//        $result = GoogleAnalytics::country();
-//
+        //
+        //        $result = GoogleAnalytics::country();
+        //
         $data['country'] = GoogleAnalytics::country();
-//
+        //
         $data['today'] = GoogleAnalytics::todayVisit();
-//
+        //
         $data['yesterday'] = GoogleAnalytics::yesterdayVisit();
-//
-//        $data['realtime'] = GoogleAnalytics::realtimeVisitors();
-//
+        //
+        //        $data['realtime'] = GoogleAnalytics::realtimeVisitors();
+        //
         $data['channels'] = GoogleAnalytics::channels();
 
         return response()->json($data);
-
     }
 
     public function assets($fileName)
     {
         try {
-            $path = dirname(__DIR__, 3).'/resources/assets/'.$fileName;
+            $path = dirname(__DIR__, 3) . '/resources/assets/' . $fileName;
+        } catch (\LogicException $e) {
+            abort(404);
+        }
+
+        if (File::exists($path)) {
+            if (Str::endsWith($path, '.js')) {
+                $mime = 'text/javascript';
+            } elseif (Str::endsWith($path, '.css')) {
+                $mime = 'text/css';
+            } else {
+                $mime = File::mimeType($path);
+            }
+            $response = response(File::get($path), 200, ['Content-Type' => $mime]);
+            $response->setSharedMaxAge(31536000);
+            $response->setMaxAge(31536000);
+            $response->setExpires(new \DateTime('+1 year'));
+            return $response;
+        }
+
+        return response('', 404);
+    }
+
+    public function assetsVue($fileName)
+    {
+        try {
+            $path = dirname(__DIR__, 3) . '/public/shuttle-vue/' . $fileName;
         } catch (\LogicException $e) {
             abort(404);
         }

@@ -6,14 +6,21 @@
     <title>Shuttle Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{route('shuttle.assets','fonts/iconsmind/style.css')}}" />
+    <link rel="stylesheet" href="{{route('shuttle.assets','fonts/iconsmind-s/css/iconsminds.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','fonts/simple-line-icons/css/simple-line-icons.css')}}" />
+    @stack('css-vendors2')
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/dropzone.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/perfect-scrollbar.css')}}" />
-    <style>
+    {{-- <style>
         :root {
-            --theme-color-1: {{ setting('shuttle-primary-color', '#da251c') }};
+            --theme-color-1: {
+                    {
+                    setting('shuttle-primary-color', '#da251c')
+                }
+            }
+
+            ;
             --theme-color-2: #2a93d5;
             --theme-color-3: #6c90a1;
             --theme-color-4: #365573;
@@ -29,16 +36,16 @@
             --foreground-color: #fff;
             --separator-color: #d7d7d7
         }
-    </style>
+    </style> --}}
     @stack('css-vendors')
     <link rel="stylesheet" href="{{route('shuttle.assets','css/main.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{route('shuttle.assets','css/dore.light.blue.min.css')}}" />
     @stack('css')
 </head>
 
-<body id="app-container" class="menu-default show-spinner">
+<body id="app-container" class="ltr rounded menu-default show-spinner">
     <nav class="navbar fixed-top">
-        <div class="d-flex align-items-center navbar-left">
+        {{-- <div class="d-flex align-items-center navbar-left">
             <a href="#" class="menu-button d-none d-md-block">
                 <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
                     <rect x="0.48" y="0.5" width="7" height="1" />
@@ -59,8 +66,8 @@
                 </svg>
             </a>
         </div>
-        <a class="navbar-logo" href="https://mypanel.ge" target="_blank"><span class="logo d-none d-xs-block"></span><span
-                class="logo-mobile d-block d-xs-none"></span></a>
+        <a class="navbar-logo" href="https://mypanel.ge" target="_blank"><span
+                class="logo d-none d-xs-block"></span><span class="logo-mobile d-block d-xs-none"></span></a>
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
@@ -82,12 +89,83 @@
                     <a class="dropdown-item" href="/mypanel/logout">გამოსვლა</a>
                 </div>
             </div>
+        </div> --}}
+        <div class="d-flex align-items-center navbar-left">
+            <a href="#" class="menu-button d-none d-md-block">
+                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
+                    <rect x="0.48" y="0.5" width="7" height="1" />
+                    <rect x="0.48" y="7.5" width="7" height="1" />
+                    <rect x="0.48" y="15.5" width="7" height="1" />
+                </svg>
+                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
+                    <rect x="1.56" y="0.5" width="16" height="1" />
+                    <rect x="1.56" y="7.5" width="16" height="1" />
+                    <rect x="1.56" y="15.5" width="16" height="1" />
+                </svg>
+            </a>
+
+            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+                    <rect x="0.5" y="0.5" width="25" height="1" />
+                    <rect x="0.5" y="7.5" width="25" height="1" />
+                    <rect x="0.5" y="15.5" width="25" height="1" />
+                </svg>
+            </a>
+
+            {{-- <div class="search" data-search-path="Pages.Search.html?q=">
+                <input placeholder="Search...">
+                <span class="search-icon">
+                    <i class="simple-icon-magnifier"></i>
+                </span>
+            </div> --}}
+
+        </div>
+
+        <a class="navbar-logo" href="Dashboard.Default.html">
+            <span class="logo d-none d-xs-block"></span>
+            <span class="logo-mobile d-block d-xs-none"></span>
+        </a>
+
+        <div class="navbar-right">
+            <div class="header-icons d-inline-block align-middle">
+                {{-- <div class="d-none d-md-inline-block align-text-bottom mr-3">
+                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
+                        data-toggle="tooltip" data-placement="left" title="Dark Mode">
+                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
+                        <label class="custom-switch-btn" for="switchDark"></label>
+                    </div>
+                </div> --}}
+
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                    <i class="simple-icon-size-fullscreen"></i>
+                    <i class="simple-icon-size-actual"></i>
+                </button>
+
+            </div>
+
+            <div class="user d-inline-block">
+                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="name">{{ auth()->user()->name }}</span>
+                    <span>
+                        <img alt="" src="{{ auth()->user()->avatar }}" />
+                    </span>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right mt-3">
+                    <a class="dropdown-item" href="#">Account</a>
+                    {{-- <a class="dropdown-item" href="#">Features</a> --}}
+                    <a class="dropdown-item" href="#">History</a>
+                    {{-- <a class="dropdown-item" href="#">Support</a> --}}
+                    <a class="dropdown-item" href="{{ route('shuttle.logout') }}">Sign out</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     @php $children = []; @endphp
 
-    <div class="sidebar">
+    <div class="menu">
         <div class="main-menu">
             <div class="scroll">
                 <ul class="list-unstyled">
@@ -175,7 +253,7 @@
             </div>
         </div>
     </div>
-    <main>
+    <main id="app">
         <div class="container-fluid">
             @yield('breadcrumbs')
             <div class="row">
@@ -185,14 +263,44 @@
             </div>
         </div>
     </main>
-    <script src="{{route('shuttle.assets','js/vendor/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{route('shuttle.assets','js/vendor/bootstrap.bundle.min.js')}}"></script>
+
+    <footer class="page-footer">
+        <div class="footer-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <p class="mb-0 text-muted">Shuttle {{ date('Y') }}</p>
+                    </div>
+                    <div class="col-sm-6 d-none d-sm-block">
+                        <ul class="breadcrumb pt-0 pr-0 float-right">
+                            <li class="breadcrumb-item mb-0">
+                                <a href="#" class="btn-link">Review</a>
+                            </li>
+                            <li class="breadcrumb-item mb-0">
+                                <a href="#" class="btn-link">Purchase</a>
+                            </li>
+                            <li class="breadcrumb-item mb-0">
+                                <a href="#" class="btn-link">Docs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {{-- <script src="{{route('shuttle.assets','js/vendor/jquery-3.3.1.min.js')}}"></script> --}}
+    {{-- <script src="{{route('shuttle.assets','js/vendor/bootstrap.bundle.min.js')}}"></script>
     <script src="{{route('shuttle.assets','js/vendor/perfect-scrollbar.min.js')}}"></script>
     <script src="{{route('shuttle.assets','js/vendor/bootstrap-notify.min.js')}}"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
     @stack('js-vendor')
+    <script src="{{route('shuttle.vue-assets','manifest.js') }}"></script>
+    <script src="{{route('shuttle.vue-assets','vendor.js') }}"></script>
+    <script src="{{route('shuttle.vue-assets','app.js') }}"></script>
     <script src="{{route('shuttle.assets','js/dore.script.js')}}"></script>
     <script src="{{route('shuttle.assets','js/scripts.js')}}"></script>
+
     <script>
         $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     </script>

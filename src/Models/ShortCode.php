@@ -87,7 +87,7 @@ class ShortCode
         $content = $processor->process($text);
         if (count($current_components) > $lastIndex) {
             for ($i = $lastIndex; $i < count($current_components); $i++) {
-                $content .= "\n" . '<x-shuttle-dynamic-component name="' . $current_components[$i]->name . '" :model="$page->components[' . $i . ']->model" :model-setting="$page->components[' . $i . ']->model_settings" :data="$page->components[' . $i . ']->pivot->setting"></x-shuttle-dynamic-component>';
+                $content .= "\n" . '<x-shuttle-dynamic-component :name="$page->components[' . $i . ']->name" :model="$page->components[' . $i . ']->model" :model-setting="$page->components[' . $i . ']->model_settings" :data="$page->components[' . $i . ']->pivot->setting"></x-shuttle-dynamic-component>';
                 // $content .= "\n" . '@includeIf("components.".$page->components[' . $i . ']->name,["data" => $page->components[' . $i . ']->getComponentData($route)])';
             }
         }

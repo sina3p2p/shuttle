@@ -15,8 +15,11 @@ class DynamicComponent extends Component
 
     protected string $view;
 
+    protected array $props;
+
     public function __construct($name, $data = null, $model = null, $modelSetting = null, $modelAutoLoad = true)
     {
+        $this->props = $data ?? [];
         $this->view = "components." . $name;
         $data = $data ?? [];
         if ($modelAutoLoad) {
@@ -39,39 +42,41 @@ class DynamicComponent extends Component
                         }
                     });
             }
+        }
 
-            if ($modelSetting && $model) {
-                $model = app($model);
-                //                foreach (data_get($modelSetting,'model.conditions',[]) as $con){
-                //                    $data = $data->{$con['type']}($con['field'], data_get($setting,$con['value'],$con['type'] == 'whereIn' ? [] : $con['value']));
-                //                }
-                //                $data = $data->with(data_get($this->model_settings,'model.relations',[]));
-                $pag = data_get($modelSetting, 'model.limit', -1);
-                //                if(data_get($modelSetting,'model.scope',false))
-                //                {
-                //                    // dd(data_get($this->component->model_settings,'model.scope'));
-                //                    $data = $data->{data_get($this->model_settings,'model.scope')}();
-                //                }
-                switch ($pag) {
-                    case -1:
-                        $data['model'] = $model->orderBy($model->getTable() . ".created_at")->get();
-                        break;
-                    case 0:
-                        $data['model'] = $model->first();
-                        //                        if($data && method_exists($model,'views')){
-                        //                            views($data)->record();
-                        //                        }
-                        break;
-                    default:
-                        $data['model'] = $model->orderBy($model->getTable() . ".created_at")->simplePaginate($pag);
-                        break;
-                }
+        if ($modelSetting && $model) {
+            $model = app($model);
+            //                foreach (data_get($modelSetting,'model.conditions',[]) as $con){
+            //                    $data = $data->{$con['type']}($con['field'], data_get($setting,$con['value'],$con['type'] == 'whereIn' ? [] : $con['value']));
+            //                }
+            //                $data = $data->with(data_get($this->model_settings,'model.relations',[]));
+            $pag = data_get($modelSetting, 'model.limit', -1);
+            //                if(data_get($modelSetting,'model.scope',false))
+            //                {
+            //                    // dd(data_get($this->component->model_settings,'model.scope'));
+            //                    $data = $data->{data_get($this->model_settings,'model.scope')}();
+            //                }
+            switch ($pag) {
+                case -1:
+                    $data['model'] = $model->orderBy($model->getTable() . ".created_at")->get();
+                    break;
+                case 0:
+                    $data['model'] = $model->first();
+                    //                        if($data && method_exists($model,'views')){
+                    //                            views($data)->record();
+                    //                        }
+                    break;
+                default:
+                    $data['model'] = $model->orderBy($model->getTable() . ".created_at")->simplePaginate($pag);
+                    break;
             }
         }
 
-        $this->componentClass = "App\\View\\Shuttle\\" . Str::of($name)->studly();
-        if (class_exists($this->componentClass)) {
-            $data = array_merge((new $this->componentClass)->additional());
+        $componentClass = "App\\View\\Shuttle\\" . Str::of($name)->studly();
+
+        if (class_exists($componentClass)) {
+            $this->componentClass = new $componentClass($this->view);
+            $data = array_merge($data, $this->componentClass->additional());
         }
 
         $this->data = $data;
@@ -79,11 +84,14 @@ class DynamicComponent extends Component
 
     public function render()
     {
+        if ($this->componentClass) {
+            return $this->componentClass->render();
+        }
         return view($this->view);
     }
 
     public function data()
     {
-        return array_merge($this->data, parent::data(), ['data' => $this->data]);
+        return array_merge($this->data, parent::data(), ['data' => $this->data, 'props' => $this->props]);
     }
 }

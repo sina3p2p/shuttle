@@ -3,9 +3,12 @@
 namespace Sina\Shuttle\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Sina\Shuttle\Http\Traits\CanRender;
 
 class ScaffoldinterfaceRow extends Model
 {
+
+    use CanRender;
 
     protected $table = "shuttle_scaffold_interface_rows";
     public $timestamps = false;
@@ -25,5 +28,4 @@ class ScaffoldinterfaceRow extends Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
-
 }

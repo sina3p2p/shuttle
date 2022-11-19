@@ -23,6 +23,7 @@ use Sina\Shuttle\Http\Controllers\TypeController;
 Route::name('shuttle.')->group(function () {
 
     Route::get('shuttle-assets/{fileName}', [DashboardController::class, 'assets'])->name('assets')->where('fileName', '.*');
+    Route::get('shuttle-vue/{fileName}', [DashboardController::class, 'assetsVue'])->name('vue-assets')->where('fileName', '.*');
 
     Route::prefix('mypanel')->group(function () {
 
@@ -35,7 +36,7 @@ Route::name('shuttle.')->group(function () {
             Route::get('logout', function () {
                 Auth::logout();
                 return redirect()->route('shuttle.login');
-            });
+            })->name('logout');
 
 
             Route::prefix('developer')->name('developer.')->group(function () {
@@ -117,6 +118,8 @@ Route::name('shuttle.')->group(function () {
             Route::group([
                 'as'     => 'scaffold_interface.',
             ], function () {
+                Route::get('{scaffold_interface:slug}/filters',      [ScaffoldController::class,      'filters'])->name('filters');
+                Route::get('{scaffold_interface:slug}/datatable',    [ScaffoldController::class,    'datatable'])->name('datatable');
                 Route::get('{scaffold_interface_row}/array',         [ScaffoldController::class,        'array'])->name('array');
                 Route::get('{scaffold_interface_row}/relationship',  [ScaffoldController::class, 'relationship'])->name('relationship');
                 Route::get('{scaffold_interface:slug}',              [ScaffoldController::class,        'index'])->name('index');

@@ -21,15 +21,15 @@
         // }
         @endphp
         @if (isset($row->details->legend) && isset($row->details->legend->text))
-        <legend class="text-{{ $row->details->legend->align ?? 'center' }}"
-            style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{
+        <legend class="text-{{ $row->details->legend->align ?? 'center' }}" style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{
             $row->details->legend->text }}</legend>
         @endif
 
-        <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}"
-            @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+        <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
             {{ $row->slugify }}
+            @if ($row->type !== 'array')
             <label class="control-label" for="name">{{ $row->display_name }}</label>
+            @endif
             {{-- @include('voyager::multilingual.input-hidden-bread-edit-add')--}}
             @if (isset($row->details->view))
             {{-- @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' =>
@@ -57,16 +57,18 @@
     <button type="submit" class="btn btn-primary save">შენახვა</button>
 </form>
 
+<media-library-modal upload-url="{{route('shuttle.media.upload')}}"></media-library-modal>
+
 @push('css-vendors')
-<link rel="stylesheet" href="{{route('shuttle.assets', 'css/vendor/dropzone.min.css')}}" />
+<!-- <link rel="stylesheet" href="{{route('shuttle.assets', 'css/vendor/dropzone.min.css')}}" /> -->
 <link rel="stylesheet" href="{{route('shuttle.assets', 'css/vendor/select2.min.css')}}" />
 <link rel="stylesheet" href="{{route('shuttle.assets', 'css/vendor/select2-bootstrap.min.css')}}" />
 @endpush
 
-@push('js-vendor')
-<script src="{{route('shuttle.assets','js/vendor/dropzone.min.js')}}"></script>
+@push('js')
+<!-- <script src="{{route('shuttle.assets','js/vendor/dropzone.min.js')}}"></script> -->
 <script src="{{route('shuttle.assets','js/vendor/select2.full.js')}}"></script>
-<script src="{{route('shuttle.assets','js/plugins/select.from.library.js')}}"></script>
+<!-- <script src="{{route('shuttle.assets','js/plugins/select.from.library.js')}}"></script> -->
 <script src="{{route('shuttle.assets','js/vendor/slugify.js')}}"></script>
 <script src="{{route('shuttle.assets','js/vendor/jquery-ui.min.js')}}"></script>
 <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
@@ -181,19 +183,28 @@
             e.preventDefault();
             let $this = $(this);
             $.get($this.attr('href')).then(res => {
-                let html = $(res)
-                console.log(html);
-                $("#" + $this.attr('id') + "_items").append(res);
+                // let html = $(res)
+                // console.log(html);
+                // $('#other-chance-ticket-table').append('<tr id="test-id"></tr>')
+                const num = $('.cc').length + 1;
+                const id = `#${$this.attr('id')}_items${num}`
+                $(`<div id="${id}"></div>`).appendTo("#" + $this.attr('id') + "_items")
+                var res = Vue.compile(res)
+                new Vue({
+                    render: res.render,
+                    staticRenderFns: res.staticRenderFns
+                }).$mount(id)
+                // $("#" + $this.attr('id') + "_items").append(res);
                 // html.find(".sfl-single").selectFromLibrary();
-                $(".sfl-single").selectFromLibrary()
-                html.find(".richTextBox").each(function() {
-                    CKEDITOR.replace($(this).attr("id"), {
-                        height: 300,
-                        extraPlugins: 'justify,font',
-                        filebrowserUploadUrl: "{{route('shuttle.media.upload',['_token' => csrf_token()])}}",
-                        filebrowserUploadMethod: 'form',
-                    });
-                });
+                // $(".sfl-single").selectFromLibrary()
+                // html.find(".richTextBox").each(function() {
+                //     CKEDITOR.replace($(this).attr("id"), {
+                //         height: 300,
+                //         extraPlugins: 'justify,font',
+                //         filebrowserUploadUrl: "{{route('shuttle.media.upload',['_token' => csrf_token()])}}",
+                //         filebrowserUploadMethod: 'form',
+                //     });
+                // });
             });
         });
 
@@ -201,7 +212,7 @@
             $(this).parents(".card-body").remove();
         })
 
-        $('.scaffold-form').on('submit', function(){
+        $('.scaffold-form').on('submit', function() {
             $(this).find('button[type=submit]').prop('disabled', true);
         })
     });

@@ -14,30 +14,39 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Sina\Shuttle\Http\Resources\DataTableResource;
 use Sina\Shuttle\Models\ScaffoldinterfaceRow;
 
 abstract class ShuttleController extends BaseController
 {
 
-    public function index(ScaffoldInterface $scaffold_interface, Request $request)
+    public function index(ScaffoldInterface $scaffoldInterface, Request $request)
     {
         $view = 'shuttle::scaffold.index';
         $show = false;
-        if (view()->exists("shuttle.{$scaffold_interface->slug}.index")) {
-            $view = "shuttle.{$scaffold_interface->slug}.index";
-        } elseif (view()->exists("shuttle.{$scaffold_interface->slug}.show")) {
+        if (view()->exists("shuttle.{$scaffoldInterface->slug}.index")) {
+            $view = "shuttle.{$scaffoldInterface->slug}.index";
+        } elseif (view()->exists("shuttle.{$scaffoldInterface->slug}.show")) {
             $show = true;
         }
 
-        $data = $this->prepareData($scaffold_interface, $request);
+        $columns = $this->getDataTableResource(DataTableResource::newInstance()->setScaffoldInterface($scaffoldInterface))->columns();
+        // $data = $this->prepareData($scaffold_interface, $request);
 
-        if ($this->is_api) {
-            return $data['dataTypeContent'];
-        }
+        // if ($this->is_api) {
+        //     return $data['dataTypeContent'];
+        // }
 
-        $data['show'] = $show;
+        // $data['show'] = $show;
+        // $data['columns'] = $columns;
+        $add = true;
 
-        return view($view, $data);
+        return view($view, compact('columns', 'scaffoldInterface', 'add'));
+    }
+
+    public function getDataTableResource(DataTableResource $resource): DataTableResource
+    {
+        return $resource;
     }
 
     public function create(ScaffoldInterface $scaffold_interface, Request $request)
@@ -769,6 +778,7 @@ abstract class ShuttleController extends BaseController
 
     public function array(ScaffoldinterfaceRow $scaffold_interface_row, Request $request)
     {
+        return response()->json($scaffold_interface_row->load('children'));
         $loop = new \StdClass();
         $loop->index = $request->get('loop', 0);
         return view('shuttle::formfields.array_body', ['scaffoldInterface' => new ScaffoldInterface(), 'row' => $scaffold_interface_row, 'value' => new \StdClass(), 'loop' => $loop]);

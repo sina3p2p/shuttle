@@ -118,6 +118,7 @@ class Shuttle
             'hidden',
             'coordinates',
             'svg',
+            'tag_input'
         ];
 
         foreach ($formFields as $formField) {

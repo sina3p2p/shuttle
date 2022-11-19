@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-12">
                             <pre class="editor" id="editor{{$key}}"></pre>
-                            <textarea id="editor{{$key}}" name="body" hidden>{{$section->body}}</textarea>
+                            <textarea v-pre id="editor{{$key}}" name="body" hidden>{!! $section->body !!}</textarea>
                         </div>
                     </div>
                 </div>
