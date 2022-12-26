@@ -22,7 +22,7 @@ trait CanRender
     {
         $option = $this->details;
         return match ($option->type) {
-            "belongsTo" => $data->{$option->label},
+            "belongsTo" => optional($data)->{$option->label},
             default => '',
         };
     }

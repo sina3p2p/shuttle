@@ -85,7 +85,7 @@
                 </div>
                 <div class="tab-pane" id="settings-fill" role="tabpanel" aria-labelledby="settings-tab-fill">
                     <component-tab-code>
-                        <textarea id="html" v-pre>{!! $component->content !!}</textarea>
+                        <textarea id="html" v-pre>{{ $component->content }}</textarea>
                     </component-tab-code>
                 </div>
             </div>
