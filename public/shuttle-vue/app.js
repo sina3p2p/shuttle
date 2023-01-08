@@ -154,6 +154,21 @@ var map = {
 		"/shuttle-vue/vendor",
 		"resources_js_components_developers_component_Tabs_Data_ComponentTabDataArray_vue"
 	],
+	"./components/developers/database/DatabaseTableEditor.vue": [
+		"./resources/js/components/developers/database/DatabaseTableEditor.vue",
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseTableEditor_vue"
+	],
+	"./components/developers/database/DatabaseTableRow.vue": [
+		"./resources/js/components/developers/database/DatabaseTableRow.vue",
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseTableRow_vue"
+	],
+	"./components/developers/database/DatabaseType.vue": [
+		"./resources/js/components/developers/database/DatabaseType.vue",
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseType_vue"
+	],
 	"./components/formFields/Array/ArrayInput.vue": [
 		"./resources/js/components/formFields/Array/ArrayInput.vue",
 		"/shuttle-vue/vendor",
@@ -308,6 +323,42 @@ var map = {
 		"./resources/js/components/developers/component/Tabs/Data/mixin.js",
 		9,
 		"resources_js_components_developers_component_Tabs_Data_mixin_js"
+	],
+	"./components/developers/database/DatabaseTableEditor": [
+		"./resources/js/components/developers/database/DatabaseTableEditor.vue",
+		9,
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseTableEditor_vue"
+	],
+	"./components/developers/database/DatabaseTableEditor.vue": [
+		"./resources/js/components/developers/database/DatabaseTableEditor.vue",
+		9,
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseTableEditor_vue"
+	],
+	"./components/developers/database/DatabaseTableRow": [
+		"./resources/js/components/developers/database/DatabaseTableRow.vue",
+		9,
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseTableRow_vue"
+	],
+	"./components/developers/database/DatabaseTableRow.vue": [
+		"./resources/js/components/developers/database/DatabaseTableRow.vue",
+		9,
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseTableRow_vue"
+	],
+	"./components/developers/database/DatabaseType": [
+		"./resources/js/components/developers/database/DatabaseType.vue",
+		9,
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseType_vue"
+	],
+	"./components/developers/database/DatabaseType.vue": [
+		"./resources/js/components/developers/database/DatabaseType.vue",
+		9,
+		"/shuttle-vue/vendor",
+		"resources_js_components_developers_database_DatabaseType_vue"
 	],
 	"./components/formFields/Array/ArrayInput": [
 		"./resources/js/components/formFields/Array/ArrayInput.vue",

@@ -295,9 +295,9 @@
     <script src="{{route('shuttle.assets','js/vendor/bootstrap-notify.min.js')}}"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
     @stack('js-vendor')
-    <script src="{{route('shuttle.vue-assets','manifest.js') }}"></script>
-    <script src="{{route('shuttle.vue-assets','vendor.js') }}"></script>
-    <script src="{{route('shuttle.vue-assets','app.js') }}"></script>
+    <script src="{{route('shuttle.vue-assets','manifest.js') }}?v={{ time() }}"></script>
+    <script src="{{route('shuttle.vue-assets','vendor.js') }}?v={{ time() }}"></script>
+    <script src="{{route('shuttle.vue-assets','app.js') }}?v={{ time() }}"></script>
     <script src="{{route('shuttle.assets','js/dore.script.js')}}"></script>
     <script src="{{route('shuttle.assets','js/scripts.js')}}"></script>
 

@@ -30,9 +30,9 @@ class DatabaseController extends Controller
         $tables = array_map(function ($table) use ($dataTypes) {
             $table = Str::replaceFirst(DB::getTablePrefix(), '', $table);
             $table = [
-                'prefix'     => DB::getTablePrefix(),
-                'name'       => $table,
-                'slug'       => $dataTypes[$table]['slug'] ?? null,
+                'prefix' => DB::getTablePrefix(),
+                'name' => $table,
+                'slug' => $dataTypes[$table]['slug'] ?? null,
                 'dataTypeId' => $dataTypes[$table]['id'] ?? null,
             ];
             return (object) $table;
@@ -50,55 +50,55 @@ class DatabaseController extends Controller
     public function store(Request $request)
     {
 
-//        try {
+        //        try {
 
-            $conn = 'database.connections.'.config('database.default');
-            Type::registerCustomPlatformTypes();
+        $conn = 'database.connections.' . config('database.default');
+        Type::registerCustomPlatformTypes();
 
-            $r_table = $request->table;
-            if (!is_array($request->table)) {
-                $r_table = json_decode($request->table, true);
+        $r_table = $request->table;
+        if (!is_array($request->table)) {
+            $r_table = json_decode($request->table, true);
+        }
+
+        //            dd($table);
+        $r_table['options']['collate'] = config($conn . '.collation', 'utf8mb4_unicode_ci');
+        $r_table['options']['charset'] = config($conn . '.charset', 'utf8mb4');
+
+        $table = Table::make($r_table);
+        SchemaManager::createTable($table);
+
+
+        if (isset($request->create_model) && $request->create_model == 'on') {
+            $model_name = Str::studly(Str::singular($table->name));
+            $model_file = new ClassType($model_name);
+            $model_file->setExtends(Model::class);
+            $columns = collect($r_table['columns']);
+            $model_file
+                ->addProperty('fillable', $columns->where('fillable', true)->pluck('name')->toArray())
+                ->setProtected();
+            if (!$columns->contains('name', 'created_at')) {
+                $model_file->addProperty('timestamps', false)->setPublic();
             }
-
-//            dd($table);
-            $r_table['options']['collate'] = config($conn.'.collation', 'utf8mb4_unicode_ci');
-            $r_table['options']['charset'] = config($conn.'.charset', 'utf8mb4');
-
-            $table = Table::make($r_table);
-            SchemaManager::createTable($table);
-
-
-            if (isset($request->create_model) && $request->create_model == 'on') {
-                $model_name = Str::studly(Str::singular($table->name));
-                $model_file = new ClassType($model_name);
-                $model_file->setExtends(Model::class);
-                $columns = collect($r_table['columns']);
-                $model_file
-                    ->addProperty('fillable', $columns->where('fillable',true)->pluck('name')->toArray())
-                    ->setProtected();
-                if(!$columns->contains('name','created_at')){
-                    $model_file->addProperty('timestamps', false)->setPublic();
-                }
-                $file = new PhpFile();
-                $namespace = $file->addNamespace('App\\Models');
-                $namespace->add($model_file);
-                $printer = new Printer();
-                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                    File::put(app_path().'\\Models\\'.$model_name.'.php',$printer->printFile($file));
-                } else {
-                    File::put(app_path().'/Models/'.$model_name.'.php',$printer->printFile($file));
-                }
+            $file = new PhpFile();
+            $namespace = $file->addNamespace('App\\Models');
+            $namespace->add($model_file);
+            $printer = new Printer();
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                File::put(app_path() . '\\Models\\' . $model_name . '.php', $printer->printFile($file));
+            } else {
+                File::put(app_path() . '/Models/' . $model_name . '.php', $printer->printFile($file));
             }
+        }
 
-//            elseif (isset($request->create_migration) && $request->create_migration == 'on') {
+        //            elseif (isset($request->create_migration) && $request->create_migration == 'on') {
 //                Artisan::call('make:migration', [
 //                    'name'    => 'create_'.$table->name.'_table',
 //                    '--table' => $table->name,
 //                ]);
 //            }
 
-            return redirect()->route('shuttle.developer.database.index');
-//        } catch (Exception $e) {
+        return redirect()->route('shuttle.developer.database.index');
+        //        } catch (Exception $e) {
 //            dd($e);
 //            return back()->with($this->alertException($e))->withInput();
 //        }
@@ -125,45 +125,41 @@ class DatabaseController extends Controller
 
         try {
             $database_updater = new DatabaseUpdater($table);
-//            dd($database_updater->originalTable->diff($database_updater->table));
+            //            dd($database_updater->originalTable->diff($database_updater->table));
             $database_updater->updateTable();
 
-            if($request->scaffold_update){
+            if ($request->scaffold_update) {
                 $columns = collect($table['columns']);
                 $model = $this->getModelFromTable($table['oldName']);
-                
-                $this->classBuilder($model, function ($class) use ($columns)
-                {
+
+                $this->classBuilder($model, function ($class) use ($columns) {
                     return $class
-                                ->addProperty('fillable', $columns->where('fillable',true)->pluck('name')->toArray())
-                                ->setProtected();
+                        ->addProperty('fillable', $columns->where('fillable', true)->pluck('name')->toArray())
+                        ->setProtected();
                 });
 
                 $scaffoldInterface = ScaffoldInterface::where('model', get_class($model))->orWhere('translation_model', get_class($model))->first();
-                if($scaffoldInterface)
-                {
-                    foreach($columns as $c)
-                    {
+                if ($scaffoldInterface) {
+                    foreach ($columns as $c) {
                         $scaffoldInterface->rows()->firstOrCreate(
-                            ['field' => $c['name']], 
+                            ['field' => $c['name']],
                             ['display_name' => $c['name']]
                         );
                     }
 
-                    if($scaffoldInterface->translation_model == get_class($model))
-                    {
-                        $this->classBuilder(new $scaffoldInterface->model, function($class) use ($columns){
+                    if ($scaffoldInterface->translation_model == get_class($model)) {
+                        $this->classBuilder(new $scaffoldInterface->model, function ($class) use ($columns) {
                             return $class
-                            ->addTrait(Translatable::class)
-                            ->addProperty('translatedAttributes', $columns->where('fillable',true)->pluck('name')->toArray())
-                            ->setPublic();
+                                ->addTrait(Translatable::class)
+                                ->addProperty('translatedAttributes', $columns->where('fillable', true)->pluck('name')->toArray())
+                                ->setPublic();
                         });
                     }
 
                 }
-            
+
             }
-//            DatabaseUpdater::update($table);
+            //            DatabaseUpdater::update($table);
             // $this->cleanOldAndCreateNew($request->original_name, $request->name);
         } catch (Exception $e) {
             return back()->with($this->alertException($e))->withInput();
@@ -184,8 +180,7 @@ class DatabaseController extends Controller
                     $additional_attributes[$attribute] = [];
                 }
             }
-            foreach($model_name->rows as $r)
-            {
+            foreach ($model_name->rows as $r) {
                 $additional_attributes[$r->field] = [];
             }
         }
@@ -195,8 +190,8 @@ class DatabaseController extends Controller
 
     private function getModelFromTable($table)
     {
-        foreach( getModels() as $class ) {
-            if( is_subclass_of( $class, 'Illuminate\Database\Eloquent\Model' ) ) {
+        foreach (getModels() as $class) {
+            if (is_subclass_of($class, 'Illuminate\Database\Eloquent\Model')) {
                 $model = new $class;
                 if ($model->getTable() === $table)
                     return $model;
@@ -208,17 +203,17 @@ class DatabaseController extends Controller
 
     public function myShow(Request $request)
     {
-//        return response()->json(collect(SchemaManager::describeTable(app($request->model)->getTable())));
+        //        return response()->json(collect(SchemaManager::describeTable(app($request->model)->getTable())));
         $additional_attributes = [];
         $model_name = ScaffoldInterface::where('name', $request->model)->first();
         if (isset($model_name)) {
             // $model = app($model_name);
 //            dd($model->getFillable());
 //            if (isset($model->additional_attributes)) {
-                foreach ($model_name->rows as $attribute) {
-                    $additional_attributes[$attribute->field] = [];
-                }
-//            }
+            foreach ($model_name->rows as $attribute) {
+                $additional_attributes[$attribute->field] = [];
+            }
+            //            }
         }
 
         return response()->json(collect(SchemaManager::describeTable($request->model))->merge($additional_attributes));
@@ -238,8 +233,8 @@ class DatabaseController extends Controller
 
             // Add prefilled columns
             $db->table->addColumn('id', 'integer', [
-                'unsigned'      => true,
-                'notnull'       => true,
+                'unsigned' => true,
+                'notnull' => true,
                 'autoincrement' => true,
             ]);
 
@@ -254,6 +249,8 @@ class DatabaseController extends Controller
         $db->identifierRegex = Identifier::REGEX;
         $db->platform = SchemaManager::getDatabasePlatform()->getName();
 
+        // dd($db);
+
         return $db;
     }
 
@@ -262,22 +259,22 @@ class DatabaseController extends Controller
     {
         $my_class = new \ReflectionClass($model);
         $class = ClassType::withBodiesFrom($model);
-        foreach ($my_class->getTraits() as $trait){
-            foreach ($trait->getMethods() as $method){
+        foreach ($my_class->getTraits() as $trait) {
+            foreach ($trait->getMethods() as $method) {
                 $class->removeMethod($method->getName());
             }
-            foreach ($trait->getProperties() as $property){
+            foreach ($trait->getProperties() as $property) {
                 $class->removeProperty($property->getName());
             }
         }
 
         $callback($class);
-        
+
         $file = new PhpFile();
         $namespace = $file->addNamespace($my_class->getNamespaceName());
         $namespace->add($class);
         $printer = new Printer();
-        File::put($my_class->getFileName(),$printer->printFile($file));
+        File::put($my_class->getFileName(), $printer->printFile($file));
     }
 
 }

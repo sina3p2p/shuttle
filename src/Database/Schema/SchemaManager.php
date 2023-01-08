@@ -11,9 +11,26 @@ abstract class SchemaManager
 {
 
     protected static $blockTables = [
-        'components', 'failed_jobs', 'menu_item_translations', 'menu_items', 'migrations',
-        'model_has_permissions', 'model_has_roles', 'page_component', 'page_translations', 'pages', 'password_resets', 'permissions',
-        'role_has_permissions', 'roles', 'scaffold_interface_rows', 'scaffold_interfaces', 'sections', 'settings', 'types', 'views'
+        'components',
+        'failed_jobs',
+        'menu_item_translations',
+        'menu_items',
+        'migrations',
+        'model_has_permissions',
+        'model_has_roles',
+        'page_component',
+        'page_translations',
+        'pages',
+        'password_resets',
+        'permissions',
+        'role_has_permissions',
+        'roles',
+        'scaffold_interface_rows',
+        'scaffold_interfaces',
+        'sections',
+        'settings',
+        'types',
+        'views'
     ];
 
     public static function __callStatic($method, $args)
