@@ -222,7 +222,7 @@ var render = function render() {
       }
     }
   })])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("td", [_c("button", {
-    staticClass: "btn btn-xs btn-danger",
+    staticClass: "btn btn-bootstrap-padding btn-xs btn-danger",
     attrs: {
       type: "button"
     },

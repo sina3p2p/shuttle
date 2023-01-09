@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="messages-fill" role="tabpanel" aria-labelledby="messages-tab-fill">
-                    <component-tab-data :rows="{{ json_encode($component->rows) }}"></component-tab-data>
+                    <component-tab-data :rows="{{ json_encode($component->rows) }}" :model-setting="{{ json_encode($component->model_settings) }}"></component-tab-data>
                 </div>
                 <div class="tab-pane" id="settings-fill" role="tabpanel" aria-labelledby="settings-tab-fill">
                     <component-tab-code>

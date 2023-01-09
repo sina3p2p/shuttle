@@ -45,7 +45,7 @@ class ComponentController extends BaseController
         $array = json_decode($request->myData,true);
         $data = collect($array);
         $modeData = json_decode($request->myModelData,true);
-        $scaffold = ScaffoldInterface::whereModel(data_get($modeData,'model.name'))->with('rows')->first();
+        $scaffold = ScaffoldInterface::whereModel(data_get($modeData,'name'))->with('rows')->first();
 
         $name =  Str::slug($request->name, '_');
 
@@ -123,7 +123,7 @@ class ComponentController extends BaseController
         $array = json_decode($request->myData,true);
         $data = collect($array);
         $modeData = json_decode($request->myModelData,true);
-        $scaffold = ScaffoldInterface::whereModel(data_get($modeData,'model.name'))->with('rows')->first();
+        $scaffold = ScaffoldInterface::whereModel(data_get($modeData,'name'))->with('rows')->first();
 
         $component->update([
             'settings' => $data->toArray(),

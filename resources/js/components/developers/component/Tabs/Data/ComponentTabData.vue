@@ -70,6 +70,7 @@
           <button @click.prevent="removeModelRow(index)">Remove</button>
         </li>
       </ul>
+      <input v-model="model.name" />
       <input v-model="model.order" />
       <input v-model="model.scope" />
       <input v-model="model.limit" />
@@ -86,25 +87,24 @@ export default {
       type: Array,
       value: [],
     },
+    modelSetting: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   computed: {
     myData() {
       return JSON.stringify(this.data);
     },
     myModelData() {
-      return JSON.stringify({ model: this.model });
+      return JSON.stringify(this.model);
     },
   },
   data() {
     return {
-      fromDatabase: false,
+      fromDatabase: this.modelSetting ? true : false,
       types: store.state.types,
-      model: {
-        name: "",
-        order: "",
-        conditions: [],
-        limit: 0,
-      },
+      model: this.modelSetting ?? {},
       data: this.rows,
     };
   },
@@ -147,6 +147,17 @@ export default {
     },
     showResult() {
       console.log(this.model);
+    },
+    getDefaultModelSetting() {
+      console.log(this.modelSetting);
+      return this.modelSetting
+        ? JSON.parse(this.modelSetting).model
+        : {
+            name: "",
+            order: "",
+            conditions: [],
+            limit: 0,
+          };
     },
   },
 };

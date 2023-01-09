@@ -18,6 +18,12 @@ __webpack_require__.r(__webpack_exports__);
     rows: {
       type: Array,
       value: []
+    },
+    modelSetting: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     }
   },
   computed: {
@@ -25,21 +31,16 @@ __webpack_require__.r(__webpack_exports__);
       return JSON.stringify(this.data);
     },
     myModelData: function myModelData() {
-      return JSON.stringify({
-        model: this.model
-      });
+      return JSON.stringify(this.model);
     }
   },
   data: function data() {
+    var _this$modelSetting;
+
     return {
-      fromDatabase: false,
+      fromDatabase: this.modelSetting ? true : false,
       types: _mixin__WEBPACK_IMPORTED_MODULE_0__.store.state.types,
-      model: {
-        name: "",
-        order: "",
-        conditions: [],
-        limit: 0
-      },
+      model: (_this$modelSetting = this.modelSetting) !== null && _this$modelSetting !== void 0 ? _this$modelSetting : {},
       data: this.rows
     };
   },
@@ -82,6 +83,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     showResult: function showResult() {
       console.log(this.model);
+    },
+    getDefaultModelSetting: function getDefaultModelSetting() {
+      console.log(this.modelSetting);
+      return this.modelSetting ? JSON.parse(this.modelSetting).model : {
+        name: "",
+        order: "",
+        conditions: [],
+        limit: 0
+      };
     }
   }
 });
@@ -359,6 +369,23 @@ var render = function render() {
       }
     }, [_vm._v("Remove")])]);
   }), 0), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.model.name,
+      expression: "model.name"
+    }],
+    domProps: {
+      value: _vm.model.name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.model, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",

@@ -50,7 +50,7 @@ class DynamicComponent extends Component
             //                    $data = $data->{$con['type']}($con['field'], data_get($setting,$con['value'],$con['type'] == 'whereIn' ? [] : $con['value']));
             //                }
             //                $data = $data->with(data_get($this->model_settings,'model.relations',[]));
-            $pag = data_get($modelSetting, 'model.limit', -1);
+            $pag = data_get($modelSetting, 'limit', -1);
             //                if(data_get($modelSetting,'model.scope',false))
             //                {
             //                    // dd(data_get($this->component->model_settings,'model.scope'));
