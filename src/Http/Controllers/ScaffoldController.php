@@ -152,7 +152,7 @@ class ScaffoldController extends ShuttleController
             DataTableResource::newInstance()
                 ->setScaffoldInterface($scaffoldInterface)
                 ->addAction(fn ($data) => '<a href="' . route('shuttle.scaffold_interface.edit', [$scaffoldInterface, $data->id]) . '" class="btn btn-bootstrap-padding btn-primary"><i class="glyph-icon simple-icon-pencil"></i></a>')
-                ->addAction(fn ($data) => '<button type="button" class="btn btn-bootstrap-padding btn-danger"><i class="glyph-icon simple-icon-trash"></i></button>')
+                ->addAction(fn ($data) => '<button type="button" class="btn btn-bootstrap-padding btn-danger remove-item"><i class="glyph-icon simple-icon-trash"></i></button>')
         )->json();
     }
 
