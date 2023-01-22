@@ -1,43 +1,51 @@
 <template>
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">New record</h5>
-      <div class="row">
-        <div class="col-md-6">
-          <label for="name">Table name</label><br />
-          <input id="name" type="text" class="form-control" required />
-        </div>
-        <div class="col-md-3">
-          <label for="name">Table name</label><br />
-          <switches></switches>
-        </div>
-        <div class="col-md-3">
-          <label for="name">Table name</label><br />
-          <switches></switches>
-        </div>
-        <div class="col-12 mt-3">
-          <table class="table table-bordered">
-            <thead class="thead-light">
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Length</th>
-                <th>Default</th>
-                <th>Unsigned</th>
-                <th>Null</th>
-                <th>A_I</th>
-                <!-- <th>Index</th> -->
-                <!-- <th>Default</th> -->
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <database-table-row
-                v-for="(column, index) in table.columns"
-                :key="index"
-                :column="column"
-              ></database-table-row>
-              <!-- <database-table-row
+  <div class="row">
+    <textarea hidden name="table" v-model="tableJson"></textarea>
+    <div class="col-md-6">
+      <label for="name">Table name</label><br />
+      <input
+        v-model.trim="table.name"
+        type="text"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="col-md-2">
+      <label for="name">Table name</label><br />
+      <switches></switches>
+    </div>
+    <div class="col-md-2">
+      <label for="name">Table name</label><br />
+      <switches></switches>
+    </div>
+    <div class="col-md-2 text-right">
+      <br />
+      <button class="btn btn-primary" type="button" @click="saveTable">
+        Save
+      </button>
+    </div>
+    <div class="col-12 mt-3">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Length</th>
+            <th>Default</th>
+            <th>Unsigned</th>
+            <th>Required</th>
+            <th>A_I</th>
+            <!-- <th>Index</th> -->
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <database-table-row
+            v-for="(column, index) in table.columns"
+            :key="index"
+            v-model="table.columns[index]"
+          ></database-table-row>
+          <!-- <database-table-row
                 v-for="(column, index) in table.columns"
                 :column="column"
                 :index="getColumnsIndex(column.name)"
@@ -49,23 +57,19 @@
                 @indexUpdated="updateIndex"
                 @indexChanged="onIndexChange"
               ></database-table-row> -->
-            </tbody>
-          </table>
-        </div>
-        <div class="col-12 text-center">
-          <button type="button" class="btn btn-success" @click="addNewColumn">
-            + New Column
-          </button>
-          <button type="button" class="btn btn-success" @click="addTimestamps">
-            + Add Timestamps
-          </button>
-          <button type="button" class="btn btn-success">
-            + Add Soft Deletes
-          </button>
-          <button type="button" class="btn btn-success">
-            + Add Translations
-          </button>
-          <!-- s
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-success" @click="addNewColumn">
+        + New Column
+      </button>
+      <button type="button" class="btn btn-success" @click="addTimestamps">
+        + Add Timestamps
+      </button>
+      <button type="button" class="btn btn-success">+ Add Soft Deletes</button>
+      <button type="button" class="btn btn-success">+ Add Translations</button>
+      <!-- s
           <div class="btn btn-success" @click="addTimestamps">
             + Add Timestamps
           </div>
@@ -75,10 +79,9 @@
           <div class="btn btn-success" @click="addTranslations">
             + Add Translations
           </div> -->
-        </div>
-      </div>
     </div>
-    <!-- <div class="panel-body">
+  </div>
+  <!-- <div class="panel-body">
       <div class="row">
         <div class="col-md-6">
           <label for="name">Table name</label><br />
@@ -175,7 +178,6 @@
         :disabled="!tableHasColumns"
       />
     </div> -->
-  </div>
 </template>
 
 <script>
@@ -199,13 +201,14 @@ export default {
   data() {
     return {
       table: {
+        name: "",
         columns: [],
       },
+      tableJson: "",
     };
   },
   mounted() {
     this.table = this.originalTable;
-    console.log(this.table, this.originalTable);
   },
   methods: {
     // addNewColumn() {
@@ -239,7 +242,6 @@ export default {
     },
     addNewColumn() {
       this.addColumn(this.makeColumn());
-      console.log(this.table);
     },
     addTimestamps() {
       this.addColumn(
@@ -279,6 +281,11 @@ export default {
           type: "integer",
         })
       );
+    },
+    saveTable() {
+      this.tableJson = JSON.stringify(this.table);
+
+      this.$nextTick(() => this.$emit("submit"));
     },
   },
 };

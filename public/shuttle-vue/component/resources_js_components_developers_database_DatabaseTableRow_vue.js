@@ -11,25 +11,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    column: {
+    value: {
       type: Object,
       required: true
     }
   },
+  data: function data() {
+    var _this$value;
+
+    return {
+      columnData: _objectSpread(_objectSpread({}, (_this$value = this.value) !== null && _this$value !== void 0 ? _this$value : {}), {}, {
+        defaultType: ""
+      })
+    };
+  },
   computed: {
     showDefaultInput: function showDefaultInput() {
-      return this.column.defaultType == "custom_default_value" || this.column["default"];
+      return this.columnData.defaultType == "DEFINED" || this.columnData["default"];
+    }
+  },
+  watch: {
+    columnData: {
+      handler: function handler(newValue) {
+        this.$emit("input", newValue);
+      },
+      deep: true
+    }
+  },
+  mounted: function mounted() {
+    if (this.columnData["null"] == "YES" && this.columnData["default"] == null) {
+      this.columnData.notnull = false;
+      this.columnData.defaultType = "NULL";
+    } else if (this.columnData["default"]) {
+      this.columnData.defaultType = "DEFINED";
+    } else {
+      this.columnData.defaultType = "";
     }
   },
   methods: {
     deleteColumn: function deleteColumn() {
-      this.$emit("columnDeleted", this.column);
+      this.$emit("columnDeleted", this.columnData);
     },
     changeDefault: function changeDefault() {
-      if (this.column.defaultType == "null") {
-        this.column.nullable = true;
+      if (this.columnData.defaultType == "NULL") {
+        this.columnData.notnull = false;
+        this.columnData["default"] = null;
+      } else if (this.columnData.defaultType == "") {
+        this.columnData["default"] = null;
       }
     }
   }
@@ -56,8 +92,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.column.name,
-      expression: "column.name"
+      value: _vm.columnData.name,
+      expression: "columnData.name"
     }],
     staticClass: "form-control",
     attrs: {
@@ -65,46 +101,42 @@ var render = function render() {
       required: ""
     },
     domProps: {
-      value: _vm.column.name
+      value: _vm.columnData.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.column, "name", $event.target.value);
+        _vm.$set(_vm.columnData, "name", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("td", [_c("database-type", {
     attrs: {
-      column: _vm.column
+      column: _vm.columnData
     },
     model: {
-      value: _vm.column.type,
+      value: _vm.columnData.type,
       callback: function callback($$v) {
-        _vm.$set(_vm.column, "type", $$v);
+        _vm.$set(_vm.columnData, "type", $$v);
       },
-      expression: "column.type"
+      expression: "columnData.type"
     }
   })], 1), _vm._v(" "), _c("td", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.column.length,
-      expression: "column.length"
+      value: _vm.columnData.length,
+      expression: "columnData.length"
     }],
     staticClass: "form-control",
-    attrs: {
-      min: "0",
-      type: "number"
-    },
     domProps: {
-      value: _vm.column.length
+      value: _vm.columnData.length
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.column, "length", $event.target.value);
+        _vm.$set(_vm.columnData, "length", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("td", {
@@ -113,8 +145,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.column.defaultType,
-      expression: "column.defaultType"
+      value: _vm.columnData.defaultType,
+      expression: "columnData.defaultType"
     }],
     staticClass: "form-control",
     on: {
@@ -126,7 +158,7 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.column, "defaultType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.columnData, "defaultType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }, _vm.changeDefault]
     }
   }, [_c("option", {
@@ -135,14 +167,30 @@ var render = function render() {
     }
   }, [_vm._v("None")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "null"
+      value: "NULL"
     }
   }, [_vm._v("Null")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "custom_default_value"
+      value: "DEFINED"
     }
   }, [_vm._v("As defined:")])]), _vm._v(" "), _vm.showDefaultInput ? _c("input", {
-    staticClass: "form-control mt-1"
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.columnData["default"],
+      expression: "columnData.default"
+    }],
+    staticClass: "form-control mt-1",
+    domProps: {
+      value: _vm.columnData["default"]
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.columnData, "default", $event.target.value);
+      }
+    }
   }) : _vm._e()]), _vm._v(" "), _c("td", {
     staticClass: "text-center"
   }, [_c("div", {
@@ -151,8 +199,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.column.unsigned,
-      expression: "column.unsigned"
+      value: _vm.columnData.unsigned,
+      expression: "columnData.unsigned"
     }],
     staticClass: "form-check-input position-static",
     attrs: {
@@ -160,11 +208,11 @@ var render = function render() {
       value: "option1"
     },
     domProps: {
-      checked: Array.isArray(_vm.column.unsigned) ? _vm._i(_vm.column.unsigned, "option1") > -1 : _vm.column.unsigned
+      checked: Array.isArray(_vm.columnData.unsigned) ? _vm._i(_vm.columnData.unsigned, "option1") > -1 : _vm.columnData.unsigned
     },
     on: {
       change: function change($event) {
-        var $$a = _vm.column.unsigned,
+        var $$a = _vm.columnData.unsigned,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
 
@@ -173,12 +221,12 @@ var render = function render() {
               $$i = _vm._i($$a, $$v);
 
           if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.column, "unsigned", $$a.concat([$$v]));
+            $$i < 0 && _vm.$set(_vm.columnData, "unsigned", $$a.concat([$$v]));
           } else {
-            $$i > -1 && _vm.$set(_vm.column, "unsigned", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            $$i > -1 && _vm.$set(_vm.columnData, "unsigned", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
           }
         } else {
-          _vm.$set(_vm.column, "unsigned", $$c);
+          _vm.$set(_vm.columnData, "unsigned", $$c);
         }
       }
     }
@@ -190,20 +238,20 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.column.nullable,
-      expression: "column.nullable"
+      value: _vm.columnData.notnull,
+      expression: "columnData.notnull"
     }],
     staticClass: "form-check-input position-static",
     attrs: {
       type: "checkbox",
-      disabled: _vm.column.defaultType == "null"
+      disabled: _vm.columnData.defaultType == "NULL"
     },
     domProps: {
-      checked: Array.isArray(_vm.column.nullable) ? _vm._i(_vm.column.nullable, null) > -1 : _vm.column.nullable
+      checked: Array.isArray(_vm.columnData.notnull) ? _vm._i(_vm.columnData.notnull, null) > -1 : _vm.columnData.notnull
     },
     on: {
       change: function change($event) {
-        var $$a = _vm.column.nullable,
+        var $$a = _vm.columnData.notnull,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
 
@@ -212,16 +260,54 @@ var render = function render() {
               $$i = _vm._i($$a, $$v);
 
           if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.column, "nullable", $$a.concat([$$v]));
+            $$i < 0 && _vm.$set(_vm.columnData, "notnull", $$a.concat([$$v]));
           } else {
-            $$i > -1 && _vm.$set(_vm.column, "nullable", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            $$i > -1 && _vm.$set(_vm.columnData, "notnull", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
           }
         } else {
-          _vm.$set(_vm.column, "nullable", $$c);
+          _vm.$set(_vm.columnData, "notnull", $$c);
         }
       }
     }
-  })])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("td", [_c("button", {
+  })])]), _vm._v(" "), _c("td", {
+    staticClass: "text-center"
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.columnData.autoincrement,
+      expression: "columnData.autoincrement"
+    }],
+    staticClass: "form-check-input position-static",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.columnData.autoincrement) ? _vm._i(_vm.columnData.autoincrement, null) > -1 : _vm.columnData.autoincrement
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.columnData.autoincrement,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.columnData, "autoincrement", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.columnData, "autoincrement", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.columnData, "autoincrement", $$c);
+        }
+      }
+    }
+  })])]), _vm._v(" "), _c("td", [_c("button", {
     staticClass: "btn btn-bootstrap-padding btn-xs btn-danger",
     attrs: {
       type: "button"
@@ -237,22 +323,7 @@ var render = function render() {
   })])])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("td", {
-    staticClass: "text-center"
-  }, [_c("div", {
-    staticClass: "form-check"
-  }, [_c("input", {
-    staticClass: "form-check-input position-static",
-    attrs: {
-      type: "checkbox",
-      value: "option1"
-    }
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

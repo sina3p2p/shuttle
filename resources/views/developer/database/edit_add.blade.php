@@ -25,18 +25,26 @@
 @stop
 
 @section('main')
-<form ref="form" @submit.prevent="stringifyTable" @keydown.enter.prevent action="{{ $db->formAction }}" method="POST">
-    @if($db->action == 'update')@method('PUT')@endif
-    {{-- @dd($db->types->toArray()) --}}
-    <database-table-editor :original-table="{{ \Illuminate\Support\Js::from($db->table->toArray()) }}"
-        :types="{{ \Illuminate\Support\Js::from($db->types->toArray()) }}">
-    </database-table-editor>
-    {{-- <database-table-editor :table="table"></database-table-editor> --}}
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">New record</h5>
+        <form ref="form" @submit.prevent="stringifyTable" @keydown.enter.prevent action="{{ $db->formAction }}"
+            method="POST">
+            @if($db->action == 'update')@method('PUT')@endif
+            {{-- @dd($db->types->toArray()) --}}
+            {{-- @dd($db->table->toArray()) --}}
+            <database-table-editor @submit="$refs.form.submit()"
+                :original-table="{{ \Illuminate\Support\Js::from($db->table->toArray()) }}"
+                :types="{{ \Illuminate\Support\Js::from($db->types->toArray()) }}">
+            </database-table-editor>
+            {{-- <database-table-editor :table="table"></database-table-editor> --}}
 
-    {{-- <input type="hidden" :value="tableJson" name="table"> --}}
+            {{-- <input type="hidden" :value="tableJson" name="table"> --}}
 
-    @csrf
-</form>
+            @csrf
+        </form>
+    </div>
+</div>
 @stop
 
 @push('js-vendor')

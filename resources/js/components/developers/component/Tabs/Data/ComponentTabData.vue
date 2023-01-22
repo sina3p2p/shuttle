@@ -149,7 +149,6 @@ export default {
       console.log(this.model);
     },
     getDefaultModelSetting() {
-      console.log(this.modelSetting);
       return this.modelSetting
         ? JSON.parse(this.modelSetting).model
         : {

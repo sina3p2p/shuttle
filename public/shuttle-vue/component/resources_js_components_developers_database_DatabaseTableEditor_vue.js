@@ -35,13 +35,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table: {
+        name: "",
         columns: []
-      }
+      },
+      tableJson: ""
     };
   },
   mounted: function mounted() {
     this.table = this.originalTable;
-    console.log(this.table, this.originalTable);
   },
   methods: {
     // addNewColumn() {
@@ -72,7 +73,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     addNewColumn: function addNewColumn() {
       this.addColumn(this.makeColumn());
-      console.log(this.table);
     },
     addTimestamps: function addTimestamps() {
       this.addColumn(this.makeColumn({
@@ -100,6 +100,14 @@ __webpack_require__.r(__webpack_exports__);
         name: this.tableName.replace("_translations", "_id"),
         type: "integer"
       }));
+    },
+    saveTable: function saveTable() {
+      var _this = this;
+
+      this.tableJson = JSON.stringify(this.table);
+      this.$nextTick(function () {
+        return _this.$emit("submit");
+      });
     }
   }
 });
@@ -122,34 +130,96 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "card mb-4"
-  }, [_c("div", {
-    staticClass: "card-body"
-  }, [_c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v("New record")]), _vm._v(" "), _c("div", {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
-    staticClass: "col-md-3"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.tableJson,
+      expression: "tableJson"
+    }],
+    attrs: {
+      hidden: "",
+      name: "table"
+    },
+    domProps: {
+      value: _vm.tableJson
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.tableJson = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("label", {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Table name")]), _c("br"), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: _vm.table.name,
+      expression: "table.name",
+      modifiers: {
+        trim: true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      required: ""
+    },
+    domProps: {
+      value: _vm.table.name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.table, "name", $event.target.value.trim());
+      },
+      blur: function blur($event) {
+        return _vm.$forceUpdate();
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2"
   }, [_c("label", {
     attrs: {
       "for": "name"
     }
   }, [_vm._v("Table name")]), _c("br"), _vm._v(" "), _c("switches")], 1), _vm._v(" "), _c("div", {
-    staticClass: "col-md-3"
+    staticClass: "col-md-2"
   }, [_c("label", {
     attrs: {
       "for": "name"
     }
   }, [_vm._v("Table name")]), _c("br"), _vm._v(" "), _c("switches")], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-2 text-right"
+  }, [_c("br"), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.saveTable
+    }
+  }, [_vm._v("\n      Save\n    ")])]), _vm._v(" "), _c("div", {
     staticClass: "col-12 mt-3"
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.table.columns, function (column, index) {
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.table.columns, function (column, index) {
     return _c("database-table-row", {
       key: index,
-      attrs: {
-        column: column
+      model: {
+        value: _vm.table.columns[index],
+        callback: function callback($$v) {
+          _vm.$set(_vm.table.columns, index, $$v);
+        },
+        expression: "table.columns[index]"
       }
     });
   }), 1)])]), _vm._v(" "), _c("div", {
@@ -162,7 +232,7 @@ var render = function render() {
     on: {
       click: _vm.addNewColumn
     }
-  }, [_vm._v("\n          + New Column\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n      + New Column\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "button"
@@ -170,44 +240,26 @@ var render = function render() {
     on: {
       click: _vm.addTimestamps
     }
-  }, [_vm._v("\n          + Add Timestamps\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n      + Add Timestamps\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "button"
     }
-  }, [_vm._v("\n          + Add Soft Deletes\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("+ Add Soft Deletes")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "button"
     }
-  }, [_vm._v("\n          + Add Translations\n        ")])])])])]);
+  }, [_vm._v("+ Add Translations")])])]);
 };
 
 var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "col-md-6"
-  }, [_c("label", {
-    attrs: {
-      "for": "name"
-    }
-  }, [_vm._v("Table name")]), _c("br"), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      id: "name",
-      type: "text",
-      required: ""
-    }
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("thead", {
     staticClass: "thead-light"
-  }, [_c("tr", [_c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Type")]), _vm._v(" "), _c("th", [_vm._v("Length")]), _vm._v(" "), _c("th", [_vm._v("Default")]), _vm._v(" "), _c("th", [_vm._v("Unsigned")]), _vm._v(" "), _c("th", [_vm._v("Null")]), _vm._v(" "), _c("th", [_vm._v("A_I")]), _vm._v(" "), _c("th")])]);
+  }, [_c("tr", [_c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Type")]), _vm._v(" "), _c("th", [_vm._v("Length")]), _vm._v(" "), _c("th", [_vm._v("Default")]), _vm._v(" "), _c("th", [_vm._v("Unsigned")]), _vm._v(" "), _c("th", [_vm._v("Required")]), _vm._v(" "), _c("th", [_vm._v("A_I")]), _vm._v(" "), _c("th")])]);
 }];
 render._withStripped = true;
 

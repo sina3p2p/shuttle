@@ -32,9 +32,6 @@ __webpack_require__.r(__webpack_exports__);
       return window.dbTypes;
     }
   },
-  mounted: function mounted() {
-    console.log(dbTypes);
-  },
   methods: {
     onTypeChange: function onTypeChange(event) {
       this.$emit("input", this.getDbType(event.target.value));

@@ -85,7 +85,6 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.model);
     },
     getDefaultModelSetting: function getDefaultModelSetting() {
-      console.log(this.modelSetting);
       return this.modelSetting ? JSON.parse(this.modelSetting).model : {
         name: "",
         order: "",

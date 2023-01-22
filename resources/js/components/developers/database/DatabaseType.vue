@@ -34,9 +34,6 @@ export default {
       return window.dbTypes;
     },
   },
-  mounted() {
-    console.log(dbTypes);
-  },
   methods: {
     onTypeChange(event) {
       this.$emit("input", this.getDbType(event.target.value));

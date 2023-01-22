@@ -235,6 +235,7 @@ class DatabaseController extends Controller
             $db->table->addColumn('id', 'integer', [
                 'unsigned' => true,
                 'notnull' => true,
+                'nullable' => false,
                 'autoincrement' => true,
             ]);
 

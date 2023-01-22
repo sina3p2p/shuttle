@@ -1,52 +1,39 @@
 <template>
   <tr>
     <td>
-      <input type="text" class="form-control" required v-model="column.name" />
-    </td>
-
-    <td>
-      <database-type :column="column" v-model="column.type"> </database-type>
-    </td>
-
-    <td>
       <input
-        min="0"
-        type="number"
+        type="text"
         class="form-control"
-        v-model="column.length"
+        required
+        v-model="columnData.name"
       />
     </td>
 
+    <td>
+      <database-type :column="columnData" v-model="columnData.type">
+      </database-type>
+    </td>
+
+    <td>
+      <input class="form-control" v-model="columnData.length" />
+    </td>
+
     <td class="text-center">
-      <!-- <div class="form-check">
-        <input
-          class="form-check-input position-static"
-          type="checkbox"
-          id="blankCheckbox"
-          value="option1"
-        />
-      </div> -->
       <select
         class="form-control"
-        v-model="column.defaultType"
+        v-model="columnData.defaultType"
         @change="changeDefault"
       >
         <option value="">None</option>
-        <option value="null">Null</option>
-        <option value="custom_default_value">As defined:</option>
+        <option value="NULL">Null</option>
+        <option value="DEFINED">As defined:</option>
       </select>
 
-      <input class="form-control mt-1" v-if="showDefaultInput" />
-
-      <!-- <div class="custom-control custom-checkbox">
-        <input
-          v-model="column.notnull"
-          type="checkbox"
-          class="custom-control-input"
-          id="unsigned-checkbox"
-        />
-        <label class="custom-control-label" for="unsigned-checkbox"></label>
-      </div> -->
+      <input
+        class="form-control mt-1"
+        v-model="columnData.default"
+        v-if="showDefaultInput"
+      />
     </td>
     <td class="text-center">
       <div class="form-check">
@@ -54,14 +41,9 @@
           class="form-check-input position-static"
           type="checkbox"
           value="option1"
-          v-model="column.unsigned"
+          v-model="columnData.unsigned"
         />
       </div>
-      <!-- <input
-        v-model="column.unsigned"
-        type="checkbox"
-        class="custom-control-input"
-      /> -->
     </td>
 
     <td class="text-center">
@@ -69,15 +51,10 @@
         <input
           class="form-check-input position-static"
           type="checkbox"
-          v-model="column.nullable"
-          :disabled="column.defaultType == 'null'"
+          v-model="columnData.notnull"
+          :disabled="columnData.defaultType == 'NULL'"
         />
       </div>
-      <!-- <input
-        v-model="column.unsigned"
-        type="checkbox"
-        class="custom-control-input"
-      /> -->
     </td>
 
     <td class="text-center">
@@ -85,43 +62,10 @@
         <input
           class="form-check-input position-static"
           type="checkbox"
-          value="option1"
+          v-model="columnData.autoincrement"
         />
       </div>
-      <!-- <input
-        v-model="column.autoincrement"
-        type="checkbox"
-        class="custom-control-input"
-      /> -->
     </td>
-
-    <!-- <td> -->
-    <!-- <select class="form-control">
-        <option value=""></option>
-        <option value="INDEX">INDEX</option>
-        <option value="UNIQUE">UNIQUE</option>
-        <option value="PRIMARY">PRIMARY</option>
-      </select> -->
-    <!-- <select
-        :value="index.type"
-        @change="onIndexTypeChange"
-        :disabled="column.type.notSupportIndex"
-        class="form-control"
-      >
-        <option value=""></option>
-        <option value="INDEX">INDEX</option>
-        <option value="UNIQUE">UNIQUE</option>
-        <option value="PRIMARY">PRIMARY</option>
-      </select> -->
-    <!-- <small v-if="column.composite" v-once>{{
-        __("voyager::database.composite_warning")
-      }}</small> -->
-    <!-- </td> -->
-
-    <!-- <td>
-      <database-column-default :column="column"></database-column-default>
-    </td> -->
-
     <td>
       <button
         type="button"
@@ -137,25 +81,54 @@
 <script>
 export default {
   props: {
-    column: {
+    value: {
       type: Object,
       required: true,
     },
   },
+  data() {
+    return {
+      columnData: {
+        ...(this.value ?? {}),
+        defaultType: "",
+      },
+    };
+  },
   computed: {
     showDefaultInput() {
       return (
-        this.column.defaultType == "custom_default_value" || this.column.default
+        this.columnData.defaultType == "DEFINED" || this.columnData.default
       );
     },
   },
+  watch: {
+    columnData: {
+      handler(newValue) {
+        this.$emit("input", newValue);
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    if (this.columnData.null == "YES" && this.columnData.default == null) {
+      this.columnData.notnull = false;
+      this.columnData.defaultType = "NULL";
+    } else if (this.columnData.default) {
+      this.columnData.defaultType = "DEFINED";
+    } else {
+      this.columnData.defaultType = "";
+    }
+  },
   methods: {
     deleteColumn() {
-      this.$emit("columnDeleted", this.column);
+      this.$emit("columnDeleted", this.columnData);
     },
     changeDefault() {
-      if (this.column.defaultType == "null") {
-        this.column.nullable = true;
+      if (this.columnData.defaultType == "NULL") {
+        this.columnData.notnull = false;
+        this.columnData.default = null;
+      } else if (this.columnData.defaultType == "") {
+        this.columnData.default = null;
       }
     },
   },
