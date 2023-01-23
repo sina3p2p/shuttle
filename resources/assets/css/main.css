@@ -479,3 +479,10 @@ svg #bg {
     padding: 15px;
     color: #fff;
 }
+
+.menu .main-menu .scroll {
+    padding-right: unset;
+    margin-right: unset;
+    height: 100%;
+    overflow-y: scroll;
+}
