@@ -69,7 +69,7 @@
     <td>
       <button
         type="button"
-        class="btn btn-bootstrap-padding btn-xs btn-danger"
+        class="btn btn-bootstrap-padding btn-danger"
         @click.prevent="deleteColumn"
       >
         <i class="simple-icon-trash"></i>

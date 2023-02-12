@@ -44,6 +44,7 @@
             v-for="(column, index) in table.columns"
             :key="index"
             v-model="table.columns[index]"
+            @columnDeleted="deleteColumn(index)"
           ></database-table-row>
           <!-- <database-table-row
                 v-for="(column, index) in table.columns"
@@ -67,8 +68,12 @@
       <button type="button" class="btn btn-success" @click="addTimestamps">
         + Add Timestamps
       </button>
-      <button type="button" class="btn btn-success">+ Add Soft Deletes</button>
-      <button type="button" class="btn btn-success">+ Add Translations</button>
+      <button type="button" class="btn btn-success" @click="addSoftDeletes">
+        + Add Soft Deletes
+      </button>
+      <button type="button" class="btn btn-success" @click="addTranslations">
+        + Add Translations
+      </button>
       <!-- s
           <div class="btn btn-success" @click="addTimestamps">
             + Add Timestamps
@@ -247,14 +252,18 @@ export default {
       this.addColumn(
         this.makeColumn({
           name: "created_at",
-          type: "timestamp",
+          type: {
+            name: "timestamp",
+          },
         })
       );
 
       this.addColumn(
         this.makeColumn({
           name: "updated_at",
-          type: "timestamp",
+          type: {
+            name: "timestamp",
+          },
         })
       );
     },
@@ -262,23 +271,32 @@ export default {
       this.addColumn(
         this.makeColumn({
           name: "deleted_at",
-          type: "timestamp",
+          type: {
+            name: "timestamp",
+          },
         })
       );
+    },
+    deleteColumn(index) {
+      this.table.columns.splice(index, 1);
     },
     addTranslations() {
       this.addColumn(
         this.makeColumn({
           name: "locale",
-          type: "varchar",
+          type: {
+            name: "varchar",
+          },
           length: 4,
         })
       );
 
       this.addColumn(
         this.makeColumn({
-          name: this.tableName.replace("_translations", "_id"),
-          type: "integer",
+          name: this.table.name.replace("_translations", "_id"),
+          type: {
+            name: "integer",
+          },
         })
       );
     },

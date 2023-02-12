@@ -92,7 +92,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-sm-12 col-md-6 col-xl-4"
+    staticClass: "col-12"
   }, [!_vm.value ? _c("div", {
     staticClass: "select-from-library-button sfl-single"
   }, [_c("input", {

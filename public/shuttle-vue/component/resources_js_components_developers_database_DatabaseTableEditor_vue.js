@@ -77,28 +77,41 @@ __webpack_require__.r(__webpack_exports__);
     addTimestamps: function addTimestamps() {
       this.addColumn(this.makeColumn({
         name: "created_at",
-        type: "timestamp"
+        type: {
+          name: "timestamp"
+        }
       }));
       this.addColumn(this.makeColumn({
         name: "updated_at",
-        type: "timestamp"
+        type: {
+          name: "timestamp"
+        }
       }));
     },
     addSoftDeletes: function addSoftDeletes() {
       this.addColumn(this.makeColumn({
         name: "deleted_at",
-        type: "timestamp"
+        type: {
+          name: "timestamp"
+        }
       }));
+    },
+    deleteColumn: function deleteColumn(index) {
+      this.table.columns.splice(index, 1);
     },
     addTranslations: function addTranslations() {
       this.addColumn(this.makeColumn({
         name: "locale",
-        type: "varchar",
+        type: {
+          name: "varchar"
+        },
         length: 4
       }));
       this.addColumn(this.makeColumn({
-        name: this.tableName.replace("_translations", "_id"),
-        type: "integer"
+        name: this.table.name.replace("_translations", "_id"),
+        type: {
+          name: "integer"
+        }
       }));
     },
     saveTable: function saveTable() {
@@ -214,6 +227,11 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.table.columns, function (column, index) {
     return _c("database-table-row", {
       key: index,
+      on: {
+        columnDeleted: function columnDeleted($event) {
+          return _vm.deleteColumn(index);
+        }
+      },
       model: {
         value: _vm.table.columns[index],
         callback: function callback($$v) {
@@ -244,13 +262,19 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       type: "button"
+    },
+    on: {
+      click: _vm.addSoftDeletes
     }
-  }, [_vm._v("+ Add Soft Deletes")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n      + Add Soft Deletes\n    ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-success",
     attrs: {
       type: "button"
+    },
+    on: {
+      click: _vm.addTranslations
     }
-  }, [_vm._v("+ Add Translations")])])]);
+  }, [_vm._v("\n      + Add Translations\n    ")])])]);
 };
 
 var staticRenderFns = [function () {
