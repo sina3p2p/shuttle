@@ -55,25 +55,9 @@ route('shuttle.setting.index')]])
                                     <div class="row">
                                         <div class="col-md-6">
                                             <image-input name="header-logo" @if(isset($setting["header-logo"]))
-                                                path="{{ $setting[" header-logo"] }}"
-                                                preview="{{ Storage::url($setting[" header-logo"]) }}" @endif>
+                                                path="{{ $setting['header-logo'] }}"
+                                                preview="{{ Storage::url($setting['header-logo']) }}" @endif>
                                             </image-input>
-                                            <!-- <div class="select-from-library-container">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="select-from-library-button sfl-single" data-library-id="#libraryModal"
-                                                             data-count="1" data-name="header-logo"
-                                                             @if(isset($setting["header-logo"]))
-                                                             data-preview-path="{{ Storage::url($setting["header-logo"]) }}"
-                                                             data-path="{{ $setting["header-logo"] }}"
-                                                             @endif>
-                                                            <div class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center">
-                                                                Select an item from library
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                         </div>
                                         <div class="col-md-6">
                                             <div class="select-from-library-container">
@@ -81,9 +65,9 @@ route('shuttle.setting.index')]])
                                                     <div class="col-12">
                                                         <div class="select-from-library-button sfl-single"
                                                             data-library-id="#libraryModal" data-count="1"
-                                                            data-name="footer-logo" @if(isset($setting["footer-logo"]))
-                                                            data-preview-path="{{ Storage::url($setting[" footer-logo"])
-                                                            }}" data-path="{{ $setting[" footer-logo"] }}" @endif>
+                                                            data-name="footer-logo" @if(isset($setting['footer-logo']))
+                                                            data-preview-path="{{ Storage::url($setting['footer-logo'])
+                                                            }}" data-path="{{ $setting['footer-logo'] }}" @endif>
                                                             <div
                                                                 class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center">
                                                                 Select an item from library
