@@ -68,27 +68,30 @@ class DatabaseController extends Controller
         SchemaManager::createTable($table);
 
 
-        if (isset($request->create_model) && $request->create_model == 'on') {
-            $model_name = Str::studly(Str::singular($table->name));
-            $model_file = new ClassType($model_name);
-            $model_file->setExtends(Model::class);
-            $columns = collect($r_table['columns']);
-            $model_file
-                ->addProperty('fillable', $columns->where('fillable', true)->pluck('name')->toArray())
-                ->setProtected();
-            if (!$columns->contains('name', 'created_at')) {
-                $model_file->addProperty('timestamps', false)->setPublic();
-            }
-            $file = new PhpFile();
-            $namespace = $file->addNamespace('App\\Models');
-            $namespace->add($model_file);
-            $printer = new Printer();
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                File::put(app_path() . '\\Models\\' . $model_name . '.php', $printer->printFile($file));
-            } else {
-                File::put(app_path() . '/Models/' . $model_name . '.php', $printer->printFile($file));
-            }
+        // if (isset($request->create_model) && $request->create_model == 'on') {
+        $model_name = Str::studly(Str::singular($table->name));
+        $model_file = new ClassType($model_name);
+        $model_file->setExtends(Model::class);
+        $columns = collect($r_table['columns']);
+        $model_file
+            ->addProperty('guarded', ['id'])
+            ->setProtected();
+        // $model_file
+        //     ->addProperty('fillable', $columns->where('fillable', true)->pluck('name')->toArray())
+        //     ->setProtected();
+        if (!$columns->contains('name', 'created_at')) {
+            $model_file->addProperty('timestamps', false)->setPublic();
         }
+        $file = new PhpFile();
+        $namespace = $file->addNamespace('App\\Models');
+        $namespace->add($model_file);
+        $printer = new Printer();
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            File::put(app_path() . '\\Models\\' . $model_name . '.php', $printer->printFile($file));
+        } else {
+            File::put(app_path() . '/Models/' . $model_name . '.php', $printer->printFile($file));
+        }
+        // }
 
         //            elseif (isset($request->create_migration) && $request->create_migration == 'on') {
 //                Artisan::call('make:migration', [
