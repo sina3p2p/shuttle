@@ -17,59 +17,45 @@ class DynamicComponent extends Component
 
     protected array $props;
 
-    public function __construct($name, $data = null, $model = null, $modelSetting = null, $modelAutoLoad = true)
+    public function __construct($name, $data = null, $c = null, $cName = null, $modelAutoLoad = true)
     {
         $this->props = $data ?? [];
         $this->view = "components." . $name;
         $data = $data ?? [];
-        if ($modelAutoLoad) {
-            $m = (ModelsComponent::where('name', $name)->first());
-            if ($m) {
-                $m->rows()
-                    ->where('type', 'c_relationship')
-                    ->get()
-                    ->each(function ($row) use (&$data) {
-                        $model = app($row->details->model);
-                        $val = data_get($data, $row->details->column, []);
-                        if ($val) {
-                            $m = app($row->details->model)->whereIn($model->getTable() . "." . $row->details->key, is_array($val) ? $val : [$val]);
-                            if (isset($row->details->scope) && !empty($row->details->scope)) {
-                                $m = $m->{$row->details->scope}();
-                            }
-                            $data[$row->details->column] = $m->orderBy($model->getTable() . ".created_at")->get();
-                        } else {
-                            $data[$row->details->column] = [];
-                        }
-                    });
-            }
+
+        if($cName){
+            $m = (ModelsComponent::where('name', $cName)->first());
+        }else {
+            $m = $c;
         }
 
-        if ($modelSetting && $model) {
-            $model = app($model);
-            //                foreach (data_get($modelSetting,'model.conditions',[]) as $con){
-            //                    $data = $data->{$con['type']}($con['field'], data_get($setting,$con['value'],$con['type'] == 'whereIn' ? [] : $con['value']));
-            //                }
-            //                $data = $data->with(data_get($this->model_settings,'model.relations',[]));
-            $pag = data_get($modelSetting, 'limit', -1);
-            //                if(data_get($modelSetting,'model.scope',false))
-            //                {
-            //                    // dd(data_get($this->component->model_settings,'model.scope'));
-            //                    $data = $data->{data_get($this->model_settings,'model.scope')}();
-            //                }
-            switch ($pag) {
-                case -1:
-                    $data['model'] = $model->orderBy($model->getTable() . ".created_at")->get();
-                    break;
-                case 0:
-                    $data['model'] = $model->first();
-                    //                        if($data && method_exists($model,'views')){
-                    //                            views($data)->record();
-                    //                        }
-                    break;
-                default:
-                    $data['model'] = $model->orderBy($model->getTable() . ".created_at")->simplePaginate($pag);
-                    break;
-            }
+        if ($modelAutoLoad) {
+            $m->rows()
+                ->where('type', 'c_relationship')
+                ->get()
+                ->each(function ($row) use (&$data) {
+                    $model = app($row->details->model);
+                    $val = data_get($data, $row->details->column, []);
+                    if ($val) {
+                        $m = app($row->details->model)->whereIn($model->getTable() . "." . $row->details->key, is_array($val) ? $val : [$val]);
+                        if (isset($row->details->scope) && !empty($row->details->scope)) {
+                            $m = $m->{$row->details->scope}();
+                        }
+                        $data[$row->details->column] = $m->orderBy($model->getTable() . ".created_at")->get();
+                    } else {
+                        $data[$row->details->column] = [];
+                    }
+                });
+        }
+
+        if ($m->model && $m->model_settings) {
+            $model = app($m->model);
+            $pag = data_get($m->model_settings, 'limit', -1);
+            $data['model'] = match ($pag) {
+                -1 => $model->orderBy($model->getTable() . ".created_at")->get(),
+                0 => $model->first(),
+                default => $model->orderBy($model->getTable() . ".created_at")->simplePaginate($pag),
+            };
         }
 
         $componentClass = "App\\View\\Shuttle\\" . Str::of($name)->studly();
