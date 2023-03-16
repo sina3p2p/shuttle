@@ -50,12 +50,14 @@ class DynamicComponent extends Component
 
         if ($m->model && $m->model_settings) {
             $model = app($m->model);
+            $model = $model->orderBy($model->getTable() . ".created_at");
             $pag = data_get($m->model_settings, 'limit', -1);
             $data['model'] = match ($pag) {
-                -1 => $model->orderBy($model->getTable() . ".created_at")->get(),
-                0 => $model->first(),
-                default => $model->orderBy($model->getTable() . ".created_at")->simplePaginate($pag),
+                -1, "-1" => $model->get(),
+                0, "0" => $model->first(),
+                default => $model->simplePaginate($pag),
             };
+
         }
 
         $componentClass = "App\\View\\Shuttle\\" . Str::of($name)->studly();
