@@ -24,14 +24,15 @@
 
                 <select
                     class="form-control select2-ajax" name="{{ $options->column }}"
-                    data-get-items-route="{{route('shuttle.scaffold_interface.relationship',$scaffoldInterface)}}"
+                    data-get-items-route="{{route('shuttle.scaffold_interface.relationship',$row)}}"
                     data-get-items-field="{{$row->field}}"
-                    @if(!is_null($dataTypeContent->getKey())) data-id="{{$dataTypeContent->getKey()}}" @endif
-                    data-method="{{ !is_null($dataTypeContent->getKey()) ? 'edit' : 'add' }}">
+{{--                    @if(!is_null($dataTypeContent->getKey())) data-id="{{$dataTypeContent->getKey()}}" @endif--}}
+{{--                    data-method="{{ !is_null($dataTypeContent->getKey()) ? 'edit' : 'add' }}"--}}
+                >
 
                     @php
                         $model = app($options->model);
-                        $query = $model::where($options->key, old($options->column, $dataTypeContent->{$options->column}))->get();
+                        $query = $model::where($options->key, old($options->column, data_get($dataTypeContent, $options->column)))->get();
                     @endphp
 
                     @if(!$row->required)

@@ -23,9 +23,9 @@ class DynamicComponent extends Component
         $this->view = "components." . $name;
         $data = $data ?? [];
 
-        if($cName){
+        if ($cName) {
             $m = (ModelsComponent::where('name', $cName)->first());
-        }else {
+        } else {
             $m = $c;
         }
 
@@ -41,7 +41,8 @@ class DynamicComponent extends Component
                         if (isset($row->details->scope) && !empty($row->details->scope)) {
                             $m = $m->{$row->details->scope}();
                         }
-                        $data[$row->details->column] = $m->orderBy($model->getTable() . ".created_at")->get();
+                        $m = $m->orderBy($model->getTable() . ".created_at");
+                        $data[$row->details->column] = $row->details->type == 'belongsTo' ?  $m->first() : $m->get();
                     } else {
                         $data[$row->details->column] = [];
                     }
@@ -57,7 +58,6 @@ class DynamicComponent extends Component
                 0, "0" => $model->first(),
                 default => $model->simplePaginate($pag),
             };
-
         }
 
         $componentClass = "App\\View\\Shuttle\\" . Str::of($name)->studly();
