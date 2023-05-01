@@ -34,7 +34,7 @@
                                                             <div class="row">
                                                                 <input name="menuable_type" value="{{$m['model']}}" hidden>
                                                                 <div class="col-12">
-                                                                    <select class="form-control select2-single" id="basicSelect" name="menuable_id">
+                                                                    <select class="form-control select2-single" id="basicSelect" name="menuable_id" style="width: 100%;" data-width="resolve">
                                                                         <option value="">აირჩიეთ კონკრეტული</option>
                                                                         @foreach($m["data"] ?? [] as $d)<option value="{{$d->id}}">{{$d->title}}</option>@endforeach
                                                                     </select>
