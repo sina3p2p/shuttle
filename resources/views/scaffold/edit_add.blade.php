@@ -4,7 +4,7 @@
         @foreach(config('translatable.locales') as $translate)
         {{-- <li @if($lang==$translate) class="active" @endif><a href="?lang={{$translate}}"><img
                     src="{{asset('assets/img/'.$translate.'.png')}}" alt="{{$translate}}">{{$translate}}</a></li> --}}
-        <a href="?lang={{$translate}}" class="btn btn-header-light @if($lang==$translate) disabled @endif"
+        <a href="?lang={{$translate}}" class="btn btn-header-light @if($lang!=$translate) gray-image @endif"
             data-toggle="tooltip" data-placement="top" title="" data-original-title="{{$translate}}"><img
                 src="{{asset('assets/img/'.$translate.'.png')}}" alt="{{$translate}}"></a>
         {{-- <button class="btn btn-header-light icon-button"><i class="simple-icon-refresh"></i></button> --}}

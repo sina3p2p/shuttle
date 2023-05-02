@@ -486,3 +486,7 @@ svg #bg {
     height: 100%;
     overflow-y: scroll;
 }
+
+.gray-image {
+    filter: grayscale(1)
+}
