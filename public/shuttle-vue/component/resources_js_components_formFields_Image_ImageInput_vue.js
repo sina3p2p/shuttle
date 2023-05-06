@@ -11,7 +11,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony import */ var glightbox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! glightbox */ "./node_modules/glightbox/dist/js/glightbox.min.js");
+/* harmony import */ var glightbox__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(glightbox__WEBPACK_IMPORTED_MODULE_0__);
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -32,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       selected: null,
       value: "",
-      uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__["default"])()
+      uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__["default"])()
     };
   },
   watch: {
@@ -52,9 +55,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.path && this.preview) {
         this.selected = {
           url: this.preview,
-          path: this.value
+          path: this.path
         };
         this.value = this.path;
+        glightbox__WEBPACK_IMPORTED_MODULE_0___default()({});
       }
     },
     imageSelected: function imageSelected(f, ref) {
@@ -119,7 +123,10 @@ var render = function render() {
   }), _vm._v(" "), _c("div", {
     staticClass: "card d-flex flex-row media-thumb-container"
   }, [_c("a", {
-    staticClass: "d-flex align-self-center"
+    staticClass: "glightbox d-flex align-self-center",
+    attrs: {
+      href: _vm.selected.url
+    }
   }, [_c("img", {
     staticClass: "list-media-thumbnail responsive border-0 sfl-selected-item-image",
     attrs: {

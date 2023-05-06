@@ -91,9 +91,9 @@ export default {
           .addClass("next");
 
         $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        $("div.filter-button").html(
-          '<a href="#filters" class="btn btn-sm btn-primary ml-2"><i class="iconsminds-filter-2"></i></a>'
-        );
+        // $("div.filter-button").html(
+        //   '<a href="#filters" class="btn btn-sm btn-primary ml-2"><i class="iconsminds-filter-2"></i></a>'
+        // );
 
         $el.css("width", "100%");
         me.$emit("draw");

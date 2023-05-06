@@ -12,27 +12,19 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <scaffold-interface-table url="{{ route('shuttle.scaffold_interface.datatable', $scaffoldInterface) }}"
+            <scaffold-interface-table 
+                url="{{ route('shuttle.scaffold_interface.datatable', $scaffoldInterface) }}"
+                delete-route="{{route('shuttle.scaffold_interface.destroy',['scaffold_interface' => $scaffoldInterface, 'id' => '__id'])}}"
                 :columns="{{ json_encode($columns) }}"></scaffold-interface-table>
         </div>
         <!-- <table id="myTable" class="table table-striped table-bordered"></table> -->
     </div>
 </div>
 
-@push('js')
-{{-- <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+{{-- @push('js')
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/searchpanes/2.0.2/js/dataTables.searchPanes.min.js"></script>
 <script src="//cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
-<script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script> --}}
-<script>
-    $(document).on('mousedown', '.remove-item', function(e) {
-        e.preventDefault();
-        var item = $(e.target);
-        var form = $('<form action="' + "{{route('shuttle.scaffold_interface.destroy',['scaffold_interface' => $scaffoldInterface, 'id' => '__id'])}}".replace('__id', item.data('id')) + '" method="post">' +
-            '@csrf' + '@method("DELETE")' + '</form>');
-        form.appendTo('body');
-        form.submit();
-    });
-</script>
-@endpush
+<script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+@endpush --}}

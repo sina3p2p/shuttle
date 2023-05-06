@@ -11,6 +11,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var glightbox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! glightbox */ "./node_modules/glightbox/dist/js/glightbox.min.js");
+/* harmony import */ var glightbox__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(glightbox__WEBPACK_IMPORTED_MODULE_0__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -23,6 +25,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     columns: {
@@ -32,6 +35,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     url: {
       required: true,
       type: String
+    },
+    deleteRoute: {
+      type: String,
+      "default": ""
     }
   },
   computed: {
@@ -41,6 +48,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         className: "text-nowrap text-right",
         data: "action"
       }]);
+    }
+  },
+  mounted: function mounted() {
+    var $this = this;
+    $(document).on("mousedown", ".remove-item", function (e) {
+      e.preventDefault();
+      $this.$root.$refs.confirm.open({
+        message: "Are you sure?",
+        button: {
+          no: "No",
+          yes: "Yes"
+        },
+        callback: function callback(confirm) {
+          if (confirm) {
+            var item = $(e.target);
+            console.log(item.data("id"), $this.deleteRoute);
+            var form = $('<form action="' + $this.deleteRoute.replace("__id", item.data("id")) + '" method="post">' + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr("content") + '" hidden>' + '<input name="_method" value="DELETE" />' + "</form>");
+            form.appendTo("body");
+            form.submit();
+          }
+        }
+      });
+    });
+  },
+  methods: {
+    onDraw: function onDraw() {
+      glightbox__WEBPACK_IMPORTED_MODULE_0___default()({});
     }
   }
 });
@@ -67,6 +101,9 @@ var render = function render() {
       url: _vm.url,
       columns: _vm.tableColumn,
       "class-name": "text-nowrap"
+    },
+    on: {
+      draw: _vm.onDraw
     }
   });
 };

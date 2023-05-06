@@ -15,7 +15,7 @@ trait CanRender
 
     public function image($data)
     {
-        return '<img src="' . Storage::url($data) . '" width="50" />';
+        return '<a href="'.Storage::url($data).'" class="glightbox"><img src="' . Storage::url($data) . '" width="50" /></a>';
     }
 
     public function relationship($data)

@@ -1,7 +1,7 @@
 // import CKEditor from "ckeditor4-vue";
 
-require("./bootstrap");
-require("./utils/caHash");
+import "./bootstrap";
+import "./utils/caHash";
 
 require
   .context("./", true, /\.vue$/i, "lazy")

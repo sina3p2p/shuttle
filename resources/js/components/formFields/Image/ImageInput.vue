@@ -14,7 +14,7 @@
         <div class="selected-library-item" v-else>
           <input :name="name" :value="value" hidden />
           <div class="card d-flex flex-row media-thumb-container">
-            <a class="d-flex align-self-center">
+            <a :href="selected.url" class="glightbox d-flex align-self-center">
               <img
                 :src="selected.url"
                 alt="uploaded image"
@@ -51,6 +51,7 @@
 
 <script>
 import { v4 as uuidv4 } from "uuid";
+import GLightbox from "glightbox";
 
 export default {
   props: {
@@ -91,9 +92,10 @@ export default {
       if (this.path && this.preview) {
         this.selected = {
           url: this.preview,
-          path: this.value,
+          path: this.path,
         };
         this.value = this.path;
+        GLightbox({});
       }
     },
     imageSelected(f, ref) {

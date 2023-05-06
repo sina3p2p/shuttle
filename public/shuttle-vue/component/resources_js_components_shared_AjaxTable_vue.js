@@ -103,8 +103,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       drawCallback: function drawCallback() {
         $($(".dataTables_wrapper .pagination li:first-of-type")).find("a").addClass("prev");
         $($(".dataTables_wrapper .pagination li:last-of-type")).find("a").addClass("next");
-        $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        $("div.filter-button").html('<a href="#filters" class="btn btn-sm btn-primary ml-2"><i class="iconsminds-filter-2"></i></a>');
+        $(".dataTables_wrapper .pagination").addClass("pagination-sm"); // $("div.filter-button").html(
+        //   '<a href="#filters" class="btn btn-sm btn-primary ml-2"><i class="iconsminds-filter-2"></i></a>'
+        // );
+
         $el.css("width", "100%");
         me.$emit("draw");
       },

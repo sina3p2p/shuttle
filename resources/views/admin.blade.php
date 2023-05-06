@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/dropzone.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/perfect-scrollbar.css')}}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     {{-- <style>
         :root {
             --theme-color-1: {
@@ -254,6 +255,7 @@
         </div>
     </div>
     <main id="app">
+        <my-dialog ref="confirm"></my-dialog>
         <div class="container-fluid">
             @yield('breadcrumbs')
             <div class="row">
