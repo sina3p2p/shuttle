@@ -1,10 +1,24 @@
 <template>
-  <ajax-table
+  <div>
+    <div>
+      <div v-for="(c, index) in tableColumn" :key="'header-column-' + index">
+        {{ c.title }}
+      </div>
+    </div>
+    <div v-for="(row, i) in res.data" :key="i">
+      <div
+        v-for="(c, index) in tableColumn"
+        :key="'c-' + i + '-' + index"
+        v-html="row[c.data]"
+      ></div>
+    </div>
+    <!-- <ajax-table
     :url="url"
     :columns="tableColumn"
     class-name="text-nowrap"
     @draw="onDraw"
-  ></ajax-table>
+  ></ajax-table> -->
+  </div>
 </template>
 
 <script>
@@ -25,6 +39,13 @@ export default {
       default: "",
     },
   },
+  data() {
+    return {
+      res: {
+        data: [],
+      },
+    };
+  },
   computed: {
     tableColumn() {
       return [
@@ -39,6 +60,7 @@ export default {
   },
   mounted() {
     const $this = this;
+    this.initTable();
     $(document).on("mousedown", ".remove-item", function (e) {
       e.preventDefault();
       $this.$root.$refs.confirm.open({
@@ -69,6 +91,9 @@ export default {
     });
   },
   methods: {
+    async initTable() {
+      this.res = await $.get(this.url);
+    },
     onDraw() {
       GLightbox({});
     },
