@@ -14,6 +14,7 @@
             </li>
             @endforeach
         </ul>
+        @if(isset($btn) && !is_null($btn))
         <a href="{{$btn}}" class="btn btn-primary"><svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 
             <title/>
@@ -35,6 +36,7 @@
             </g>
             
             </svg> ახლის დამატება</a>
+            @endif
     </div>
     <!-- /.pageTitle-down -->
 </div>
