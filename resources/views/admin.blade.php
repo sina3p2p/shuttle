@@ -40,134 +40,61 @@
     </style> --}}
     @stack('css-vendors')
     <link rel="stylesheet" href="{{route('shuttle.assets','css/main.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{route('shuttle.assets','css/dore.light.blue.min.css')}}" />
+    <link rel="stylesheet" href="{{route('shuttle.vue-assets','app.css') }}?v={{ time() }}" />
     @stack('css')
 </head>
 
 <body id="app-container" class="ltr rounded menu-default show-spinner">
-    <nav class="navbar fixed-top">
-        {{-- <div class="d-flex align-items-center navbar-left">
-            <a href="#" class="menu-button d-none d-md-block">
-                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
-                    <rect x="0.48" y="0.5" width="7" height="1" />
-                    <rect x="0.48" y="7.5" width="7" height="1" />
-                    <rect x="0.48" y="15.5" width="7" height="1" />
-                </svg>
-                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
-                    <rect x="1.56" y="0.5" width="16" height="1" />
-                    <rect x="1.56" y="7.5" width="16" height="1" />
-                    <rect x="1.56" y="15.5" width="16" height="1" />
-                </svg>
-            </a>
-            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
-                    <rect x="0.5" y="0.5" width="25" height="1" />
-                    <rect x="0.5" y="7.5" width="25" height="1" />
-                    <rect x="0.5" y="15.5" width="25" height="1" />
-                </svg>
-            </a>
-        </div>
-        <a class="navbar-logo" href="https://mypanel.ge" target="_blank"><span
-                class="logo d-none d-xs-block"></span><span class="logo-mobile d-block d-xs-none"></span></a>
-        <div class="navbar-right">
-            <div class="header-icons d-inline-block align-middle">
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
-                    <i class="simple-icon-size-fullscreen"></i><i class="simple-icon-size-actual"></i>
-                </button>
-            </div>
-            <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name"></span>
-                    <span>
-                        <lottie-player src="{{route('shuttle.assets','user.json')}}" background="transparent" speed="1"
-                            style="width: 40px; height: 40px;" autoplay></lottie-player>
-                    </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="{{route('shuttle.setting.index')}}#setting-password">პაროლის
-                        ცვლილება</a>
-                    <a class="dropdown-item" href="/mypanel/logout">გამოსვლა</a>
-                </div>
-            </div>
-        </div> --}}
-        <div class="d-flex align-items-center navbar-left">
-            <a href="#" class="menu-button d-none d-md-block">
-                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
-                    <rect x="0.48" y="0.5" width="7" height="1" />
-                    <rect x="0.48" y="7.5" width="7" height="1" />
-                    <rect x="0.48" y="15.5" width="7" height="1" />
-                </svg>
-                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
-                    <rect x="1.56" y="0.5" width="16" height="1" />
-                    <rect x="1.56" y="7.5" width="16" height="1" />
-                    <rect x="1.56" y="15.5" width="16" height="1" />
-                </svg>
-            </a>
-
-            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
-                    <rect x="0.5" y="0.5" width="25" height="1" />
-                    <rect x="0.5" y="7.5" width="25" height="1" />
-                    <rect x="0.5" y="15.5" width="25" height="1" />
-                </svg>
-            </a>
-
-            {{-- <div class="search" data-search-path="Pages.Search.html?q=">
-                <input placeholder="Search...">
-                <span class="search-icon">
-                    <i class="simple-icon-magnifier"></i>
-                </span>
-            </div> --}}
-
-        </div>
-
-        <a class="navbar-logo" href="Dashboard.Default.html">
-            <span class="logo d-none d-xs-block"></span>
-            <span class="logo-mobile d-block d-xs-none"></span>
-        </a>
-
-        <div class="navbar-right">
-            <div class="header-icons d-inline-block align-middle">
-                {{-- <div class="d-none d-md-inline-block align-text-bottom mr-3">
-                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
-                        data-toggle="tooltip" data-placement="left" title="Dark Mode">
-                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
-                        <label class="custom-switch-btn" for="switchDark"></label>
-                    </div>
-                </div> --}}
-
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
-                    <i class="simple-icon-size-fullscreen"></i>
-                    <i class="simple-icon-size-actual"></i>
-                </button>
-
-            </div>
-
-            <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">{{ auth()->user()->name }}</span>
-                    <span>
-                        <img alt="" src="{{ auth()->user()->avatar }}" />
-                    </span>
-                </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Account</a>
-                    {{-- <a class="dropdown-item" href="#">Features</a> --}}
-                    <a class="dropdown-item" href="#">History</a>
-                    {{-- <a class="dropdown-item" href="#">Support</a> --}}
-                    <a class="dropdown-item" href="{{ route('shuttle.logout') }}">Sign out</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+  
 
     @php $children = []; @endphp
 
+   
+
+
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header-top">
+                    <div class="header-top__logo">
+                        <a href="/">Shuttle <span></span></a>
+                    </div>
+                    <!-- /.header-top__logo -->
+                    <div class="header-top__actions">
+
+                        <div class="user">
+                            <div class="user-img">
+                                <figure>
+                                    <img src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png" alt="">
+                                </figure>
+                            </div>
+                            <!-- /.user-img -->
+                            <div class="user-title">
+                                <h3>გამარჯობა , {{ auth()->user()->name }}</h3>
+                                <a href="{{ route('shuttle.logout') }}">გასვლა</a>
+                            </div>
+                            <!-- /.user-title -->
+                        </div>
+                        <!-- /.user -->
+                    </div>
+                    <!-- /.header-top__actions -->
+                </div>
+                <!-- /.header-top -->
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</header>
+<!-- /.header -->
+
+
+
     <div class="menu">
         <div class="main-menu">
+            <h3>მთავარი მენიუ</h3>
             <div class="scroll">
                 <ul class="list-unstyled">
                     @foreach ($menus ?? [] as $m)
@@ -195,66 +122,40 @@
                     </li>
                     @endif
                     @endforeach
-                    {{-- <li><a href="{{route('shuttle.index')}}"><i class="iconsmind-Home"></i>მთავარი</a></li>
-                    @canany(['pages_browse','developer'])
-                    <li><a href="{{route('shuttle.page.index')}}"><i class="iconsmind-Files"></i>გვერდები</a></li>
-                    @endcanany
-                    @foreach($scaffold as $sf)
-                    @canany([$sf->name.'_browse', 'developer'])
-                    <li><a href="{{route('shuttle.scaffold_interface.index', $sf)}}"><i
-                                class="{{$sf->icon}}"></i>{{$sf->display_name_plural}}</a></li>
-                    @endcanany
-                    @endforeach
-                    @canany(['menus_browse','developer'])
-                    <li><a href="{{route('shuttle.menu.index')}}"><i class="simple-icon-list"></i>ნავიგაცია</a></li>
-                    @endcanany
-                    @canany(['roles_browse','developer'])
-                    <li><a href="{{route('shuttle.roles.index')}}"><i class="simple-icon-lock"></i>როლები</a></li>
-                    @endcanany
-                    @canany(['translates_browse','developer'])
-                    <li><a href="{{route('shuttle.translation.index')}}"><i class="simple-icon-refresh"></i>თარგმანი</a>
-                    </li>
-                    @endcanany
-                    @canany(['settings_browse','developer'])
-                    <li><a href="{{route('shuttle.setting.index')}}"><i class="simple-icon-settings"></i>პარამეტრები</a>
-                    </li>
-                    @endcanany --}}
-                    @if(auth()->user()->role == "developer")
+                  
+                    {{-- @if(auth()->user()->role == "developer")
                     <li><a href="#developer"><i class="iconsmind-Cool-Guy"></i>ვებისთვის</a></li>
+                    @endif --}}
+
+
+                   
+                    @if(auth()->user()->role == "developer")
+                    <div class="forus">
+                    <h3 >ვებისთვის</h3>
+                        <li><a href="{{route('shuttle.developer.database.index')}}"><i
+                                    class="simple-icon-layers"></i>ბაზები</a></li>
+                        <li><a href="{{route('shuttle.developer.bread.index')}}"><i
+                                    class="simple-icon-organization"></i>მოდელები</a></li>
+                        <li><a href="{{route('shuttle.component.index')}}"><i
+                                    class="simple-icon-puzzle"></i>კომპონენტები</a></li>
+                        <li><a href="{{route('shuttle.developer.type.index')}}"><i
+                                    class="simple-icon-compass"></i>ტიპები</a></li>
+                        <li><a href="{{route('shuttle.developer.menu.index')}}"><i class="simple-icon-compass"></i>Menu</a>
+                        </li>
+                        <li><a href="{{route('shuttle.developer.setting')}}"><i class="simple-icon-compass"></i>Setting</a>
+                        </li>
+                    </div>
+                    <!-- /.forus -->
                     @endif
                 </ul>
             </div>
         </div>
-        <div class="sub-menu">
-            <div class="scroll">
-                @foreach ($children as $key=>$child)
-                <ul class="list-unstyled" data-link="menu-{{ $key }}">
-                    @foreach ($child ?? [] as $m)
-                    <li><a href="{{ url('/mypanel/'.$m->link) }}"><i class="{{ $m->image }}"></i>{{ $m->label }}</a>
-                    </li>
-                    @endforeach
-                </ul>
-                @endforeach
-                @if(auth()->user()->role == "developer")
-                <ul class="list-unstyled" data-link="developer">
-                    <li><a href="{{route('shuttle.developer.database.index')}}"><i
-                                class="simple-icon-layers"></i>ბაზები</a></li>
-                    <li><a href="{{route('shuttle.developer.bread.index')}}"><i
-                                class="simple-icon-organization"></i>მოდელები</a></li>
-                    <li><a href="{{route('shuttle.component.index')}}"><i
-                                class="simple-icon-puzzle"></i>კომპონენტები</a></li>
-                    <li><a href="{{route('shuttle.developer.type.index')}}"><i
-                                class="simple-icon-compass"></i>ტიპები</a></li>
-                    <li><a href="{{route('shuttle.developer.menu.index')}}"><i class="simple-icon-compass"></i>Menu</a>
-                    </li>
-                    <li><a href="{{route('shuttle.developer.setting')}}"><i class="simple-icon-compass"></i>Setting</a>
-                    </li>
-                </ul>
-                @endif
+        
             </div>
         </div>
     </div>
     <main id="app">
+        
         <my-dialog ref="confirm"></my-dialog>
         <div class="container-fluid">
             @yield('breadcrumbs')
@@ -264,44 +165,28 @@
                 </div>
             </div>
         </div>
+
+        <footer class="footer">
+            <p>Shuttle {{ date('Y') }}</p>
+        </footer>
+        <!-- /.footer -->
     </main>
 
-    <footer class="page-footer">
-        <div class="footer-content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <p class="mb-0 text-muted">Shuttle {{ date('Y') }}</p>
-                    </div>
-                    <div class="col-sm-6 d-none d-sm-block">
-                        <ul class="breadcrumb pt-0 pr-0 float-right">
-                            <li class="breadcrumb-item mb-0">
-                                <a href="#" class="btn-link">Review</a>
-                            </li>
-                            <li class="breadcrumb-item mb-0">
-                                <a href="#" class="btn-link">Purchase</a>
-                            </li>
-                            <li class="breadcrumb-item mb-0">
-                                <a href="#" class="btn-link">Docs</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+   
     {{-- <script src="{{route('shuttle.assets','js/vendor/jquery-3.3.1.min.js')}}"></script> --}}
     {{-- <script src="{{route('shuttle.assets','js/vendor/bootstrap.bundle.min.js')}}"></script>
     <script src="{{route('shuttle.assets','js/vendor/perfect-scrollbar.min.js')}}"></script>
     <script src="{{route('shuttle.assets','js/vendor/bootstrap-notify.min.js')}}"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
     @stack('js-vendor')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+
     <script src="{{route('shuttle.vue-assets','manifest.js') }}?v={{ time() }}"></script>
     <script src="{{route('shuttle.vue-assets','vendor.js') }}?v={{ time() }}"></script>
     <script src="{{route('shuttle.vue-assets','app.js') }}?v={{ time() }}"></script>
     <script src="{{route('shuttle.assets','js/dore.script.js')}}"></script>
     <script src="{{route('shuttle.assets','js/scripts.js')}}"></script>
+    
 
     <script>
         $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});

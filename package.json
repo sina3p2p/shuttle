@@ -14,6 +14,7 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
         "sass": "1.32.13",
         "sass-loader": "8.*",
         "vue": "^2.7.10",
@@ -22,6 +23,7 @@
         "vue2-ace-editor": "^0.0.15"
     },
     "dependencies": {
+        "@popperjs/core": "^2.11.7",
         "bootstrap": "^4.6.2",
         "ckeditor4-vue": "^2.1.1",
         "datatables.net": "^1.12.1",
@@ -31,6 +33,7 @@
         "glightbox": "^3.2.0",
         "jquery": "^3.6.1",
         "path": "^0.12.7",
+        "popper.js": "^1.16.1",
         "uuid": "^9.0.0",
         "vue-switches": "^2.0.1",
         "vue2-dropzone": "^3.6.0",
