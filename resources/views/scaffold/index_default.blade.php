@@ -9,17 +9,12 @@
 
 <scaffold-interface-filter-modal></scaffold-interface-filter-modal>
 
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
+
             <scaffold-interface-table 
                 url="{{ route('shuttle.scaffold_interface.datatable', $scaffoldInterface) }}"
                 delete-route="{{route('shuttle.scaffold_interface.destroy',['scaffold_interface' => $scaffoldInterface, 'id' => '__id'])}}"
                 :columns="{{ json_encode($columns) }}"></scaffold-interface-table>
-        </div>
-        <!-- <table id="myTable" class="table table-striped table-bordered"></table> -->
-    </div>
-</div>
+ 
 
 {{-- @push('js')
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

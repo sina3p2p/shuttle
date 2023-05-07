@@ -1,17 +1,22 @@
 <template>
-  <div>
-    <div>
-      <div v-for="(c, index) in tableColumn" :key="'header-column-' + index">
+  <div class="page page_add">
+    <div class="page-title">
+      <div class="page-title__item" v-for="(c, index) in tableColumn" :key="'header-column-' + index">
         {{ c.title }}
       </div>
     </div>
-    <div v-for="(row, i) in res.data" :key="i">
-      <div
+    <div class="page-content">
+
+   
+    <div  class="page-content__item" v-for="(row, i) in res.data" :key="i">
+      <div class="item-init"
         v-for="(c, index) in tableColumn"
         :key="'c-' + i + '-' + index"
         v-html="row[c.data]"
       ></div>
     </div>
+     </div>
+    <!-- /.page-content -->
     <!-- <ajax-table
     :url="url"
     :columns="tableColumn"

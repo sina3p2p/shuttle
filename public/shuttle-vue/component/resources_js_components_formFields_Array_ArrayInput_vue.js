@@ -98,30 +98,67 @@ var render = function render() {
   return _c("div", [_c("div", {
     staticClass: "row mb-2"
   }, [_c("div", {
-    staticClass: "col-auto mr-auto align-self-center"
-  }, [_c("h4", {
-    staticClass: "mb-0"
-  }, [_vm._v(_vm._s(_vm.row.display_name))])]), _vm._v(" "), _c("div", {
-    staticClass: "col-auto"
-  }, [_c("button", {
-    staticClass: "btn btn-primary btn-sm",
+    staticClass: "title-compo"
+  }, [_c("h1", [_vm._v(_vm._s(_vm.row.display_name))]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary btn-addd",
     attrs: {
       type: "button"
     },
     on: {
       click: _vm.addArrayItem
     }
-  }, [_c("i", {
-    staticClass: "simple-icon-plus btn-group-icon"
-  })])])]), _vm._v(" "), _vm._l(_vm.items, function (item, key) {
+  }, [_c("svg", {
+    attrs: {
+      width: "800px",
+      height: "800px",
+      viewBox: "0 0 24 24",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("title"), _vm._v(" "), _c("g", {
+    attrs: {
+      id: "Complete"
+    }
+  }, [_c("g", {
+    attrs: {
+      "data-name": "add",
+      id: "add-2"
+    }
+  }, [_c("g", [_c("line", {
+    attrs: {
+      fill: "none",
+      stroke: "#000000",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": "2",
+      x1: "12",
+      x2: "12",
+      y1: "19",
+      y2: "5"
+    }
+  }), _vm._v(" "), _c("line", {
+    attrs: {
+      fill: "none",
+      stroke: "#000000",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": "2",
+      x1: "5",
+      x2: "19",
+      y1: "12",
+      y2: "12"
+    }
+  })])])])]), _vm._v(" ახლის დამატება\n        ")])])]), _vm._v(" "), _vm._l(_vm.items, function (item, key) {
     return _c("div", {
       key: "item-".concat(key),
       staticClass: "card mb-3"
     }, [_c("div", {
       staticClass: "card-body"
+    }, [_c("div", {
+      staticClass: "title-of"
     }, [_c("h5", {
       staticClass: "mb-4"
     }, [_vm._v("ITEM " + _vm._s(key + 1))]), _vm._v(" "), _c("button", {
+      staticClass: "btn btn-danger",
       attrs: {
         type: "button"
       },
@@ -131,7 +168,9 @@ var render = function render() {
           return _vm.removeItem(key);
         }
       }
-    }, [_vm._v("DELETE")]), _vm._v(" "), _c("array-item", {
+    }, [_c("i", {
+      staticClass: "simple-icon-trash"
+    })])]), _vm._v(" "), _c("array-item", {
       attrs: {
         prefix: "".concat(_vm.name, "[").concat(key, "]"),
         inputs: _vm.inputs,

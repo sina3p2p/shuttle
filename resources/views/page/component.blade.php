@@ -9,24 +9,27 @@
     <div class="row">
         <div class="col-12">
             <div class="mb-3">
-                <h1>კომპონენტები</h1>
-                {{-- <div class="float-sm-right text-zero">
-                    <form id="saveComponent" action="" method="post">
-                        @csrf
-                        <button id="saveComponentButton" type="button" class="btn btn-primary btn-lg mr-1">შენახვა</button>
-                    </form>
-                </div> --}}
-                <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                    <ol class="breadcrumb pt-0">
-                        <li class="breadcrumb-item">
-                            <a href="#">მთავარი</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{route('shuttle.page.edit',['page' => $page_component->page, 'lang' => $page_component->locale])}}">კომპონენტები</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$page_component->component->display_name}}</li>
-                    </ol>
-                </nav>
+
+                <div class="pageTitle">
+                    <div class="pageTitle-title"><h1>{{$page_component->component->display_name}}</h1></div>
+                    <div class="pageTitle-down">
+                        <ul>
+                            <li class="breadcrumb-item">
+                                <a href="#">მთავარი</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{route('shuttle.page.edit',['page' => $page_component->page, 'lang' => $page_component->locale])}}">კომპონენტები</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$page_component->component->display_name}}</li>
+                          </ul>
+                        
+                    </div>
+                </div>
+
+                
+
+              
+               
 
             </div>
 

@@ -1,19 +1,18 @@
 <div class="card mb-4">
     @if($scaffold_interface->translation_model)
-    <div class="position-absolute card-top-buttons">
+    <div class="card-top-buttons">
         @foreach(config('translatable.locales') as $translate)
         {{-- <li @if($lang==$translate) class="active" @endif><a href="?lang={{$translate}}"><img
                     src="{{asset('assets/img/'.$translate.'.png')}}" alt="{{$translate}}">{{$translate}}</a></li> --}}
-        <a href="?lang={{$translate}}" class="btn btn-header-light @if($lang!=$translate) gray-image @endif"
+        <a href="?lang={{$translate}}" class="btn btn-header-light @if($lang == $translate) active @endif"
             data-toggle="tooltip" data-placement="top" title="" data-original-title="{{$translate}}"><img
-                src="{{asset('assets/img/'.$translate.'.png')}}" alt="{{$translate}}"></a>
+                src="{{asset('assets/img/'.$translate.'.png')}}" alt="{{$translate}}">{{$translate}}</a>
         {{-- <button class="btn btn-header-light icon-button"><i class="simple-icon-refresh"></i></button> --}}
         @endforeach
 
     </div>
     @endif
     <div class="card-body">
-        <h5 class="card-title">New record</h5>
         <x-shuttle-form
             :action="$dataTypeContent->id ? route('shuttle.scaffold_interface.update', ['scaffold_interface' => $scaffold_interface, 'id' => $dataTypeContent->id, 'lang' => $lang]) : route('shuttle.scaffold_interface.store',$scaffold_interface)"
             :scaffold-interface-rows="$scaffold_interface->rows" :data-type-content="$dataTypeContent" :edit="$edit" />

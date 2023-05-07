@@ -133,7 +133,7 @@ table {
   border-spacing: 0;
 }
 
-.pageTitle-title h1, .page-title, .header-top__logo a, .menu h3, a:hover {
+.title-compo h1, .collapse-title, .card-top-buttons a.active, .pageTitle-title h1, .page-title, .header-top__logo a, .menu h3, a:hover {
   font-family: "MarkGEO-Bold";
 }
 
@@ -155,7 +155,7 @@ body {
   align-items: center;
 }
 
-.forus, .alert-for-component, .compo-item, .compo, .select-from-library-button,
+.title-compo, .title-of, .card-top-buttons, .forus, .alert-for-component, .compo-item, .compo, .select-from-library-button,
 .selected-library-item, .form-group label, .form-group, .addPage,
 .card, .choose-lang, .pageTitle-down, .pageTitle, .page-content__item, .page-title, .page, .header-top, .header, .menu ul li, .menu ul, .footer {
   width: 100%;
@@ -186,6 +186,16 @@ h4 {
 body {
   background: #383d52;
   overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  width: 5px;
+}
+body::-webkit-scrollbar-track {
+  background: #2a2e3f;
+}
+body::-webkit-scrollbar-thumb {
+  background: #38cab3;
+  border-radius: 5px;
 }
 
 main {
@@ -828,4 +838,155 @@ a:hover {
 .modal-body .btn-add svg path {
   stroke: none;
   fill: #fff;
+}
+
+.card-top-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 15px;
+}
+.card-top-buttons a {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  background: #2a2e3f;
+  box-shadow: none;
+  text-transform: uppercase;
+  margin-left: 20px;
+}
+.card-top-buttons a img {
+  margin-right: 10px;
+}
+.card-top-buttons a.active {
+  color: #fff;
+  background: #38cab3;
+}
+
+.cke_chrome {
+  border: none !important;
+}
+
+.cke_inner {
+  background: transparent !important;
+}
+
+.table thead th,
+.table td,
+.table th {
+  border: none;
+  border: 1px solid #2a2e3f;
+  vertical-align: middle;
+}
+
+.card-header {
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.collapse-title {
+  background: none;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 10px 0;
+}
+.collapse-title svg {
+  width: 16px;
+  height: 16px;
+}
+.collapse-title svg path {
+  fill: #fff;
+}
+
+.page_add .page-title__item {
+  padding-left: 30px;
+}
+.page_add .page-content__item {
+  padding-left: 30px;
+}
+.page_add img {
+  border-radius: 10px;
+}
+
+.dd-handle {
+  border: none;
+  background: #2a2e3f;
+  outline: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  position: relative;
+  height: auto;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.dd-handle:hover {
+  background: #38cab3;
+  color: #fff;
+}
+.dd-handle:hover .washla a {
+  color: #fff;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  border: none;
+  background: #2a2e3f;
+  outline: none;
+  padding: 15px 30px;
+  color: #fff;
+  opacity: 0.7;
+  border-radius: 15px;
+}
+
+.dd-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select2-container .select2-selection--single {
+  height: 40px;
+}
+
+#accordionWrapa1 .card-body {
+  padding: 30px 0;
+}
+
+.title-of {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-of h5 {
+  margin: 0 !important;
+}
+
+.btn-addd {
+  display: flex;
+  align-items: center;
+}
+.btn-addd svg {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+.btn-addd svg line {
+  stroke: #fff;
+}
+
+.title-compo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 15px;
+}
+.title-compo h1 {
+  color: #38cab3;
+  font-size: 18px;
 }

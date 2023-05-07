@@ -218,6 +218,16 @@ body {
     background: #383d52;
     @extend %regular;
     overflow-x: hidden;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background: $scol;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $mcol;
+        border-radius: 5px;
+    }
 }
 
 main {
@@ -915,5 +925,167 @@ a {
                 fill: #fff;
             }
         }
+    }
+}
+
+.card-top-buttons {
+    @extend %float;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15px;
+    a {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        background: #2a2e3f;
+        box-shadow: none;
+        text-transform: uppercase;
+        margin-left: 20px;
+        img {
+            margin-right: 10px;
+        }
+        &.active {
+            color: #fff;
+            @extend %mfont;
+            background: $mcol;
+        }
+    }
+}
+
+.cke_chrome {
+    border: none!important;
+    ;
+}
+
+.cke_inner {
+    background: transparent!important;
+}
+
+.table thead th,
+.table td,
+.table th {
+    border: none;
+    border: 1px solid #2a2e3f;
+    vertical-align: middle;
+}
+
+.card-header {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+.collapse-title {
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    @extend %mfont;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 10px 0;
+    svg {
+        width: 16px;
+        height: 16px;
+        path {
+            fill: #fff;
+        }
+    }
+}
+
+.page_add {
+    .page-title__item {
+        padding-left: 30px;
+    }
+    .page-content__item {
+        padding-left: 30px;
+    }
+    img {
+        border-radius: 10px;
+    }
+}
+
+.dd-handle {
+    border: none;
+    background: #2a2e3f;
+    outline: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    position: relative;
+    height: auto;
+    color: #fff;
+    margin-bottom: 20px;
+    &:hover {
+        background: $mcol;
+        color: #fff;
+        .washla {
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    border: none;
+    background: #2a2e3f;
+    outline: none;
+    padding: 15px 30px;
+    color: #fff;
+    opacity: 0.7;
+    border-radius: 15px;
+}
+
+.dd-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select2-container .select2-selection--single {
+    height: 40px;
+}
+
+#accordionWrapa1 .card-body {
+    padding: 30px 0;
+}
+
+.title-of {
+    @extend %float;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h5 {
+        margin: 0!important;
+    }
+}
+
+.btn-addd {
+    display: flex;
+    align-items: center;
+    svg {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+        line {
+            stroke: #fff;
+        }
+    }
+}
+
+.title-compo {
+    @extend %float;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 0 15px;
+    h1 {
+        color: $mcol;
+        font-size: 18px;
+        @extend %mfont;
     }
 }

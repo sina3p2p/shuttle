@@ -1,23 +1,25 @@
 <template>
   <div>
     <div class="row mb-2">
-      <div class="col-auto mr-auto align-self-center">
-        <h4 class="mb-0">{{ row.display_name }}</h4>
-      </div>
-      <div class="col-auto">
+    
+      <div class="title-compo">
+        <h1>{{ row.display_name }}</h1>
         <button
-          class="btn btn-primary btn-sm"
+          class="btn btn-primary btn-addd"
           type="button"
           @click="addArrayItem"
         >
-          <i class="simple-icon-plus btn-group-icon"></i>
+    <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title></title> <g id="Complete"><g data-name="add" id="add-2"><g><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="19" y2="5"></line> <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="5" x2="19" y1="12" y2="12"></line></g></g></g></svg> ახლის დამატება
         </button>
       </div>
     </div>
     <div class="card mb-3" v-for="(item, key) in items" :key="`item-${key}`">
       <div class="card-body">
+        <div class="title-of">
         <h5 class="mb-4">ITEM {{ key + 1 }}</h5>
-        <button type="button" @click.prevent="removeItem(key)">DELETE</button>
+        <button type="button" class="btn btn-danger" @click.prevent="removeItem(key)"><i class="simple-icon-trash"></i></button>
+</div>
+        <!-- /.title-of -->
         <array-item
           :prefix="`${name}[${key}]`"
           :inputs="inputs"
