@@ -58,7 +58,9 @@ __webpack_require__.r(__webpack_exports__);
           path: this.path
         };
         this.value = this.path;
-        glightbox__WEBPACK_IMPORTED_MODULE_0___default()({});
+        this.$nextTick(function () {
+          glightbox__WEBPACK_IMPORTED_MODULE_0___default()({});
+        });
       }
     },
     imageSelected: function imageSelected(f, ref) {

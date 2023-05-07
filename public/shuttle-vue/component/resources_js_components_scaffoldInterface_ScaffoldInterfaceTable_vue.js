@@ -93,17 +93,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var me;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                me = _this;
+                _context.next = 3;
                 return $.get(_this.url);
 
-              case 2:
+              case 3:
                 _this.res = _context.sent;
 
-              case 3:
+                _this.$nextTick(function () {
+                  me.onDraw();
+                });
+
+              case 5:
               case "end":
                 return _context.stop();
             }
