@@ -1,28 +1,24 @@
 <template>
   <div class="page page_add">
     <div class="page-title">
-      <div class="page-title__item" v-for="(c, index) in tableColumn" :key="'header-column-' + index">
+      <div
+        class="page-title__item"
+        v-for="(c, index) in tableColumn"
+        :key="'header-column-' + index"
+      >
         {{ c.title }}
       </div>
     </div>
     <div class="page-content">
-
-   
-    <div  class="page-content__item" v-for="(row, i) in res.data" :key="i">
-      <div class="item-init"
-        v-for="(c, index) in tableColumn"
-        :key="'c-' + i + '-' + index"
-        v-html="row[c.data]"
-      ></div>
+      <div class="page-content__item" v-for="(row, i) in res.data" :key="i">
+        <div
+          class="item-init"
+          v-for="(c, index) in tableColumn"
+          :key="'c-' + i + '-' + index"
+          v-html="row[c.data]"
+        ></div>
+      </div>
     </div>
-     </div>
-    <!-- /.page-content -->
-    <!-- <ajax-table
-    :url="url"
-    :columns="tableColumn"
-    class-name="text-nowrap"
-    @draw="onDraw"
-  ></ajax-table> -->
   </div>
 </template>
 
@@ -97,7 +93,11 @@ export default {
   },
   methods: {
     async initTable() {
+      const me = this;
       this.res = await $.get(this.url);
+      this.$nextTick(() => {
+        me.onDraw();
+      });
     },
     onDraw() {
       GLightbox({});

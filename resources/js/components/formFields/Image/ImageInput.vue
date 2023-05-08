@@ -95,7 +95,9 @@ export default {
           path: this.path,
         };
         this.value = this.path;
-        GLightbox({});
+        this.$nextTick(() => {
+          GLightbox({});
+        });
       }
     },
     imageSelected(f, ref) {
