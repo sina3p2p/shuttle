@@ -1089,3 +1089,92 @@ a {
         @extend %mfont;
     }
 }
+
+.login-section-wrapper {
+    @extend %regular;
+    position: absolute;
+    @extend %flex;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.loginn {
+    @extend %float;
+    position: relative;
+    height: 100vh;
+    background: $scol;
+    img {
+        @extend %img;
+        position: absolute;
+        opacity: 0.3!important;
+        filter: blur(7px);
+    }
+    .login-title {
+        @extend %mfont;
+        color: $mcol;
+        margin-bottom: 15px;
+    }
+    .login-wrapper {
+        width: 450px;
+        background: $scol;
+        padding: 30px;
+        border-radius: 15px;
+    }
+    .btn-primary {
+        @extend %btn;
+        background: $mcol;
+        border-radius: 10px;
+        border: none;
+        &:hover {
+            background: #fff;
+            color: $mcol;
+        }
+    }
+}
+
+.welcome {
+    @extend %float;
+    margin-top: 80px;
+    figure {
+        @extend %float;
+        height: 50vh;
+        @extend %flex;
+        svg {
+            max-width: 80%;
+            height: 100%;
+        }
+    }
+}
+
+.vue-dropzone {
+    @extend %mfont;
+    font-size: 16px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c5cfcd;
+}
+
+.dropzone {
+    background: none!important;
+    background-color: none!important;
+    border: none;
+    border: 2px dashed rgba(255, 255, 255, .1)!important;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.list {
+    img {
+        width: 100%;
+    }
+}
+
+.media-thumb-container {
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 5px;
+}

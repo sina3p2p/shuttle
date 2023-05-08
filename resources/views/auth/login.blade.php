@@ -8,17 +8,15 @@
     <link rel="stylesheet" href="{{route('shuttle.assets','fonts/simple-line-icons/css/simple-line-icons.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/main.css')}}" />
+    <link rel="stylesheet" href="{{route('shuttle.vue-assets','app.css') }}?v={{ time() }}" />
+
     <link rel="stylesheet" type="text/css" href="{{route('shuttle.assets','css/dore.light.blue.min.css')}}" />
 </head>
-<body class="background show-spinner">
-    <main>
+<body class="background loginn">
+  <img src="" alt="login image" class="login-img">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-4 login-section-wrapper">
-          {{-- <div class="brand-wrapper">
-            <a href="https://www.mygo.ge" title="myGO"><img src="https://www.mygo.ge/img/mygo.png" alt="myGO" class="logo"></a>
-            <a href="mailto:info@mygo.ge" class="f" title="myGO">info@mygo.ge</a>
-          </div> --}}
+        <div class="col-sm-12 login-section-wrapper">
           <div class="login-wrapper my-auto">
             <h1 class="login-title">ავტორიზაცია</h1>
             <form action="{{ route('shuttle.login.store') }}" method="POST" class="valid-form">
@@ -31,17 +29,15 @@
                 <label for="password">თქვენი პაროლი</label>
                 <input id="password" name="password" class="form-control" type="password" data-validation="required"  placeholder="შეიყვანეთ პაროლი"/>
               </div>
-              <button class="loginin" type="submit">ავტორიზაცია</button>
+              <button class="btn btn-primary" type="submit">ავტორიზაცია</button>
             </form>
-            <a href="{{ route('shuttle.forget') }}" class="forgot-password-link">დაგავიწყდათ პაროლი?</a>
+            {{-- <a href="{{ route('shuttle.forget') }}" class="forgot-password-link">დაგავიწყდათ პაროლი?</a> --}}
           </div>
         </div>
-        <div class="col-sm-8 px-0 d-none d-sm-block">
-          <img src="" alt="login image" class="login-img">
-        </div>
+       
       </div>
     </div>
-  </main>
+
     <script src="{{route('shuttle.assets','js/vendor/jquery-3.3.1.min.js')}}"></script>
     <script src="{{route('shuttle.assets','js/vendor/bootstrap.bundle.min.js')}}"></script>
     <script src="{{route('shuttle.assets','js/vendor/jquery.form-validator.js')}}"></script>

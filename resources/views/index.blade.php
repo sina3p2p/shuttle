@@ -36,8 +36,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="მაიგოუ - myGO">
-    <meta name="copyright" content="www.mygo.ge">
+
 @endpush
 @section('content')
     @if(optional($page->type)->name != 'home')<x-breadcrumb :data="$data" :page="$page"></x-breadcrumb>@endif

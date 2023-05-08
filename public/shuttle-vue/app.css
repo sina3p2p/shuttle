@@ -133,33 +133,39 @@ table {
   border-spacing: 0;
 }
 
-.title-compo h1, .collapse-title, .card-top-buttons a.active, .pageTitle-title h1, .page-title, .header-top__logo a, .menu h3, a:hover {
+.vue-dropzone, .loginn .login-title, .title-compo h1, .collapse-title, .card-top-buttons a.active, .pageTitle-title h1, .page-title, .header-top__logo a, .menu h3, a:hover {
   font-family: "MarkGEO-Bold";
 }
 
-body {
+.login-section-wrapper, body {
   font-family: "MarkGEO-Regular";
 }
 
-.header-top__actions .user-img figure img {
+.loginn img, .header-top__actions .user-img figure img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.alert-for-component, .compo-item a.btn-danger, .compo-item a.btn-primary, .compo-item figure, .select-from-library-button .btn-link,
+.welcome figure, .login-section-wrapper, .alert-for-component, .compo-item a.btn-danger, .compo-item a.btn-primary, .compo-item figure, .select-from-library-button .btn-link,
 .selected-library-item .btn-link, .page-content__item .item-init button, .page-content__item .item-init a, .page-content__item .item-init, .page-title > div, .header-top__logo, .footer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.title-compo, .title-of, .card-top-buttons, .forus, .alert-for-component, .compo-item, .compo, .select-from-library-button,
+.welcome figure, .welcome, .loginn, .title-compo, .title-of, .card-top-buttons, .forus, .alert-for-component, .compo-item, .compo, .select-from-library-button,
 .selected-library-item, .form-group label, .form-group, .addPage,
 .card, .choose-lang, .pageTitle-down, .pageTitle, .page-content__item, .page-title, .page, .header-top, .header, .menu ul li, .menu ul, .footer {
   width: 100%;
   float: left;
+}
+
+.loginn .btn-primary {
+  padding: 13px 30px;
+  font-family: "MarkGEO-Regular";
+  font-size: 13px;
 }
 
 h1 {
@@ -989,4 +995,81 @@ a:hover {
 .title-compo h1 {
   color: #38cab3;
   font-size: 18px;
+}
+
+.login-section-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.loginn {
+  position: relative;
+  height: 100vh;
+  background: #2a2e3f;
+}
+.loginn img {
+  position: absolute;
+  opacity: 0.3 !important;
+  filter: blur(7px);
+}
+.loginn .login-title {
+  color: #38cab3;
+  margin-bottom: 15px;
+}
+.loginn .login-wrapper {
+  width: 450px;
+  background: #2a2e3f;
+  padding: 30px;
+  border-radius: 15px;
+}
+.loginn .btn-primary {
+  background: #38cab3;
+  border-radius: 10px;
+  border: none;
+}
+.loginn .btn-primary:hover {
+  background: #fff;
+  color: #38cab3;
+}
+
+.welcome {
+  margin-top: 80px;
+}
+.welcome figure {
+  height: 50vh;
+}
+.welcome figure svg {
+  max-width: 80%;
+  height: 100%;
+}
+
+.vue-dropzone {
+  font-size: 16px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c5cfcd;
+}
+
+.dropzone {
+  background: none !important;
+  background-color: none !important;
+  border: none;
+  border: 2px dashed rgba(255, 255, 255, 0.1) !important;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.list img {
+  width: 100%;
+}
+
+.media-thumb-container {
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 5px;
 }
