@@ -1177,4 +1177,21 @@ a {
     border-radius: 15px;
     overflow: hidden;
     padding: 5px;
+    @extend %float;
+}
+
+@media (max-width:1024px) {
+    .menu {
+        display: none;
+    }
+    main {
+        width: 100%;
+    }
+    .header-top__logo {
+        border: none;
+        width: 100%;
+    }
+    .header-top__actions {
+        display: none;
+    }
 }

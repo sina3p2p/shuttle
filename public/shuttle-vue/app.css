@@ -155,7 +155,7 @@ table {
   align-items: center;
 }
 
-.welcome figure, .welcome, .loginn, .title-compo, .title-of, .card-top-buttons, .forus, .alert-for-component, .compo-item, .compo, .select-from-library-button,
+.media-thumb-container, .welcome figure, .welcome, .loginn, .title-compo, .title-of, .card-top-buttons, .forus, .alert-for-component, .compo-item, .compo, .select-from-library-button,
 .selected-library-item, .form-group label, .form-group, .addPage,
 .card, .choose-lang, .pageTitle-down, .pageTitle, .page-content__item, .page-title, .page, .header-top, .header, .menu ul li, .menu ul, .footer {
   width: 100%;
@@ -1072,4 +1072,23 @@ a:hover {
   border-radius: 15px;
   overflow: hidden;
   padding: 5px;
+}
+
+@media (max-width: 1024px) {
+  .menu {
+    display: none;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  .header-top__logo {
+    border: none;
+    width: 100%;
+  }
+
+  .header-top__actions {
+    display: none;
+  }
 }
