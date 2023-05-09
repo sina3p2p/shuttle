@@ -11,7 +11,7 @@
     @stack('css-vendors2')
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/dropzone.min.css')}}" />
-    <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/perfect-scrollbar.css')}}" />
+    {{-- <link rel="stylesheet" href="{{route('shuttle.assets','css/vendor/perfect-scrollbar.css')}}" /> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     {{-- <style>
         :root {
@@ -166,10 +166,11 @@
             </div>
         </div>
 
+        <media-library-modal upload-url="{{route('shuttle.media.upload')}}"></media-library-modal>
+
         <footer class="footer">
             <p>Shuttle {{ date('Y') }}</p>
         </footer>
-        <!-- /.footer -->
     </main>
 
    

@@ -39,46 +39,15 @@
     <div class="compo-item__title">
         <h3>{{$component->display_name}}</h3>
         <div class="btns">
-        <a href="{{route('shuttle.user_component',$component->pivot->id)}}" class="btn-primary"><svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-
-            <title/>
-            
-            <g id="Complete">
-            
-            <g id="edit">
-            
-            <g>
-            
-            <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-            
-            <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-            
-            </g>
-            
-            </g>
-            
-            </g>
-            
-            </svg></a>
-        <!-- /.btn-primary --><a href="{{route('shuttle.user_component.delete',['page_component' => $component->pivot->id])}}" class="btn-danger"><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6 7V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg></a> <!-- /.btn-danger --></div>
-                    <!-- /.btns -->
+        <a href="{{route('shuttle.user_component',$component->pivot->id)}}" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 24 24"><g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 16v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/><path d="M12.5 15.8 22 6.2 17.8 2l-9.5 9.5L8 16l4.5-.2z"/></g></svg>
+        </a>
+        <a href="{{route('shuttle.user_component.delete',['page_component' => $component->pivot->id])}}" class="btn-danger remove-component">
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" fill="none" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M6 7v11c0 1.6569 1.3431 3 3 3h6c1.6569 0 3-1.3431 3-3V7M9 5c0-1.1046.8954-2 2-2h2c1.1046 0 2 .8954 2 2v2H9V5Z"/></svg>
+        </a> 
+            </div>
     </div>
-    <!-- /.compo-item__title -->
-</div>
-<!-- /.compo-item -->
-
-
-
-
-                   
-              
-                 
-              
-            
+</div> 
         </div>
         @endforeach
 
@@ -170,7 +139,7 @@
             }
         });
 
-        $("a.close").on('click',function (e) {
+        $("a.remove-component").on('click',function (e) {
             e.preventDefault();
             let form = $('<form action="'+$(this).attr('href')+'" method="post">'+
                 '@csrf'+'@method("DELETE")'+'</form>');

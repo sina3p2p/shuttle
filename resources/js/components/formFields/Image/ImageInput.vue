@@ -104,6 +104,9 @@ export default {
       if (ref == this.uuid) {
         this.selected = f;
         this.value = f.path;
+        this.$nextTick(() => {
+          GLightbox({});
+        });
       }
     },
     removeFile() {

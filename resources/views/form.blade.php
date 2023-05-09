@@ -57,8 +57,6 @@
     <button type="submit" class="btn btn-primary save">შენახვა</button>
 </form>
 
-<media-library-modal upload-url="{{route('shuttle.media.upload')}}"></media-library-modal>
-
 @push('css-vendors')
 <!-- <link rel="stylesheet" href="{{route('shuttle.assets', 'css/vendor/dropzone.min.css')}}" /> -->
 <link rel="stylesheet" href="{{route('shuttle.assets', 'css/vendor/select2.min.css')}}" />

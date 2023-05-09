@@ -41,7 +41,6 @@
 
 @section('main')
     @php $c_setting = (object) $page_component->setting ?? []; @endphp
-    {{-- {{ dd($c_setting) }} --}}
     <x-shuttle-form 
         :scaffold-interface-rows="$page_component->component->rows" 
         :data-type-content="$c_setting"
