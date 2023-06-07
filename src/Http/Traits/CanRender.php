@@ -13,6 +13,11 @@ trait CanRender
         return $data;
     }
 
+     public function timestamp($data)
+    {
+        return $data->format('Y-m-d H:i');
+    }
+
     public function image($data)
     {
         return '<a href="'.Storage::url($data).'" class="glightbox"><img src="' . Storage::url($data) . '" width="50" /></a>';
