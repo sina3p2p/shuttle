@@ -204,11 +204,30 @@ h4 {
     font-size: 14px;
 }
 
-$mcol: #38cab3;
-$scol: #2a2e3f;
-$ccol:#5cd3b9;
-$dcol: #c5cfcd;
-$ecol: #2D2D2D;
+
+
+:root {
+    --c1: #38cab3;
+    --c2: #2a2e3f;
+    --c3:#5cd3b9;
+    --c4: #c5cfcd;
+    --c5: #2D2D2D;
+    --white: #fff;
+}
+
+
+
+[data-theme="dark"]  {
+    --c1: red;
+    --c2: #2a2e3f;
+    --c3:#5cd3b9;
+    --c4: #c5cfcd;
+    --c5: #2D2D2D;
+    --white: #fff;
+ }
+
+
+
 .container {
     max-width: 100%;
     padding: 0;
@@ -222,10 +241,10 @@ body {
         width: 5px;
     }
     &::-webkit-scrollbar-track {
-        background: $scol;
+        background: var(--c2);;
     }
     &::-webkit-scrollbar-thumb {
-        background: $mcol;
+        background: var(--c1);;
         border-radius: 5px;
     }
 }
@@ -239,9 +258,9 @@ main {
 }
 
 a {
-    color: $mcol;
+    color: var(--c1);;
     &:hover {
-        color: $ccol;
+        color: var(--c3);;
         @extend %mfont;
         text-decoration: none;
     }
@@ -250,7 +269,7 @@ a {
 .footer {
     @extend %float;
     @extend %flex;
-    color: #fff;
+    color: var(--white);
     font-size: 14px;
     margin-top: 100px;
 }
@@ -258,7 +277,7 @@ a {
 .menu {
     width: 250px;
     float: left;
-    background: $scol;
+    background: var(--c2);;
     border-right: 1px solid #484863;
     height: calc(100vh - 80px);
     padding: 30px;
@@ -269,15 +288,15 @@ a {
         width: 5px;
     }
     &::-webkit-scrollbar-track {
-        background: $scol;
+        background: var(--c2);;
     }
     &::-webkit-scrollbar-thumb {
-        background: $mcol;
+        background: var(--c1);;
         border-radius: 5px;
     }
     h3 {
         @extend %mfont;
-        color: $dcol;
+        color: var(--c4);;
         font-size: 14px
     }
     ul {
@@ -304,10 +323,10 @@ a {
                     }
                 }
                 &:hover {
-                    color: $mcol;
+                    color: var(--c1);;
                     svg {
                         path {
-                            stroke: $mcol;
+                            stroke: var(--c1);;
                         }
                     }
                 }
@@ -318,7 +337,7 @@ a {
 
 .header {
     @extend %float;
-    background: $scol;
+    background: var(--c2);;
     border-bottom: 1px solid #484863;
     height: 80px;
     position: fixed;
@@ -335,7 +354,7 @@ a {
             height: 80px;
             @extend %flex;
             a {
-                color: #fff;
+                color: var(--white);
                 @extend %mfont;
                 display: flex;
                 align-items: center;
@@ -344,7 +363,7 @@ a {
                 span {
                     width: 5px;
                     height: 5px;
-                    background: $mcol;
+                    background: var(--c1);;
                     float: right;
                     margin-left: 10px;
                     border-radius: 2px;
@@ -363,7 +382,7 @@ a {
                         height: 40px;
                         border-radius: 50%;
                         overflow: hidden;
-                        border: 2px solid $mcol;
+                        border: 2px solid var(--c1);;
                         padding: 2px;
                         img {
                             @extend %img;
@@ -376,12 +395,12 @@ a {
                     flex-direction: column;
                     h3 {
                         font-size: 14px;
-                        color: #fff;
+                        color: var(--white);
                         margin-bottom: 5px;
                         float: left;
                     }
                     a {
-                        color: $mcol;
+                        color: var(--c1);;
                         font-size: 12px;
                     }
                 }
@@ -415,7 +434,7 @@ a {
     outline: none;
     border: none;
     padding: 0;
-    color: $dcol;
+    color: var(--c4);;
 }
 
 .page {
@@ -428,7 +447,7 @@ a {
         align-items: center;
         justify-content: space-between;
         padding: 20px 0;
-        color: $dcol;
+        color: var(--c4);;
         @extend %mfont;
         border-radius: 10px;
         font-size: 14px;
@@ -448,7 +467,7 @@ a {
             justify-content: space-between;
             padding: 15px 0;
             margin-bottom: 5px;
-            color: $dcol;
+            color: var(--c4);;
             border-radius: 10px;
             font-size: 14px;
             .item-init {
@@ -466,10 +485,10 @@ a {
                         width: 18px;
                         height: 18px;
                         path {
-                            stroke: #fff;
+                            stroke: var(--white);
                         }
                         polygon {
-                            stroke: #fff;
+                            stroke: var(--white);
                         }
                     }
                 }
@@ -498,16 +517,16 @@ a {
 }
 
 .btn-primary {
-    background: $mcol;
-    color: #fff;
+    background: var(--c1);;
+    color: var(--white);
     transition: 0.3s all ease-in;
     &:Hover {
-        background: $ccol;
-        border-color: $ccol;
+        background: var(--c3);;
+        border-color: var(--c3);;
     }
     &:focus {
-        background: $ccol;
-        border-color: $ccol;
+        background: var(--c3);;
+        border-color: var(--c3);;
     }
 }
 
@@ -520,7 +539,7 @@ a {
         border-color: rgba(247, 79, 117, 1);
         svg {
             path {
-                stroke: #fff!important;
+                stroke: var(--white)!important;
             }
         }
     }
@@ -529,7 +548,7 @@ a {
         border-color: rgba(247, 79, 117, 1);
         svg {
             path {
-                stroke: #fff!important;
+                stroke: var(--white)!important;
             }
         }
     }
@@ -543,7 +562,7 @@ a {
     &-title {
         h1 {
             @extend %mfont;
-            color: $dcol;
+            color: var(--c4);;
             font-size: 24px;
         }
     }
@@ -558,11 +577,11 @@ a {
             align-items: center;
             li {
                 a {
-                    color: $dcol;
+                    color: var(--c4);;
                 }
                 &.active {
                     a {
-                        color: $mcol;
+                        color: var(--c1);;
                     }
                 }
             }
@@ -575,7 +594,7 @@ a {
                 height: 18px;
                 margin-right: 10px;
                 line {
-                    stroke: #fff;
+                    stroke: var(--white);
                 }
             }
         }
@@ -589,7 +608,7 @@ a {
     justify-content: space-between;
     h1 {
         font-size: 16px;
-        color: #fff;
+        color: var(--white);
         margin-right: 30px;
     }
     ul {
@@ -625,7 +644,7 @@ a {
                 a {
                     background: rgba(247, 79, 117, 1);
                     border-color: rgba(247, 79, 117, 1);
-                    color: #fff;
+                    color: var(--white);
                 }
             }
         }
@@ -647,7 +666,7 @@ a {
     @extend %float;
     label {
         margin-bottom: 15px;
-        color: $dcol;
+        color: var(--c4);;
         font-size: 10pt;
         @extend %float;
     }
@@ -663,8 +682,8 @@ a {
         min-height: 48px;
         &:focus,
         &:hover {
-            border-color: $mcol;
-            color: $mcol;
+            border-color: var(--c1);;
+            color: var(--c1);;
         }
     }
 }
@@ -706,7 +725,7 @@ a {
         transition: 0.3s all ease-in;
         &:hover {
             background-color: rgba(247, 79, 117, 1);
-            color: #fff;
+            color: var(--white);
             text-decoration: none;
         }
     }
@@ -737,7 +756,7 @@ a {
                 width: 48px;
                 height: 48px;
                 path {
-                    stroke: $mcol;
+                    stroke: var(--c1);;
                 }
             }
         }
@@ -751,7 +770,7 @@ a {
             h3 {
                 text-transform: uppercase;
                 font-size: 16px;
-                color: #fff;
+                color: var(--white);
                 margin-bottom: 20px;
                 line-height: 1.5;
             }
@@ -775,10 +794,10 @@ a {
                 width: 18px;
                 height: 18px;
                 path {
-                    stroke: #fff;
+                    stroke: var(--white);
                 }
                 polygon {
-                    stroke: #fff;
+                    stroke: var(--white);
                 }
             }
         }
@@ -891,18 +910,18 @@ a {
     font-size: 19px;
     text-align: left;
     padding-right: 30px;
-    color: #fff;
+    color: var(--white);
 }
 
 .modal .close {
     width: 50px;
     height: 50px;
-    background: $mcol;
+    background: var(--c1);;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--white);
     opacity: 1;
     font-size: 26px;
     text-shadow: none;
@@ -922,7 +941,7 @@ a {
             margin-right: 10px;
             path {
                 stroke: none;
-                fill: #fff;
+                fill: var(--white);
             }
         }
     }
@@ -935,7 +954,7 @@ a {
     justify-content: flex-end;
     padding-right: 15px;
     a {
-        color: #fff;
+        color: var(--white);
         display: flex;
         align-items: center;
         background: #2a2e3f;
@@ -946,9 +965,9 @@ a {
             margin-right: 10px;
         }
         &.active {
-            color: #fff;
+            color: var(--white);
             @extend %mfont;
-            background: $mcol;
+            background: var(--c1);;
         }
     }
 }
@@ -989,7 +1008,7 @@ a {
         width: 16px;
         height: 16px;
         path {
-            fill: #fff;
+            fill: var(--white);
         }
     }
 }
@@ -1014,14 +1033,14 @@ a {
     border-radius: 10px;
     position: relative;
     height: auto;
-    color: #fff;
+    color: var(--white);
     margin-bottom: 20px;
     &:hover {
-        background: $mcol;
-        color: #fff;
+        background: var(--c1);;
+        color: var(--white);
         .washla {
             a {
-                color: #fff;
+                color: var(--white);
             }
         }
     }
@@ -1033,7 +1052,7 @@ a {
     background: #2a2e3f;
     outline: none;
     padding: 15px 30px;
-    color: #fff;
+    color: var(--white);
     opacity: 0.7;
     border-radius: 15px;
 }
@@ -1071,7 +1090,7 @@ a {
         width: 18px;
         height: 18px;
         line {
-            stroke: #fff;
+            stroke: var(--white);
         }
     }
 }
@@ -1084,7 +1103,7 @@ a {
     margin-top: 30px;
     padding: 0 15px;
     h1 {
-        color: $mcol;
+        color: var(--c1);;
         font-size: 18px;
         @extend %mfont;
     }
@@ -1104,7 +1123,7 @@ a {
     @extend %float;
     position: relative;
     height: 100vh;
-    background: $scol;
+    background: var(--c2);;
     img {
         @extend %img;
         position: absolute;
@@ -1113,23 +1132,23 @@ a {
     }
     .login-title {
         @extend %mfont;
-        color: $mcol;
+        color: var(--c1);;
         margin-bottom: 15px;
     }
     .login-wrapper {
         width: 450px;
-        background: $scol;
+        background: var(--c2);;
         padding: 30px;
         border-radius: 15px;
     }
     .btn-primary {
         @extend %btn;
-        background: $mcol;
+        background: var(--c1);;
         border-radius: 10px;
         border: none;
         &:hover {
-            background: #fff;
-            color: $mcol;
+            background: var(--white);
+            color: var(--c1);;
         }
     }
 }
@@ -1194,4 +1213,32 @@ a {
     .header-top__actions {
         display: none;
     }
+}
+
+
+.modal-xxl {
+    max-width:900px!important;
+}
+
+.title {
+    @extend %mfont;
+    font-size: 18px;
+    color:var(--white);
+    margin-top: 40px;
+}
+
+.height-100 {
+    height: 114px;
+    img {
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.truncate {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100px;
+    height: 1.2em;
+    white-space: nowrap;
 }

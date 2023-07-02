@@ -67,6 +67,9 @@ __webpack_require__.r(__webpack_exports__);
       if (ref == this.uuid) {
         this.selected = f;
         this.value = f.path;
+        this.$nextTick(function () {
+          glightbox__WEBPACK_IMPORTED_MODULE_0___default()({});
+        });
       }
     },
     removeFile: function removeFile() {

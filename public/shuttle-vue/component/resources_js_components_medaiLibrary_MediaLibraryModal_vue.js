@@ -88,7 +88,8 @@ var render = function render() {
     ref: "mediaLibraryModal",
     attrs: {
       "modal-id": "media-library-modal",
-      parentClass: "modal-right select-from-library2"
+      parentClass: "modal-right select-from-library2",
+      size: "xxl"
     },
     on: {
       onHashParams: _vm.onHashParams
@@ -109,13 +110,13 @@ var render = function render() {
       "aria-hidden": "true"
     }
   }, [_vm._v("×")])])]), _vm._v(" "), _c("div", {
-    staticClass: "modal-body scroll pt-0 pb-0 mt-4 mb-4"
+    staticClass: "modal-body list scroll pt-0 pb-0 mt-4 mb-4"
   }, [_c("div", {
     staticClass: "mb-2"
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-12"
+    staticClass: "col-3"
   }, [_c("vue-dropzone", {
     ref: "myVueDropzone",
     attrs: {
@@ -125,18 +126,14 @@ var render = function render() {
     on: {
       "vdropzone-success": _vm.successUpload
     }
-  })], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "list disable-text-selection mt-3"
-  }, [_c("div", {
-    staticClass: "row"
-  }, _vm._l(_vm.files, function (f, i) {
+  })], 1), _vm._v(" "), _vm._l(_vm.files, function (f, i) {
     return _c("div", {
       key: i + "file",
-      staticClass: "col-6 mb-1"
+      staticClass: "col-3 mb-1"
     }, [_c("div", {
-      staticClass: "card d-flex mb-2 p-0 media-thumb-container"
+      staticClass: "card d-flex mb-2 mt-0 p-0 media-thumb-container"
     }, [_c("div", {
-      staticClass: "d-flex align-self-stretch"
+      staticClass: "d-flex height-100 align-self-stretch"
     }, [_c("img", {
       staticClass: "list-media-thumbnail responsive border-0",
       attrs: {
@@ -168,7 +165,58 @@ var render = function render() {
     }), _vm._v(" "), _c("span", {
       staticClass: "custom-control-label"
     })])])])])]);
-  }), 0)])])]), _vm._v(" "), _vm.isMultiple ? _c("div", {
+  })], 2), _vm._v(" "), _c("div", {
+    staticClass: "list disable-text-selection mt-3"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12 mb-5"
+  }, [_c("h3", {
+    staticClass: "title"
+  }, [_vm._v("Library")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "alert alert-danger"
+  }, [_c("p", [_vm._v("We Havenot Images In Library")])])]), _vm._v(" "), _vm._l(_vm.files, function (f, i) {
+    return _c("div", {
+      key: i + "file",
+      staticClass: "col-3 mb-1"
+    }, [_c("div", {
+      staticClass: "card d-flex mb-2 p-0 media-thumb-container"
+    }, [_c("div", {
+      staticClass: "d-flex height-100 align-self-stretch"
+    }, [_c("img", {
+      staticClass: "list-media-thumbnail responsive border-0",
+      attrs: {
+        src: f.url,
+        alt: "uploaded image"
+      }
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "d-flex flex-grow-1 min-width-zero"
+    }, [_c("div", {
+      staticClass: "card-body pr-1 pt-2 pb-2 align-self-center d-flex min-width-zero"
+    }, [_c("div", {
+      staticClass: "w-100"
+    }, [_c("p", {
+      staticClass: "truncate mb-0"
+    }, [_vm._v("chocolate-cake-thumb.jpg")])])]), _vm._v(" "), _c("div", {
+      staticClass: "custom-control custom-checkbox pl-1 pr-1 align-self-center"
+    }, [_c("label", {
+      staticClass: "custom-control custom-checkbox mb-0"
+    }, [_c("input", {
+      staticClass: "custom-control-input",
+      attrs: {
+        type: "checkbox"
+      },
+      on: {
+        change: function change($event) {
+          return _vm.imageSelected($event, f);
+        }
+      }
+    }), _vm._v(" "), _c("span", {
+      staticClass: "custom-control-label"
+    })])])])])]);
+  })], 2)])])]), _vm._v(" "), _vm.isMultiple ? _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
     staticClass: "btn btn-outline-primary",
