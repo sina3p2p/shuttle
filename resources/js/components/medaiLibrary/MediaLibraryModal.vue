@@ -29,56 +29,56 @@
               @vdropzone-success="successUpload"
             ></vue-dropzone>
           </div>
-           <div class="col-3 mb-1" v-for="(f, i) in files" :key="i + 'file'">
-              <div class="card d-flex mb-2 mt-0 p-0 media-thumb-container">
-                <div class="d-flex height-100 align-self-stretch">
-                  <img
-                    :src="f.url"
-                    alt="uploaded image"
-                    class="list-media-thumbnail responsive border-0"
-                  />
+          <div class="col-3 mb-1" v-for="(f, i) in files" :key="i + 'file'">
+            <div class="card d-flex mb-2 mt-0 p-0 media-thumb-container">
+              <div class="d-flex height-100 align-self-stretch">
+                <img
+                  :src="f.url"
+                  alt="uploaded image"
+                  class="list-media-thumbnail responsive border-0"
+                />
+              </div>
+              <div class="d-flex flex-grow-1 min-width-zero">
+                <div
+                  class="card-body pr-1 pt-2 pb-2 align-self-center d-flex min-width-zero"
+                >
+                  <div class="w-100">
+                    <p class="truncate mb-0">chocolate-cake-thumb.jpg</p>
+                  </div>
                 </div>
-                <div class="d-flex flex-grow-1 min-width-zero">
-                  <div
-                    class="card-body pr-1 pt-2 pb-2 align-self-center d-flex min-width-zero"
-                  >
-                    <div class="w-100">
-                      <p class="truncate mb-0">chocolate-cake-thumb.jpg</p>
-                    </div>
-                  </div>
-                  <div
-                    class="custom-control custom-checkbox pl-1 pr-1 align-self-center"
-                  >
-                    <label class="custom-control custom-checkbox mb-0">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        @change="imageSelected($event, f)"
-                      />
-                      <span class="custom-control-label"></span>
-                    </label>
-                  </div>
+                <div
+                  class="custom-control custom-checkbox pl-1 pr-1 align-self-center"
+                >
+                  <label class="custom-control custom-checkbox mb-0">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      @change="imageSelected($event, f)"
+                    />
+                    <span class="custom-control-label"></span>
+                  </label>
                 </div>
               </div>
             </div>
+          </div>
         </div>
-        <div class="list disable-text-selection mt-3">
+        <div class="list disable-text-selection mt-3" v-if="!isLoading">
           <div class="row">
-           <div class="col-md-12 mb-5">
-            <h3 class="title">Library</h3>
-           </div>
-           <!-- /.col-md-12 -->
+            <div class="col-md-12 mb-1">
+              <h3 class="title">Library</h3>
+            </div>
 
+            <div class="col-md-12" v-if="uploadedFiles.length == 0">
+              <div class="alert alert-danger">
+                <p>We Havenot Images In Library</p>
+              </div>
+            </div>
 
-             <div class="col-md-12">
-                                <div class="alert alert-danger">
-                                  <p>We Havenot Images In Library</p>
-                                </div>
-                                <!-- /.alert alert-danger -->
-             </div>
-                  <!-- /.col-md-12 -->
-                  
-  <div class="col-3 mb-1" v-for="(f, i) in files" :key="i + 'file'">
+            <div
+              class="col-3 mb-1"
+              v-for="(f, i) in uploadedFiles"
+              :key="i + 'file'"
+            >
               <div class="card d-flex mb-2 p-0 media-thumb-container">
                 <div class="d-flex height-100 align-self-stretch">
                   <img
@@ -92,7 +92,7 @@
                     class="card-body pr-1 pt-2 pb-2 align-self-center d-flex min-width-zero"
                   >
                     <div class="w-100">
-                      <p class="truncate mb-0">chocolate-cake-thumb.jpg</p>
+                      <p class="truncate mb-0">{{ f.name }}</p>
                     </div>
                   </div>
                   <div
@@ -110,8 +110,6 @@
                 </div>
               </div>
             </div>
-                
-
           </div>
         </div>
       </div>
@@ -154,10 +152,12 @@ export default {
       files: [],
       isMultiple: false,
       reqRef: "",
+      uploadedFiles: [],
+      isLoading: false,
     };
   },
   methods: {
-    onHashParams(data) {
+    async onHashParams(data) {
       const isMultiple = (
         _.find(data, (param) => param.key === "multiple") || {}
       ).value;
@@ -166,6 +166,10 @@ export default {
       if (isMultiple) {
         this.isMultiple = true;
       }
+
+      this.isLoading = true;
+      this.uploadedFiles = (await axios.get("/mypanel/media")).data;
+      this.isLoading = false;
     },
     successUpload(file, res) {
       this.$refs.myVueDropzone.removeFile(file);

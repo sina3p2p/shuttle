@@ -11,9 +11,13 @@ use Illuminate\Support\Str;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use Sina\Shuttle\Models\MediaLibrary;
 
 class MediaController extends Controller
 {
+    public function index(){
+        return MediaLibrary::all();
+    }
     //     public function upload(Request $request)
     //     {
     //         set_time_limit(0);
@@ -172,6 +176,11 @@ class MediaController extends Controller
                 imagedestroy($image);
             }
         }
+
+        MediaLibrary::create([
+            'name' => $fileName,
+            'path' => $finalPath . $fileName
+        ]);
 
         return response()->json([
             // 'id'        => $uploaded_record->id,
