@@ -902,7 +902,7 @@ a {
 .modal-content {
     border-radius: 20px;
     overflow: hidden;
-    background: #2a2e3f;
+    background: var(--c2);
 }
 
 .modal .smallbody {
@@ -922,7 +922,7 @@ a {
     font-size: 19px;
     text-align: left;
     padding-right: 30px;
-    color: var(--white);
+    color: var(--c4);
 }
 
 .modal .close {
@@ -1193,7 +1193,7 @@ a {
     background: none!important;
     background-color: none!important;
     border: none;
-    border: 2px dashed rgba(255, 255, 255, .1)!important;
+    border: 2px dashed rgba(1, 0, 0, .1)!important;
     border-radius: 15px;
     overflow: hidden;
 }
@@ -1235,7 +1235,7 @@ a {
 .title {
     @extend %mfont;
     font-size: 18px;
-    color:var(--white);
+    color:var(--c4);
     margin-top: 40px;
 }
 
