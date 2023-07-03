@@ -28,6 +28,6 @@ class CreateMediaLibraryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shuttle_admins');
+        Schema::dropIfExists('shuttle_media_libraries');
     }
 }
