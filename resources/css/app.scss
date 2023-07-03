@@ -207,23 +207,35 @@ h4 {
 
 
 :root {
+    --c1: #d02333;
+    --c2: #fff;
+    --c3:#d02333;
+    --c4: #242424;
+    --c5: #fff;
+    --white: #fff;
+    --body: #f2f2f2;
+    --text : #242424;
+    --border: #dedede;
+    --stroke: #242424;
+    --main: #fff;
+}
+
+
+
+[data-theme="dark"]  {
+   
+
     --c1: #38cab3;
     --c2: #2a2e3f;
     --c3:#5cd3b9;
     --c4: #c5cfcd;
     --c5: #2D2D2D;
     --white: #fff;
-}
-
-
-
-[data-theme="dark"]  {
-    --c1: red;
-    --c2: #2a2e3f;
-    --c3:#5cd3b9;
-    --c4: #c5cfcd;
-    --c5: #2D2D2D;
-    --white: #fff;
+    --body: #383d52;
+    --text : #dedede;
+    --border: #484863;
+    --stroke: #bfc8de;
+    --main: #2a2e3f;
  }
 
 
@@ -234,7 +246,7 @@ h4 {
 }
 
 body {
-    background: #383d52;
+    background: var(--body);
     @extend %regular;
     overflow-x: hidden;
     &::-webkit-scrollbar {
@@ -278,7 +290,7 @@ a {
     width: 250px;
     float: left;
     background: var(--c2);;
-    border-right: 1px solid #484863;
+    border-right: 1px solid var(--border);
     height: calc(100vh - 80px);
     padding: 30px;
     overflow-y: scroll;
@@ -311,14 +323,14 @@ a {
             a {
                 display: flex;
                 align-items: center;
-                color: #eaecf3;
+                color: var(--text);
                 transition: 0.3s all ease-in;
                 svg {
                     width: 21px;
                     height: 21px;
                     margin-right: 10px;
                     path {
-                        stroke: #bfc8de;
+                        stroke: var(--stroke);
                         transition: 0.3s all ease-in;
                     }
                 }
@@ -338,7 +350,7 @@ a {
 .header {
     @extend %float;
     background: var(--c2);;
-    border-bottom: 1px solid #484863;
+    border-bottom: 1px solid var(--border);
     height: 80px;
     position: fixed;
     top: 0;
@@ -350,11 +362,11 @@ a {
         align-items: center;
         &__logo {
             width: 250px;
-            border-right: 1px solid #484863;
+            border-right: 1px solid var(--border);
             height: 80px;
             @extend %flex;
             a {
-                color: var(--white);
+                color: var(--c1);
                 @extend %mfont;
                 display: flex;
                 align-items: center;
@@ -395,7 +407,7 @@ a {
                     flex-direction: column;
                     h3 {
                         font-size: 14px;
-                        color: var(--white);
+                        color: var(--c4);
                         margin-bottom: 5px;
                         float: left;
                     }
@@ -440,7 +452,7 @@ a {
 .page {
     @extend %float;
     &-title {
-        background-color: #2a2e3f!important;
+        background-color: var(--main)!important;
         box-shadow: 0 0 10px rgba(28, 39, 60, .1);
         @extend %float;
         display: flex;
@@ -459,7 +471,7 @@ a {
     }
     &-content {
         &__item {
-            background-color: #2a2e3f!important;
+            background-color: var(--main)!important;
             box-shadow: 0 0 10px rgba(28, 39, 60, .1);
             @extend %float;
             display: flex;
@@ -608,7 +620,7 @@ a {
     justify-content: space-between;
     h1 {
         font-size: 16px;
-        color: var(--white);
+        color: var(--c4);
         margin-right: 30px;
     }
     ul {
@@ -657,7 +669,7 @@ a {
     margin-top: 50px;
     position: relative;
     z-index: 300;
-    border: 1px solid #484863;
+    border: 1px solid var(--border);
     border-radius: 15px;
     padding: 30px;
 }
@@ -671,8 +683,8 @@ a {
         @extend %float;
     }
     .form-control {
-        border: 1px solid #484863;
-        color: #c0c2c7;
+        border: 1px solid var(--border);
+        color: var(--c4);
         background: none!important;
         outline: none;
         box-shadow: none;
@@ -690,7 +702,7 @@ a {
 
 .select-from-library-button,
 .selected-library-item {
-    border: 1px dashed #484863;
+    border: 1px dashed var(--border);
     border-radius: 10px;
     padding: 50px;
     text-align: center;
@@ -735,13 +747,13 @@ a {
     @extend %float;
     padding: 30px;
     border-radius: 15px;
-    border: 1px solid #484863;
+    border: 1px solid var(--border);
     margin-top: 50px;
     &-item {
         @extend %float;
         border-radius: 15px;
         padding: 30px;
-        background: #484863;
+        background: var(--border);
         display: flex;
         align-items: center;
         margin-bottom: 30px;
@@ -750,7 +762,7 @@ a {
             height: 100px;
             border-radius: 15px;
             @extend %flex;
-            background: rgba(56, 202, 179, .5);
+            background: var(--c2);
             margin-right: 20px;
             svg {
                 width: 48px;
@@ -770,7 +782,7 @@ a {
             h3 {
                 text-transform: uppercase;
                 font-size: 16px;
-                color: var(--white);
+                color: var(--c4);
                 margin-bottom: 20px;
                 line-height: 1.5;
             }
@@ -853,8 +865,8 @@ a {
 
 .data-table td,
 .data-table th {
-    border-top: 1px solid #484863!important;
-    border-color: #484863!important;
+    border-top: 1px solid var(--border)!important;
+    border-color: var(--border)!important;
     padding: 15px!important;
     vertical-align: middle;
     img {
@@ -1242,3 +1254,71 @@ a {
     height: 1.2em;
     white-space: nowrap;
 }
+
+.dark-mode {
+    margin-left:30px;
+}
+
+/*slider switch css */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  .theme-switch-wrapper em {
+    margin-left: 10px;
+    font-size: 1rem;
+  }
+  
+  .theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+  }
+  
+  .theme-switch input {
+    display: none;
+  }
+  
+  .slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.4s;
+  }
+  
+  .slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: 0.4s;
+    width: 26px;
+  }
+  
+  input:checked + .slider {
+    background-color: #66bb6a;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .header-top__actions {
+    display:flex;
+    align-items:center;
+  }
