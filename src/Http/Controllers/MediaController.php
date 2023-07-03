@@ -179,7 +179,7 @@ class MediaController extends Controller
 
         MediaLibrary::create([
             'name' => $fileName,
-            'path' => $finalPath . $fileName
+            'path' => $filePath . $fileName
         ]);
 
         return response()->json([
