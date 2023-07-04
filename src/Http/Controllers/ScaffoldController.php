@@ -148,6 +148,13 @@ class ScaffoldController extends ShuttleController
 
     public function datatable(Request $request, ScaffoldInterface $scaffoldInterface)
     {
+        if ($scaffoldInterface->controller) {
+            $c = app($scaffoldInterface->controller);
+            if (method_exists($c, 'datatable')) {
+                return $c->datatable($request, $scaffoldInterface);
+            }
+        }
+        
         return $this->getDataTableResource(
             DataTableResource::newInstance()
                 ->setScaffoldInterface($scaffoldInterface)
