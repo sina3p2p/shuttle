@@ -7,13 +7,11 @@
 
 @endpush
 
-<scaffold-interface-filter-modal></scaffold-interface-filter-modal>
-
-
-            <scaffold-interface-table 
-                url="{{ route('shuttle.scaffold_interface.datatable', $scaffoldInterface) }}"
-                delete-route="{{route('shuttle.scaffold_interface.destroy',['scaffold_interface' => $scaffoldInterface, 'id' => '__id'])}}"
-                :columns="{{ json_encode($columns) }}"></scaffold-interface-table>
+<scaffold-interface-table 
+    url="{{ route('shuttle.scaffold_interface.datatable', array_merge(['scaffold_interface' => $scaffoldInterface], request()->all())) }}"
+    delete-route="{{route('shuttle.scaffold_interface.destroy',['scaffold_interface' => $scaffoldInterface, 'id' => '__id'])}}"
+    :columns="{{ json_encode($columns) }}">
+</scaffold-interface-table>
  
 
 {{-- @push('js')
