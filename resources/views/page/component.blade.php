@@ -159,5 +159,24 @@
         //     });
         // });
 
+        $(document).ready(function() {
+            const moveElementToEndOfParent = function(element) {
+                var parent = element.parent();
+                element.detach();
+                parent.append(element);
+            };
+
+            $("ul.select2-selection__rendered").sortable({
+                containment: 'parent',
+                stop: function(event, ui) {
+                    var $select = $(event.target).parents('span.select2-container').prev('select');
+                    $(event.target).children("li[title]").each(function(i, obj){
+                        var element = $select.children('option').filter(function () { return $(this).html() == obj.title });
+                        console.log(element)
+                        moveElementToEndOfParent(element)
+                    });
+                }
+            });
+        });
     </script>
 @endpush

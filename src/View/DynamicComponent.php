@@ -42,7 +42,9 @@ class DynamicComponent extends Component
                             $m = $m->{$row->details->scope}();
                         }
                         $m = $m->orderBy($model->getTable() . ".created_at");
-                        $data[$row->details->column] = $row->details->type == 'belongsTo' ?  $m->first() : $m->get();
+                        $data[$row->details->column] = $row->details->type == 'belongsTo' ?  $m->first() : $m->get()->sortBy(function($model) use ($val){
+                            return array_search($model->getKey(), $val);
+                        });
                     } else {
                         $data[$row->details->column] = [];
                     }
