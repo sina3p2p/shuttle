@@ -119,8 +119,8 @@
                         $selected_values = isset($dataTypeContent->{$options->column}) ? app($options->model)->whereIn($options->key, $dataTypeContent->{$options->column})->get()->map(function ($item, $key) use ($options) {
                             return $item->{$options->key};
                         })->all() : array();
-                        $relationshipOptions = app($options->model)->all()->sortBy(function($model) use ($selected_values){
-                            return array_search($model->getKey(), $selected_values);
+                        $relationshipOptions = app($options->model)->all()->sortBy(function($model) use ( $dataTypeContent, $options){
+                            return array_search($model->getKey(),  $dataTypeContent->{$options->column} ?? []);
                         });
                         $selected_values = old($relationshipField, $selected_values);
                     @endphp
