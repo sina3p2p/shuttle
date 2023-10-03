@@ -82,7 +82,7 @@
                   class="card-body pr-1 pt-2 pb-2 align-self-center d-flex min-width-zero"
                 >
                   <div class="w-100">
-                    <p class="truncate mb-0">chocolate-cake-thumb.jpg</p>
+                    <p class="truncate mb-0">{{ f.name }}</p>
                   </div>
                 </div>
                 <div

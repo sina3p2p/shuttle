@@ -112,7 +112,9 @@ Route::name('shuttle.')->group(function () {
                 //        Route::post('move_file', ['uses' => $namespacePrefix.'VoyagerMediaController@move',          'as' => 'move']);
                 //        Route::post('rename_file', ['uses' => $namespacePrefix.'VoyagerMediaController@rename',        'as' => 'rename']);
                 Route::get('/', [MediaController::class, 'index'])->name('index');
+                Route::get('library', [MediaController::class, 'library'])->name('library');
                 Route::post('upload', [MediaController::class, 'upload'])->name('upload');
+                Route::delete('{media}', [MediaController::class, 'destroy'])->name('destroy');
                 //        Route::post('crop', ['uses' => $namespacePrefix.'VoyagerMediaController@crop',             'as' => 'crop']);
             });
 

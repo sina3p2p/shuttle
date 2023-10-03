@@ -6,6 +6,7 @@ use Buglinjo\LaravelWebp\Facades\Webp;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
@@ -15,9 +16,16 @@ use Sina\Shuttle\Models\MediaLibrary;
 
 class MediaController extends Controller
 {
-    public function index(){
-        return MediaLibrary::all();
+
+    public function index(Request $request){
+        $media = MediaLibrary::query()->latest()->get();
+        if($request->wantsJson()){
+            return $media;
+        }
+
+        return view('shuttle::media.index', compact('media'));
     }
+
     //     public function upload(Request $request)
     //     {
     //         set_time_limit(0);
@@ -213,5 +221,21 @@ class MediaController extends Controller
             abort(404);
         }
         return response()->file(Storage::path($request->path));
+    }
+
+    public function destroy(Request $request, MediaLibrary $media)
+    {
+        DB::transaction(function() use ($media){
+            $media->delete();
+            Storage::delete($media->path);
+        });
+
+        if($request->wantsJson()){
+            return [
+                'success' => true
+            ];
+        }
+
+        return back();
     }
 }
